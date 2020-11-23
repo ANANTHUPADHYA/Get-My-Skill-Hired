@@ -3,7 +3,7 @@ APIs
 * Requirements:
 
     set following environment variables values:
-    
+
     ```
     AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID", None)
     AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY", None)
@@ -15,9 +15,9 @@ APIs
     CLOUD_FRONT_URL = os.getenv("CLOUD_FRONT_URL", None)
     ```
 
-    ```pip3.6 install -r requirements.txt```
+    ```pip3 install -r requirements.txt```
 
-    ```python3.6 flask_app.py```
+    ```python3 flask_app.py```
 
 
 1. ```http://<host-name>/account/signin```
