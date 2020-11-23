@@ -9,7 +9,9 @@ from accounts import settings
 
 from warrant import Cognito
 
-from accounts.models import User, SaveInDB, SerializeUserObj
+from botocore.exceptions import ClientError
+
+from accounts.models import Users, SaveInDB, SerializeUserObj
 from accounts.schema import ValidateRegistrationData
 
 from accounts.utils import (
@@ -28,12 +30,25 @@ AWS_SECRET_ACCESS_KEY = settings.AWS_SECRET_ACCESS_KEY
 AWS_REGION = settings.AWS_REGION 
 COGNITO_USER_POOL_ID = settings.COGNITO_USER_POOL_ID
 COGNITO_APP_CLIENT_ID = settings.COGNITO_APP_CLIENT_ID
+S3_URL = settings.S3_URL
+S3_BUCKET = settings.S3_BUCKET
 
 # creating aws cognito identity provider client
 client = boto3.client("cognito-idp", \
     aws_access_key_id=AWS_ACCESS_KEY_ID, \
     aws_secret_access_key=AWS_SECRET_ACCESS_KEY, \
     region_name=AWS_REGION)
+
+# session = boto3.session.Session()
+# s3_client = session.client('s3',
+#                         region_name=AWS_REGION,
+#                         endpoint_url=S3_URL,
+#                         aws_access_key_id=AWS_ACCESS_KEY_ID,
+#                         aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+
+s3_client = boto3.client("s3",
+   aws_access_key_id=AWS_ACCESS_KEY_ID,
+   aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
 
 def sign_in():
@@ -58,7 +73,8 @@ def sign_in():
             uid = user_rec.sub
             usertype = user_rec._data['custom:usertype']
             
-            userObj = User.get(uid, usertype)
+            userObj = Users.get(uid)
+            # userObj = Users.get(uid, usertype)
 
             out = SerializeUserObj(userObj)
             # out["usertype"] = usertype
@@ -92,6 +108,7 @@ def sign_up():
             return res
         
         username, password = resp[0], resp[1]
+
         if request.data:
             body = json.loads(request.data)
             resp, err = ValidateRegistrationData(body)
@@ -123,7 +140,7 @@ def sign_up():
 
                 user.admin_confirm_sign_up()
 
-                body["uid"] = resp['UserSub']
+                body["uuid"] = resp['UserSub']
 
                 # log.info(json.dumps(body, indent=2))
                 # saving user record in db
@@ -132,8 +149,25 @@ def sign_up():
                 data = "User registered successfully !!!"
                 res = GetResponseObject(data, 200, True)
                 return res
-
+                
+            except ClientError as e:
+                if e.response['Error']['Code'] == 'UsernameExistsException':
+                    data = f"{username} username already exists !!!"
+                    log.error(data)
+                    res = GetResponseObject(data)
+                    return res
+                    
             except Exception as e:
+                user = Cognito( \
+                    user_pool_id=COGNITO_USER_POOL_ID, \
+                    client_id=COGNITO_APP_CLIENT_ID, \
+                    user_pool_region=AWS_REGION, 
+                    username=username)
+
+                user.authenticate(password=password)
+                resp = client.delete_user(AccessToken=user.access_token)
+
+                log.info(f"Deleting user due to error while signing up: {resp}")
                 data = f"Error while registering user: {str(e)}"
                 log.error(data)
                 res = GetResponseObject(data)
@@ -243,9 +277,58 @@ def update_profile(usertype):
             return res
 
         except Exception as e:
-            data = f"Error while registering user: {str(e)}"
+            data = f"Error while updating user profile: {str(e)}"
             log.error(data)
             res = GetResponseObject(data)
+            return res            
+
+    else:
+        data = f"Invalid request method, method {request.method} not supported !!!"
+        return GetResponseObject(data, 405)
+
+
+@verify_token
+def upload_profile_image(usertype):
+    if request and request.method == "PUT":
+
+        if "profile_image" in request.files:
+            file = request.files["profile_image"]
+            try:
+                if usertype == "consumer":
+                    raise Exception("Profile picture upload feature is not available for consumer !!!!")
+
+                s3_client.upload_fileobj(
+                    file,
+                    S3_BUCKET,
+                    file.filename,
+                    ExtraArgs={
+                        "ACL": "public-read",
+                        "ContentType": file.content_type
+                    }
+                )
+
+                auth = request.headers.get('AUTHORIZATION', b'').split()
+                j = JWTTokenUtil(auth[1])
+                uid = j.get_user_id()
+
+                resp, err = UpdateItem(uid, usertype, {"image": "https://" + settings.CLOUD_FRONT_URL + "/" + file.filename}, update=True)
+                if err:
+                    raise Exception(err)
+                
+                msg = f"User profile image uploaded to s3 and url saved in DB, response: {resp}"
+                log.info(msg)
+                res = GetResponseObject("User profile image updated !!!", 200, True)
+                return res
+
+            except Exception as e:
+                msg = f"Error while uploading user profile image : {str(e)}"
+                log.error(msg)
+                res = GetResponseObject(msg)
+                return res            
+        else:
+            msg = f"No image found"
+            log.error(msg)
+            res = GetResponseObject(msg)
             return res            
 
     else:

@@ -150,6 +150,7 @@ def GetUserPasswordFromAuthHeader(request):
     return decoded_credentials, None
 
 
+
 def GetTokenFromHeader(request, token_name, token_prefix, sep=":"):
     try:
         auth = request.headers.get(token_name.upper(), b'').split(sep)

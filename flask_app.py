@@ -22,6 +22,8 @@ app.add_url_rule("/account/delete/<usertype>", \
 app.add_url_rule("/account/profile/<usertype>", \
     view_func=acc.update_profile, endpoint="UpdateProfile", methods=["PUT"])
 
+app.add_url_rule("/account/profile/<usertype>/upload", \
+    view_func=acc.upload_profile_image, endpoint="UploadProfileImage", methods=["PUT"])
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True, port=8000)

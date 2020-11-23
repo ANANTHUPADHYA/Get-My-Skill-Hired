@@ -30,9 +30,6 @@ consumer_profile = {
         "area":{
             "type" : "string"
         },
-        "image":{
-            "type" : "string"
-        },
         "appointments":{
             "type" : "array",
             "items": { 
@@ -46,6 +43,7 @@ consumer_profile = {
     "required": ["firstName", "lastName", "email", "phone", "userType", "address", "city", "area"]
 }
 
+
 update_consumer_profile = {
     "$schema": "http://json-schema.org/draft-07/schema#",    
     "type" : "object",
@@ -56,15 +54,8 @@ update_consumer_profile = {
         "lastName" : {
             "type" : "string"
         },
-        "email" : {
-            "type" : "string"
-        },
         "phone" : {
             "type" : "string"
-        },
-        "userType" : {
-            "type" : "string",
-            "enum": settings.VALID_USER_TYPES
         },
         "address":{
             "type" : "string"
@@ -74,21 +65,10 @@ update_consumer_profile = {
         },
         "area":{
             "type" : "string"
-        },
-        "image":{
-            "type" : "string"
-        },
-        "appointments":{
-            "type" : "array",
-            "items": { 
-                "type" : "array",
-                "items": { 
-                    "type": "string"
-                }
-            }
         }
     }
 }
+
 
 provider_profile = {
     "$schema": "http://json-schema.org/draft-07/schema#",    
@@ -126,11 +106,8 @@ provider_profile = {
         "time":{
             "type" : "string"
         },
-        "rating":{
+        "finalRating":{
             "type" : "number"
-        },
-        "image":{
-            "type" : "string"
         },
         "appointments":{
             "type" : "array",
@@ -167,15 +144,8 @@ update_provider_profile = {
         "lastName" : {
             "type" : "string"
         },
-        "email" : {
-            "type" : "string"
-        },
         "phone" : {
             "type" : "string"
-        },
-        "userType" : {
-            "type" : "string",
-            "enum": settings.VALID_USER_TYPES
         },
         "address":{
             "type" : "string"
@@ -193,20 +163,8 @@ update_provider_profile = {
         "time":{
             "type" : "string"
         },
-        "rating":{
-            "type" : "number"
-        },
         "image":{
             "type" : "string"
-        },
-        "appointments":{
-            "type" : "array",
-            "items": { 
-                "type" : "array",
-                "items": { 
-                    "type": "string"
-                }
-            }
         },
         "skillSet":{
             "type": "array",

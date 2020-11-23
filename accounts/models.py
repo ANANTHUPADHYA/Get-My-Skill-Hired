@@ -58,7 +58,7 @@ class UserProfile(MapAttribute):
     availability = ListAttribute(of=Availability)
 
 
-class User(Model):
+class Users(Model):
     class Meta:
         read_capacity_units = 1
         write_capacity_units = 1
@@ -68,8 +68,9 @@ class User(Model):
         aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID")
         aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY")
 
-    uid = UnicodeAttribute(hash_key=True)
-    userType = UnicodeAttribute(range_key=True)
+    uuid = UnicodeAttribute(hash_key=True)
+    userType = UnicodeAttribute()
+    # userType = UnicodeAttribute(range_key=True)
     username = UnicodeAttribute(null=False)
     email = UnicodeAttribute(null=False)
     firstName = UnicodeAttribute(null=False)
@@ -78,7 +79,8 @@ class User(Model):
     address = UnicodeAttribute()
     area = UnicodeAttribute()
     city = UnicodeAttribute()
-    days = ListAttribute(default=list, null=True)
+    # days = ListAttribute(default=list, null=True)
+    days = ListAttribute(null=True)
     time = UnicodeAttribute(null=True)
     finalRating = UnicodeAttribute(null=True)
     image = UnicodeAttribute(null=True)
@@ -96,7 +98,7 @@ class User(Model):
     # notes = ListAttribute(default=list)
 
     def save(self, **kwargs):
-        return super(User, self).save(**kwargs)
+        return super(Users, self).save(**kwargs)
 
 
 def InitUserTable():
@@ -104,10 +106,10 @@ def InitUserTable():
         # print(User.describe_table())
         # User.delete_table()
 
-        if not User.exists():
-            # User.delete_table()
-            log.info("Creating user table .....")
-            User.create_table(wait=True, read_capacity_units=1, write_capacity_units=1)
+        if not Users.exists():
+            # Users.delete_table()
+            log.info("Creating Users table .....")
+            Users.create_table(wait=True, read_capacity_units=1, write_capacity_units=1)
     except Exception as e:
         log.error(f"DB initialization failed: {str(e)}")
         sys.exit(1)
@@ -115,9 +117,9 @@ def InitUserTable():
 
 def SaveInDB(body, update=False):
     if body["userType"] == "provider":
-        u = User(
+        u = Users(
             userType=body["userType"],
-            uid=body["uid"],
+            uuid=body["uuid"],
             username=body["username"],
             email=body["email"],
             firstName=body["firstName"],
@@ -128,13 +130,14 @@ def SaveInDB(body, update=False):
             city=body["city"],
             days=body["days"],
             time=body["time"],
-            finalRating=body["finalRating"],
-            skillset=body["skillset"]
+            skillset=body["skillSet"],
+            image="None",
+            finalRating="0"
         )
     else:
-        u = User(
+        u = Users(
             userType=body["userType"],
-            uid=body["uid"],
+            uuid=body["uuid"],
             username=body["username"],
             email=body["email"],
             firstName=body["firstName"],
@@ -161,21 +164,24 @@ def UpdateItem(uid, userType, body=None, update=False, delete=False):
         )
 
         if delete:
-            return conn.delete_item(hash_key=uid, range_key=userType), None
+            return conn.delete_item(hash_key=uid), None
+            # return conn.delete_item(hash_key=uid, range_key=userType), None
         elif update and body:
-            userObj = User.get(uid, userType)
+            userObj = Users.get(uid)
+            # userObj = Users.get(uid, userType)
             userObj.refresh()
             r = userObj.update(actions=[
-                getattr(User, k).set(v) for k, v in body.items()
+                getattr(Users, k).set(v) for k, v in body.items()
             ])
             return r, None
             # return conn.put_item(hash_key=uid, range_key=userType, attributes={"firstName": body["firstName"]}), None
     except Exception as e:
+        print("Err", str(e))
         return None, str(e)
 
 
 def SerializeUserObj(user):
-    attributes = ["userType", "uid", "username", \
+    attributes = ["userType", "uuid", "username", \
                 "email", "firstName", "lastName", \
                 "phone", "address", "city", \
                 "days", "time", "skillset"
@@ -184,7 +190,7 @@ def SerializeUserObj(user):
     if user.userType == "provider":
         out = {
             "userType": user.userType,
-            "uid": user.uid,
+            "uuid": user.uuid,
             "username": user.username,
             "email": user.email,
             "firstName": user.firstName,
@@ -202,7 +208,7 @@ def SerializeUserObj(user):
     else:
         out = {
             "userType": user.userType,
-            "uid": user.uid,
+            "uuid": user.uuid,
             "username": user.username,
             "email": user.email,
             "firstName": user.firstName,
@@ -210,8 +216,6 @@ def SerializeUserObj(user):
             "phone": user.phone,
             "address": user.address,
             "city": user.city,
-            "image": user.image,
-            "days": user.days,
             "time": user.time,
             "appointments": user.appointments
         }        
