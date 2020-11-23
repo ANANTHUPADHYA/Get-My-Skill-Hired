@@ -84,7 +84,7 @@ def sign_in():
                 # "refreshToken": user.refresh_token,
                 "profile": out
             }
-            res = GetResponseObject(data, 200)
+            res = GetResponseObject(data, 200, True)
             res.headers['HMS-TOKEN'] = "Bearer " + user.access_token
             # res.set_cookie(settings.COOKIE_NAME , user.access_token)
             return res
@@ -156,7 +156,7 @@ def sign_up():
                     log.error(data)
                     res = GetResponseObject(data)
                     return res
-                    
+
             except Exception as e:
                 user = Cognito( \
                     user_pool_id=COGNITO_USER_POOL_ID, \
@@ -191,7 +191,7 @@ def sign_out():
             auth = request.headers.get('AUTHORIZATION', b'').split()
             response = client.global_sign_out(AccessToken=auth[1])   
             data = "User signed out successfully !!!"
-            res = GetResponseObject(data, 200)
+            res = GetResponseObject(data, 200, True)
             return res
         except Exception as e:
             msg = f"Error while signing out user: {str(e)}"
@@ -226,7 +226,7 @@ def delete_user(usertype):
 
             msg = "User deleted successfully !!!"
             # log.info( msg + "\n" + resp)
-            res = GetResponseObject(msg, 200)
+            res = GetResponseObject(msg, 200, True)
             return res
 
         except Exception as e:

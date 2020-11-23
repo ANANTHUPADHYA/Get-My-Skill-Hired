@@ -19,6 +19,16 @@ APIs
 
     ```python3 flask_app.py```
 
+* Create new user on terminal
+
+```
+    echo -n sampleuser@gmail.com:@SampleUser1234 | base64
+```
+Output
+```
+c2FtcGxldXNlckBnbWFpbC5jb206QFNhbXBsZVVzZXIxMjM0
+```
+
 
 1. ```http://<host-name>/account/signin```
 
