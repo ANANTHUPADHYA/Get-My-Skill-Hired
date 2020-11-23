@@ -1,6 +1,7 @@
 APIs
 
-1. http://<host-name>/account/signin
+1. ```http://<host-name>/account/signin```
+
     Request:
         * Add Authorization Header as follows:
         ```Authorization: Basic <Base64 username:password>```
@@ -17,7 +18,7 @@ APIs
             }
         }```
 
-2. http://<host-name>/account/signup
+2. ```http://<host-name>/account/signup```
 
     Request:
         * Add Authorization Header as follows:
@@ -26,13 +27,15 @@ APIs
             <Pass request body in json as discussed>
 
 
-3. http://<host-name>/account/signout
+3. ```http://<host-name>/account/signout```
+
     Pass access token obtain while signing in as Bearer token in request header
     Request:
         * Add Authorization Header as follows:
         ```Authorization: Bearer <access token>```
 
-4. http://<host-name>/account/delete/<usertype>
+4. ```http://<host-name>/account/delete/<usertype>```
+
     Pass access token obtain while signing in as Bearer token in request header
     Request:
         * Add Authorization Header as follows:
@@ -41,7 +44,8 @@ APIs
     * Pass usertype in path parameter
 
 
-5. http://<host-name>/account/profile/<usertype>
+5. ```http://<host-name>/account/profile/<usertype>```
+
     Request:
         * Pass access token obtain while signing in as Bearer token in request header
         * Pass usertype in path parameter
@@ -51,7 +55,8 @@ APIs
         * Body: pass request body in json, make sure keyname are matching as discussed
     
 
-6. http://<host-name>/account/profile/<usertype>/upload
+6. ```http://<host-name>/account/profile/<usertype>/upload```
+
     Pass access token obtain while signing in as Bearer token in request header
     Request:
         * Add Authorization Header as follows:
