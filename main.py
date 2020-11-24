@@ -3,6 +3,7 @@ import boto3, os
 import uuid
 #from pprint import pprint
 from werkzeug.security import generate_password_hash, check_password_hash
+from boto3.dynamodb.conditions import Key
 
 #from functions import validatedate, isValidTime
 
@@ -73,32 +74,40 @@ def registerServiceProvider():
         }
         return errData
 
-@app.route("/appointments", methods = ['POST'])
-def bookappointment():
+@app.route("/user/<userID>/appointments", methods = ['POST'])
+def bookappointment(userID):
     dynamodb = boto3.resource('dynamodb', region_name=db_aws_region)
-    print(aws_access_key_id, aws_secret_access_key, db_aws_region)
+
     appointmentID = uuid.uuid1()
-    providerEmail = request.json.get('providerEmail')
+    email = request.json.get('email')
+    city = request.json.get('city')
+    customerAddress = request.json.get('customerAddress')
     customerEmail = request.json.get('customerEmail')
+    customerNumber = request.json.get('customerNumber')
+    customerUsername = request.json.get('customerUsername')
+    providerEmail = request.json.get('providerEmail')
     date = request.json.get('date')
+    day = request.json.get('day')
+    rating = request.json.get('rating')
+    review = request.json.get('review')
+    status = request.json.get('status')
     time = request.json.get('time')
     serviceType = request.json.get('serviceType')
 
-    table = dynamodb.Table('Appointments')
-    response = table.put_item(
-        Item={
-            'appointmentID': str(appointmentID),
-            'providerEmail': providerEmail,
-            'customerEmail': customerEmail,
-            'date': date,
-            'time': time,
-            'serviceType': serviceType,
-            'appointmentStatus': 'upcoming',
-            'rating': None,
-            'review': None,
-        }
+    appointment = [{'appointmentID': appointmentID, 'email': email, 'city': city, 'customerAddress': customerAddress, 'customerEmail': customerEmail, 'customerNumber': customerNumber, 'customerUsername': customerUsername, 'providerEmail': providerEmail, 'date': date, 'day': day, 'rating': rating, 'review': review, 'status': status, 'time': time, 'serviceType': serviceType}]
+    table = dynamodb.Table('Users')
+    response = table.update_item(
+        Key={
+            'uuid': userID,
+        },
+        UpdateExpression="set appointments = list_append(appointments, :ap)",
+        ExpressionAttributeValues={
+            ':ap': [appointment],
+        },
+        ReturnValues="UPDATED_NEW"
     )
-
+    #if result['ResponseMetadata']['HTTPStatusCode'] == 200 and 'Attributes' in result:
+    #    return result['Attributes']['some_attr']
     if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
         data = {
             "success": "true",
@@ -113,16 +122,16 @@ def bookappointment():
         return errData
 
 
-@app.route("/appointments/<appointmentID>", methods=['PATCH'])
-def updateAppointmentStatus(appointmentID):
+@app.route("/user/<userID>/appointments/<appointmentID>", methods=['PATCH'])
+def updateAppointmentStatus(userID, appointmentID):
     dynamodb = boto3.resource('dynamodb', region_name=db_aws_region)
 
     status = request.json.get('appointmentStatus')
 
-    table = dynamodb.Table('Appointments')
+    table = dynamodb.Table('Users')
     response = table.update_item(
         Key={
-            'appointmentID': appointmentID,
+            'uuid': userID,
         },
         UpdateExpression="set appointmentStatus=:as",
         ExpressionAttributeValues={
@@ -143,14 +152,14 @@ def updateAppointmentStatus(appointmentID):
         }
         return errData
 
-@app.route("/appointments/<appointmentID>/ratingAndReview", methods = ['PATCH'])
+@app.route("/user/<userID>/appointments/<appointmentID>/ratingAndReview", methods = ['PATCH'])
 def updateReviewAndRating(appointmentID):
    dynamodb = boto3.resource('dynamodb', region_name=db_aws_region)
 
    rating = request.json.get('rating')
    review = request.json.get('review')
 
-   table = dynamodb.Table('Appointments')
+   table = dynamodb.Table('Users')
    response = table.update_item(
        Key={
            'appointmentID': appointmentID,
