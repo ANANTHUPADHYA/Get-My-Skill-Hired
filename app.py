@@ -17,24 +17,23 @@ def hello():  # call method hello
     return "Hello World!"  # which returns "hello world"
 
 
-@app.route('/service')
+@app.route('"/user/<userID>/services')
 def providerCategoryServices():
-    s = 'provider'
+    user = 'provider'
     providerSkillset= request.args.get('skillSet')
 
-    if s:
+    if user:
         dynamodb = resource('dynamodb', region_name=db_aws_region)
         table = dynamodb.Table("Users")
 
         scan_kwargs = {
-            'FilterExpression': Key('userType').eq(s)}
+            'FilterExpression': Key('userType').eq(user)}
 
         response = table.scan(**scan_kwargs)
         items = response['Items']
-
-        print (items[0]['area'])
+        res = []
         if len(items) > 0:
-            res = []
+
 
             for i, item in enumerate(items):
                 skill=item['skillSet']
@@ -65,15 +64,16 @@ def providerCategoryServices():
         return jsonify(res)
 
 
-@app.route('/ProviderAppointments')
-def listProviderAppointments():
+@app.route('/user/<userID>/providerAppointments')
+def listProviderAppointments(userID):
 
-   Provideruuid= request.args.get('uuid')
+   #providerUuid= request.args.get('uuid')
+   providerUuid=userID
 
-   if Provideruuid:
+   if providerUuid:
        dynamodb_resource = resource('dynamodb', region_name=db_aws_region)
        table = dynamodb_resource.Table('Users')
-       response = table.query(KeyConditionExpression=Key('uuid').eq (Provideruuid))
+       response = table.query(KeyConditionExpression=Key('uuid').eq (providerUuid))
        items = response['Items']
 
 
@@ -82,8 +82,8 @@ def listProviderAppointments():
            return(jsonify(appointments[0]))
 
        else:
-           status="error"
-           return jsonify({"status": "get failed", "error": items}), status
+           res=[]
+           return jsonify(res)
    else:
        return ("uuid not found")
 
@@ -126,11 +126,11 @@ def listProviderAppointments():
 """
 
 
-@app.route('/CustomerAppointments')
-def listCustomerAppointments():
+@app.route('/user/<userID>/customerAppointments')
+def listCustomerAppointments(userID):
 
-   Cutomeruuid= request.args.get('uuid')
-   #CustomerEmail="yes"
+   #Cutomeruuid= request.args.get('uuid')
+   Cutomeruuid=userID
    if Cutomeruuid:
        dynamodb_resource = resource('dynamodb', region_name=db_aws_region)
        table = dynamodb_resource.Table('Users')
@@ -170,6 +170,8 @@ def listCustomerAppointments():
        return jsonify(res)
        
        """
+
+
 
 
 if __name__ == '__main__':
