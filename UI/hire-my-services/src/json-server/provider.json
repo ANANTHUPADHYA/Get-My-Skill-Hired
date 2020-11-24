@@ -1,0 +1,75 @@
+{
+
+    "providers": {
+
+        "success": true,
+        "data": {
+            "providers": [{
+                    "email": "abc.def@gmail.com",
+                    "phoneNumber": 9879821731,
+                    "firstname": "Chandler",
+                    "lastname": "Bing",
+                    "address": "Temple Road",
+                    "area": "MG Road",
+                    "city": "Bangalore",
+                    "skillset": [{
+                        "name": "Carpenter",
+                        "price": 300
+                    }],
+                    "days": ["Monday", "Tuesday"],
+                    "time": "9:00 AM-5:00 PM",
+                    "rating": 5
+                },
+                {
+                    "email": "abc.def@gmail.com",
+                    "phoneNumber": 873441,
+                    "firstname": "Rachel",
+                    "lastname": "Green",
+                    "address": "Near CMC High School",
+                    "area": "Station Road",
+                    "city": "Delhi",
+                    "skillset": [{
+                        "name": "Carpenter",
+                        "price": 600
+                    }],
+                    "days": ["Monday", "Tuesday", "Wednesday"],
+                    "Time": "10:00 AM-4:00 PM",
+                    "rating": 3
+                },
+                {
+                    "email": "abc.def@gmail.com",
+                    "phoneNumber": 9879821731,
+                    "firstname": "Ross",
+                    "lastname": "Geller",
+                    "address": "Central Perk",
+                    "area": "Commercial street",
+                    "city": "Pune",
+                    "skillset": [{
+                        "name": "Carpenter",
+                        "price": 900
+                    }],
+                    "days": ["Monday", "Tuesday", "Friday"],
+                    "Time": "9:00 AM-5:00 PM",
+                    "rating": 2
+                },
+                {
+                    "email": "abc.def@gmail.com",
+                    "phoneNumber": 9879821731,
+                    "firstname": "Monica",
+                    "lastname": "Bing",
+                    "address": "Church street",
+                    "area": "Bandra",
+                    "city": "Mumbai",
+                    "skillset": [{
+                        "name": "Carpenter",
+                        "price": 200
+                    }],
+                    "days": ["Monday", "Saturday"],
+                    "Time": "9:00 AM-5:00 PM",
+                    "rating": 4
+                }
+
+            ]
+        }
+    }
+}

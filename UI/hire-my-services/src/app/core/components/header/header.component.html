@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <a routerLink="/products" class="remove-underline"> <img src="assets/images/headerIcon.png" class="header-icon"><span class="header-font">Hire-Services</span></a>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" *ngIf="showLogIn" class="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+        <mat-menu #menu="matMenu" class="font">
+
+            <button mat-menu-item disabled>
+          <mat-icon>persona</mat-icon>
+          <span>My Profile</span>
+        </button>
+            <button mat-menu-item>
+          <mat-icon>calendar_today</mat-icon>
+          <span>My Appointments</span>
+        </button>
+            <button mat-menu-item (click)="logout()">
+            <mat-icon  title="logout">power_settings_new</mat-icon>&nbsp;
+            <span>Log-out</span>
+         </button>
+        </mat-menu>
+    </mat-toolbar-row>
+</mat-toolbar>
