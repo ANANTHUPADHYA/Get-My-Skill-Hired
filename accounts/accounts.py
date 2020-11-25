@@ -272,7 +272,7 @@ def update_profile(usertype):
             if err:
                 raise Exception(err)
 
-            data = "User registered successfully !!!"
+            data = "Profile updated successfully !!!"
             res = GetResponseObject(data, 200, True)
             return res
 
