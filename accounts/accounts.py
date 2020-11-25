@@ -338,47 +338,38 @@ def upload_profile_image(usertype):
     
 @verify_token
 def providerCategoryServices():
-    user = 'provider'
-    providerSkillset = request.args.get('skillSet')
 
-    if user:
-        dynamodb = resource('dynamodb', region_name=db_aws_region)
-        table = dynamodb.Table("Users")
+    providerSkillset= request.args.get('skillSet')
+    user="provider"
+    dynamodb = resource('dynamodb', region_name=db_aws_region)
+    table = dynamodb.Table("Users")
 
-        scan_kwargs = {
+    scan_kwargs = {
             'FilterExpression': Key('userType').eq(user)}
+    response = table.scan(**scan_kwargs)
+    items = response['Items']
+    res = []
+    if len(items) > 0:
+        for i, item in enumerate(items):
+            skill=item['skillSet']
+            for s in skill:
+                if (s['name'])==providerSkillset:
+                    res.append({
+                        'address':item['address'],
+                        'area': item['area'],
+                        'city': item['city'],
+                        'days': item['days'],
+                        'email': item['email'],
+                        'firstname':item['firstName'],
+                        'lastname': item['lastName'],
+                        'phone': item['phone'],
+                        'price': str(s['price']),
+                        'time': item['time'],
+                        'uuid': item['uuid'],
+                        'rating' : item['finalRating'],
+                        'image': item['image']}
+                )
+    return jsonify(res)
 
-        response = table.scan(**scan_kwargs)
-        items = response['Items']
-        res = []
-        if len(items) > 0:
-
-            for i, item in enumerate(items):
-                skill = item['skillSet']
-                print(skill)
-                for s in skill:
-                    print(s['name'])
-                    if (s['name']) == providerSkillset:
-                        print("true")
-                        res.append({
-
-                            'address': item['address'],
-                            'area': item['area'],
-                            'city': item['city'],
-                            'days': item['days'],
-                            'email': item['email'],
-                            'firstname': item['firstName'],
-                            'lastname': item['lastName'],
-                            'phone': item['phone'],
-                            'price': s['price'],
-                            'time': item['time'],
-                            'uuid': item['uuid'],
-                            'rating': item['finalRating'],
-                            'image': item['image']
-                        }
-                        )
-            print(res)
-
-        return jsonify(res)
 
 
