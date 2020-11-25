@@ -25,6 +25,17 @@ app.add_url_rule("/account/profile/<usertype>", \
 app.add_url_rule("/account/profile/<usertype>/upload", \
     view_func=acc.upload_profile_image, endpoint="UploadProfileImage", methods=["PUT"])
 
+app.add_url_rule("/account/<usertype>/<userID>/services", \
+    view_func=acc.providerCategoryServices, endpoint="Services", methods=["GET"])
+
+app.add_url_rule('/user/<userID>/customerAppointments', \
+    view_func=acc.providerCategoryServices, endpoint="CustomerAppointment", methods=["GET"])
+
+app.add_url_rule('/user/<userID>/providerAppointments', \
+    view_func=acc.listProviderAppointments, endpoint="providerAppointment", methods=["GET"])
+
+
+
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True, port=8000)
 
