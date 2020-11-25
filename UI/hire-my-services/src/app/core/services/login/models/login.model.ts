@@ -29,16 +29,17 @@ export  interface LoginResponse {
   }
   
   export interface UserParams {
-      firstname: string;
-      lastname: string;
+      email:string;
+      firstName: string;
+      lastName: string;
       address: string;
       area: string;
       city: string;
       phone: string;
-      usertype: string;
+      userType: string;
       days?: string[];
       time?: string;
-      skillset?: {
+      skillSet?: {
           name: string;
           price: number;
       }[]
@@ -50,6 +51,7 @@ export  interface LoginResponse {
       message: string;
       accessToken: string;
     };
+    
     
   }
   

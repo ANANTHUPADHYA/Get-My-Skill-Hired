@@ -30,3 +30,4 @@ urllib3==1.26.2
 warrant==0.6.1
 Werkzeug==1.0.1
 zipp==3.4.0
+Flask_Cors==3.0.9

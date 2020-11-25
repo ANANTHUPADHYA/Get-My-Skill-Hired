@@ -27,8 +27,8 @@ export class RegisterComponent implements OnInit {
     this.signupFormCustomer = this.formBuilder.group({
       email: ['', Validators.email],
       password: ['', Validators.required],
-      firstname: ['', Validators.required],
-      lastname: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       address: ['', Validators.required],
       area: ['', Validators.required],
       city: ['', Validators.required],
@@ -38,8 +38,8 @@ export class RegisterComponent implements OnInit {
     this.signupFormProvider = this.formBuilder.group({
       email: ['', Validators.email],
       password: ['', Validators.required],
-      firstname: ['', Validators.required],
-      lastname: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       address: ['', Validators.required],
       area: ['', Validators.required],
       city: ['', Validators.required],
@@ -63,13 +63,13 @@ export class RegisterComponent implements OnInit {
     let password, email;
     if(this.userType === 'consumer') {
       formValue = this.signupFormCustomer.value;
-      formValue['usertype'] = 'consumer';
+      formValue['userType'] = 'consumer';
       password = this.signupFormCustomer.controls.password.value;
     } else {
       password = this.signupFormProvider.controls.password.value
       formValue = this.signupFormProvider.value;
-      formValue['usertype'] = 'provider';
-      formValue.skillset = this.selectedSkills;
+      formValue['userType'] = 'provider';
+      formValue.skillSet = this.selectedSkills;
       formValue.time = this.signupFormProvider.controls.fromTime.value + "-" + this.signupFormProvider.controls.toTime.value;
       formValue.days = this.signupFormProvider.controls.selectedDays.value;
       delete formValue['selectedDays'];
@@ -80,7 +80,7 @@ export class RegisterComponent implements OnInit {
     }
     console.log(formValue);
     email = formValue['email'];
-    delete formValue['email'];
+    formValue['phone']=['phone'].toString();
     this.loginService.registerUser(formValue, password, email).subscribe(response => {
       if (response.success) {
         sessionStorage.setItem('sessionID', response.data.accessToken);
@@ -96,7 +96,7 @@ export class RegisterComponent implements OnInit {
 
       }
     },  error => {
-      this.openSnackBar(error.error.message, 'mat-warn');
+      this.openSnackBar(error.error.data, 'mat-warn');
     });
   }
 
