@@ -1,0 +1,254 @@
+{
+	"info": {
+		"_postman_id": "95eeaa2f-0b30-4615-969f-62f91953a23b",
+		"name": "HMS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "accounts",
+			"item": [
+				{
+					"name": "Sign Up",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWxpbmFAZ21haWwuY29tOkBBbGluYTEyMzQ=",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"alina@gmail.com\",\n    \"userType\": \"consumer\",\n    \"firstName\": \"Alina\",\n    \"lastName\": \"Mccarthy\",\n    \"address\": \"One Washington Square\",\n    \"area\": \"Downtown\",\n    \"city\": \"San Jose\",\n    \"phone\": \"+11234567890\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/account/signup",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"account",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign In",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic ZGF2aWRAZ21haWwuY29tOkBEYXZpZDEyMzQ=",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/account/signin",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"account",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign Out",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJraWQiOiJGRFFWN2NIVGNDY0pFSDBzdGpnYzVTMVFOVXY3N2hOR3R0WFllT0FUY0pFPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJiOWQwYWJjZS03ZmY1LTRhOTMtYmI4Yy1iYWE3M2FkN2FjOTciLCJldmVudF9pZCI6ImEyYjY0MmRlLWFiOTUtNGNkMi1iZmRhLTQwNTcwNmM1NDRiOSIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE2MDYxMTYxODEsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTEuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0xX0g4TEY2MXpUaiIsImV4cCI6MTYwNjExOTc4MSwiaWF0IjoxNjA2MTE2MTgxLCJqdGkiOiJlMmIxYjA2OS05ZTg5LTQ4YjQtODBmYS0yMWVmOTk0MzQ4NzEiLCJjbGllbnRfaWQiOiIzN2E0NTZkczU2NXZmY2xtNWQ4c2dzOGFlcCIsInVzZXJuYW1lIjoibXl1c2VyMkBnbWFpbC5jb20ifQ.m0QkckRP16z1Em6WsDfh-zs98IE_idFkEEqTz_K6bjp-Fz0ClbC-BuRWTRJytGmdAS0c-FXzn5x0p8sA2pgOjZXtXc-W6khcy9WFnrf4KUvIsVp60v--lDUQr5J2Vy6wK0_QOwjpU6NR5LyDEHT6QWgUFHKFo6HSGNQQgrdTsL4NOP-uyvXFnrltIM_Pzrse3xTKBAQYL-oT87PipEkwxe9sL__aevSvCPyhtrHOk6UmR8DhN5CtwuFZ_ww4GjTNeF-c-X-DvoNi3MH7bNBnK1dDcXhPXqfU52AGOREeFZxv5jlsYXe_RG-peeZ0ey0PMWtbkFVxMDvReABJTJmgmw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic dXNlcjpAVXNlcjEyMzQ=",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJraWQiOiJqU3A3bmVmSTE3SFMzYUVpQ1VkVk1GQWhDZ1ozMUJydjEwOU1YQ0hkOHFNPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIyOTU3MTkzMy04YTRiLTQ5YjctODFhOS0zMTE3M2NkY2I4YTMiLCJldmVudF9pZCI6ImIwYmEzYjk5LTIxMzQtNGZiNS1hYzQxLWI0YmYyNGE0Y2JkMiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE2MDU5MjE1NDEsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTEuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0xX2N2cjZ4a0cwUCIsImV4cCI6MTYwNTkyNTE0MSwiaWF0IjoxNjA1OTIxNTQxLCJqdGkiOiIzOWYzZDNmMy02MTk4LTQzZmYtOWE4Ny05NjgwZGI2MTNlZDYiLCJjbGllbnRfaWQiOiI3MjBkYWZnOWNlcmZhY2xyN21kaGN2c2E1OCIsInVzZXJuYW1lIjoidXNlciJ9.C4yws3v0fV47_ts_U7rJpdObjUGlycKq679ZN3O0ioLljv5xJZCIicicxVRwf7HfZh4FPIIhsC_K5NgA9DF_fDhQSvCgIMJobQDG0sB_6Yd9aLPQQMMjbLKWsrTiuGuuBgB-2CFkiEqQMDpU9OwB4QCyMNTPtuFfWS81IgpP-N0Ggm0GV5qOgYi_jZD5mhfRSJY2QqAHKtBHAa8bm7iCCpmTy5dzPxHGXMZ09EQg4QERdDdTbCrTY3RFRkoyQC85u94GFPL73Gcc4YJRoiDeEymDgZspeYQbtr2bYccbHOmKBNL5oqx6f3TOdsDZa33XOoLjtSsdZ2KEvROKwPBoJA",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/account/signout",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"account",
+								"signout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify User Token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJraWQiOiJGRFFWN2NIVGNDY0pFSDBzdGpnYzVTMVFOVXY3N2hOR3R0WFllT0FUY0pFPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI0YjFiZGQ3Zi1jMzEyLTQ5YzUtYWU4OS1mODExZmNhZDQ3ZWMiLCJldmVudF9pZCI6IjhjY2U1NzNjLWY4NGYtNGNiMi1hNjI3LWQyMDVlOTJhNDg5MyIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE2MDYxMjI1NDksImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTEuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0xX0g4TEY2MXpUaiIsImV4cCI6MTYwNjEyNjE0OSwiaWF0IjoxNjA2MTIyNTQ5LCJqdGkiOiJkYTQxMzhkNy1iZmRjLTQ3NWQtOWIxOC03MzI5YTgwOTc0ZmYiLCJjbGllbnRfaWQiOiIzN2E0NTZkczU2NXZmY2xtNWQ4c2dzOGFlcCIsInVzZXJuYW1lIjoiYWxpbmFAZ21haWwuY29tIn0.LPnsVjY6bow2byPMaBxDPyZi2ljILXHMcHtKJmmG7Zcwk3zx9vT9ypbCyYRzbLauJ9bH0fFHUXH7L71xeVh3uIiiqUMgAsN0bQc6MHJ-8oL5Kt7bGIWUuTW8DG__dmdMDQspyQBBEYCWxeQXIV0DFS-fdbd9twgpEWspioYKU1kQT_vTw0uSkpDOFc6nVBLAzYPIUF4zBg2bQbNg2RXmTnk19QBQHwB9ApfUX7KDXXhqDHHjQU4mUXL6x1zYhFPyzWn7a1kYnXyT6ledewf9T8dXks_6Fo40Weo_O7cCvhXPqucqwapT45hKYK0G4OXeHAwHR0voZIt7FHy3HcfLYA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/account/delete/consumer",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"account",
+								"delete",
+								"consumer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJraWQiOiJGRFFWN2NIVGNDY0pFSDBzdGpnYzVTMVFOVXY3N2hOR3R0WFllT0FUY0pFPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI1OTQzZTAwMy04YWYwLTRkYjUtYTg0ZS0wOGZhZGFkYTQzNTQiLCJldmVudF9pZCI6IjRlYmQzMWU2LTBkYTMtNDU4MC1hZWI4LTQzYjE5YWM3ODAwZiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE2MDYxMjI2MzYsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTEuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0xX0g4TEY2MXpUaiIsImV4cCI6MTYwNjEyNjIzNiwiaWF0IjoxNjA2MTIyNjM2LCJqdGkiOiIxZDhlZjEzYy1jM2E0LTQxYzctOGQ3Zi1lMTg5N2UzZTQ2MjYiLCJjbGllbnRfaWQiOiIzN2E0NTZkczU2NXZmY2xtNWQ4c2dzOGFlcCIsInVzZXJuYW1lIjoiZGF2aWRAZ21haWwuY29tIn0.nQEmY-MdoDtP4S_FrEmAbhT7wppfNB2CqVjtuPge6DYBRfNsFq88vFbSIN3p_D6DDVYIziQUvxo57-mAmyScalYhOIGf0b8zy1vyrio8h0C8XiNXCNKAmGkfIs0qw68tCcRn8ijNOrMYjFAiv8l8-IeikaY-gGr3B0zU649P4DLzMRAGD2rqcDsKJaceu-0iH-mzwUMu9iyHYVwyCIUOvEIWnyvB8t6zXqpvvLRc8S3eRYesOh-rDQNGtbOV4Ei5xT1OKaooENSi5xEC60YKbloH5wjiiNVNLtXd-yK0QC1txOCXQoXIdEQvVta59w0MP1ChWtlzgRm1QHh7W6mv9Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"time\": \"11:00AM-01:00PM\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/account/profile/consumer",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"account",
+								"profile",
+								"consumer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Profile Image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJraWQiOiJGRFFWN2NIVGNDY0pFSDBzdGpnYzVTMVFOVXY3N2hOR3R0WFllT0FUY0pFPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI1OTQzZTAwMy04YWYwLTRkYjUtYTg0ZS0wOGZhZGFkYTQzNTQiLCJldmVudF9pZCI6ImViZTM3NDM2LWI5OGEtNDRhOS1hNmM0LTUxYmIwMDc0OWQ0ZSIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE2MDYxMjE5ODEsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTEuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0xX0g4TEY2MXpUaiIsImV4cCI6MTYwNjEyNTU4MSwiaWF0IjoxNjA2MTIxOTgxLCJqdGkiOiI3ZDY2ZTExNi00MWUxLTQzMTgtOWFiMS00ZmM5NzY4MTMxNDUiLCJjbGllbnRfaWQiOiIzN2E0NTZkczU2NXZmY2xtNWQ4c2dzOGFlcCIsInVzZXJuYW1lIjoiZGF2aWRAZ21haWwuY29tIn0.cjTn1QiWk23-lzgwZsLupk5f3_a1JJzywWGCY6iIsu_-rk5YdB07ByMyIus1S_wCaLhLgQjmk3KJS57mueM1JqwYEGmCP8nuxfRIj0zyE2HWvHq6cTph4xHGajGvHDOt5Ax7NnXild6QYegzrJioBGvUGQuGYEPSZ_YYYe1MnuDtx40aOOdhAEwh9-M5Frzd5lLE7dWmBDC3gjRFU1Nt-NZpv9Ud4qxlaPr0QE1Vx7KU_IFKCmRXFJR3lnUZVml9ZoLDusZHOqxyVgBfEK663oD4L5bDsvOaquzth_2XhNDJUHt_ve4ARp54burK2GZVZxHJQyq4hugePct5r-EZKA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "profile_image",
+									"type": "file",
+									"src": "/Users/mgehlot/Documents/krishna-janmashtami.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/account/profile/provider/upload",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"account",
+								"profile",
+								"provider",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "eb0f2bf8-8b1a-40fc-9803-36f60cca4249",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "4efcec7f-a217-4c7a-a31b-41bfe3357ed8",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
