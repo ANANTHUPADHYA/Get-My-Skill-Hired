@@ -53,7 +53,7 @@ class UserProfile(MapAttribute):
     firstName = UnicodeAttribute()
     lastName = UnicodeAttribute()
 
-    skillset = ListAttribute(of=SkillSet)
+    skillSet = ListAttribute(of=SkillSet)
     address = ListAttribute(of=Address)
     availability = ListAttribute(of=Availability)
 
@@ -84,7 +84,7 @@ class Users(Model):
     time = UnicodeAttribute(null=True)
     finalRating = UnicodeAttribute(null=True)
     image = UnicodeAttribute(null=True)
-    skillset = ListAttribute(of=SkillSet, null=True)
+    skillSet = ListAttribute(of=SkillSet, null=True)
     appointments = ListAttribute(default=list, null=True)
 
     nameIndex = NameIndex()
@@ -130,7 +130,7 @@ def SaveInDB(body, update=False):
             city=body["city"],
             days=body["days"],
             time=body["time"],
-            skillset=body["skillSet"],
+            skillSet=body["skillSet"],
             image="None",
             finalRating="0"
         )
@@ -184,7 +184,7 @@ def SerializeUserObj(user):
     attributes = ["userType", "uuid", "username", \
                 "email", "firstName", "lastName", \
                 "phone", "address", "city", \
-                "days", "time", "skillset"
+                "days", "time", "skillSet"
     ]
 
     if user.userType == "provider":
@@ -201,7 +201,7 @@ def SerializeUserObj(user):
             "image": user.image,
             "days":user.days,
             "time": user.time,
-            "skillset": [{"name": s.name, "price": s.price} for s in user.skillset],
+            "skillSet": [{"name": s.name, "price": s.price} for s in user.skillSet],
             "appointments": user.appointments,
             "finalRating": user.finalRating
         }
