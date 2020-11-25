@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { ProviderDetailsResponse } from './index';
 import { Observable } from 'rxjs';
 import { urlConstants } from '../../rest-api-configuration';
+import { BookAppointmentReq, BookAppointmentResp } from './models';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +19,9 @@ export class ProviderListService {
     return this.http.get<ProviderDetailsResponse>('http://localhost:3000/providers');
   }
 
+  scheduleAppointment(params: BookAppointmentReq):Observable<BookAppointmentResp> {
+     // return this.http.post<ProviderDetailsResponse>(`${this.baseUrl}${urlConstants.BOOK_APPNT}`, params); 
+     return this.http.get<BookAppointmentResp>('http://localhost:3000/book')
+  }
   
 }

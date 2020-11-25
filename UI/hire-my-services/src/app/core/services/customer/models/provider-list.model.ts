@@ -15,6 +15,9 @@ export interface ProviderDetails {
     time: string;
     rating: number;
     image:string;
+    reviews: {
+        comment:string;
+    }[];
 }
 
 export interface ProviderDetailsResponse {
@@ -22,5 +25,24 @@ export interface ProviderDetailsResponse {
     data: {
         providers: ProviderDetails[];
     }
+}
+
+export interface BookAppointmentReq {
+    customerEmail: string;
+	providerEmail: string;
+	date: string;
+	time: string;
+	serviceType: string;
+}
+
+export interface BookAppointmentResp {
+    success: boolean;
+    data? :{
+        message: string;
+    };
+    error?: {
+        message: string;
+    };
+
 }
     

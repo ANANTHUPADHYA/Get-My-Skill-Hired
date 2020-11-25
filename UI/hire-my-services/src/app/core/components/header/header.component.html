@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
-        <a routerLink="/products" class="remove-underline"> <img src="assets/images/headerIcon.png" class="header-icon"><span class="header-font">Hire-Services</span></a>
+        <a (click)="goToHome()" class="remove-underline" style="cursor: pointer;"> <img src="assets/images/headerIcon.png" class="header-icon"><span class="header-font">Hire-Services</span></a>
         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" *ngIf="showLogIn" class="menu">
         <mat-icon>more_vert</mat-icon>
       </button>

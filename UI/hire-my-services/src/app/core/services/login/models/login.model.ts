@@ -29,7 +29,6 @@ export  interface LoginResponse {
   }
   
   export interface UserParams {
-      email: string;
       firstname: string;
       lastname: string;
       address: string;
@@ -49,6 +48,7 @@ export  interface LoginResponse {
     success: boolean;
     data?: {
       message: string;
+      accessToken: string;
     };
     
   }

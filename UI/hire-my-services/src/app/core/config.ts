@@ -13,3 +13,7 @@ export const servicesList = [{ name:"Driver", image: "assets/images/driver.png"}
 { name:"Pest Control", image: "assets/images/pestcontrol.png"},
 { name:"Decorators", image: "assets/images/decorators.jpg"}
 ];
+
+export const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+export const timings = ["9:00 AM", "10:00 AM", "11:00 AM","12:00 PM","1:00 PM","2:00 PM","3:00 PM","4:00 PM","5:00 PM","6:00 PM"];

@@ -12,7 +12,12 @@ public services = servicesList;
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    const sessionID = sessionStorage.getItem('sessionID');
+    if(!sessionID) {
+      this.router.navigate(['login']);
+    }
   }
+
 
   goToProviderList(service: string) {
     this.router.navigate(['customer/provider', service])

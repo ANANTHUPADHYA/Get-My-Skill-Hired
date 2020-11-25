@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+
 @import 'assets/scss/_fonts.scss';
 // primary font
 $primary_font: 'Ubuntu';
@@ -15,30 +16,36 @@ $font-sm: 14px;
 $primary-fs: 16px;
 $font-md: 18px;
 $font-lg: 20px;
-
 .remove-underline {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .cursor-pointer {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 body {
-  font-family: $primary_font !important;
+    font-family: $primary_font !important;
     font-size: $primary-fs;
     font-weight: $regular;
     margin: 0;
     background-color: #303030;
 }
+
 .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
-  color: #d287f3 !important;
+    color: #d287f3 !important;
 }
 
-.fontFamily{
-  font-family: 'Ubuntu';
+.fontFamily {
+    font-family: 'Ubuntu' !important;
 }
-.width100{
-width: 100%;
+
+.width100 {
+    width: 100%;
 }
-html, body { height: 100%; }
+
+html,
+body {
+    height: 100%;
+    font-family: 'Ubuntu' !important;
+}

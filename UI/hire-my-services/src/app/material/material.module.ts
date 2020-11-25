@@ -18,7 +18,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatListModule} from '@angular/material/list';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 @NgModule({
 
   imports: [
@@ -43,7 +46,11 @@ import {MatListModule} from '@angular/material/list';
     MatTableModule,
     MatSortModule,
     MatMenuModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 

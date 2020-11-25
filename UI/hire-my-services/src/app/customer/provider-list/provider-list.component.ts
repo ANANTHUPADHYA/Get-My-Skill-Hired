@@ -4,6 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { servicesList } from 'src/app/core/config';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { BookAppointmentComponent } from '../book-appointment/book-appointment.component';
 
 @Component({
   selector: 'app-provider-list',
@@ -23,7 +25,8 @@ export class ProviderListComponent implements OnInit {
   constructor(
     private providerListService: ProviderListService,
     private snackBar: MatSnackBar,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public dialog: MatDialog
   ) {}
   ngOnInit() {
     this.listOfProviders = [];
@@ -123,4 +126,16 @@ numberOfFullStars(rating): number {
  emptyStars(rating): any[] {
     return Array(this.numberOfEmptyStars(rating));
   }
+
+  openAppointmentBookingComp(providerDetails: any) {
+    this.dialog.open(BookAppointmentComponent, {
+      data: {
+        provider: providerDetails,
+        serviceType: this.serviceType,
+      },
+      height: '700px',
+      width: '550px'
+    });
+  }
+
 }

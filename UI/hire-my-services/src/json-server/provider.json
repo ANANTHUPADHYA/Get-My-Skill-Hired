@@ -18,7 +18,17 @@
                     }],
                     "days": ["Monday", "Tuesday"],
                     "time": "9:00 AM-5:00 PM",
-                    "rating": 5
+                    "rating": 5,
+                    "reviews": [{
+                            "comment": "A good one"
+                        },
+                        {
+                            "comment": "A bad one"
+                        },
+                        {
+                            "comment": "A terrible one"
+                        }
+                    ]
                 },
                 {
                     "email": "abc.def@gmail.com",
@@ -33,8 +43,18 @@
                         "price": 600
                     }],
                     "days": ["Monday", "Tuesday", "Wednesday"],
-                    "Time": "10:00 AM-4:00 PM",
-                    "rating": 3
+                    "time": "10:00 AM-4:00 PM",
+                    "rating": 3,
+                    "reviews": [{
+                            "comment": "A good one"
+                        },
+                        {
+                            "comment": "A bad one"
+                        },
+                        {
+                            "comment": "A terrible one"
+                        }
+                    ]
                 },
                 {
                     "email": "abc.def@gmail.com",
@@ -49,8 +69,18 @@
                         "price": 900
                     }],
                     "days": ["Monday", "Tuesday", "Friday"],
-                    "Time": "9:00 AM-5:00 PM",
-                    "rating": 2
+                    "time": "9:00 AM-5:00 PM",
+                    "rating": 2,
+                    "reviews": [{
+                            "comment": "A good one"
+                        },
+                        {
+                            "comment": "A bad one"
+                        },
+                        {
+                            "comment": "A terrible one"
+                        }
+                    ]
                 },
                 {
                     "email": "abc.def@gmail.com",
@@ -65,11 +95,56 @@
                         "price": 200
                     }],
                     "days": ["Monday", "Saturday"],
-                    "Time": "9:00 AM-5:00 PM",
-                    "rating": 4
+                    "time": "9:00 AM-5:00 PM",
+                    "rating": 4,
+                    "reviews": [{
+                            "comment": "A good one"
+                        },
+                        {
+                            "comment": "A bad one"
+                        },
+                        {
+                            "comment": "A terrible one"
+                        }
+                    ]
                 }
 
+
             ]
+        }
+    },
+    "login": {
+        "status": 200,
+        "success": true,
+        "data": {
+            "idToken": "id_token",
+            "accessToken": "access_token",
+            "refreshToken": "refresh_token",
+            "profile": {
+                "usertype": "consumer",
+                "uid": "29571933-8a4b-49b7-81a9-31173cdcb8a3",
+                "username": "user",
+                "email": "abc@gmail.com",
+                "firstname": "abc",
+                "lastname": "xyz",
+                "phone": "+11234567890",
+                "address": "adfesfs",
+                "city": "Delhi",
+                "days": ["Monday", "Friday"],
+                "time": "[9:00AM-5:00PM]",
+                "skillset": [{
+                    "name": "Carpenter",
+                    "price": 500
+                }]
+            }
+        }
+    },
+
+    "register": {
+        "status": 200,
+        "success": true,
+        "data": {
+            "message": "Registered Successfully!"
         }
     }
 }

@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit, OnDestroy {
        sessionStorage.setItem('email', this.loginForm.value.email);
        sessionStorage.setItem('sessionID', response.data.idToken);
        sessionStorage.setItem('usertype', response.data.profile.usertype);
+       sessionStorage.setItem('profile', JSON.stringify(response.data.profile))
        this.sharedService.userLoggedIn.next(true);
        if(response.data.profile.usertype === 'consumer') {
         this.router.navigate(['/customer']);

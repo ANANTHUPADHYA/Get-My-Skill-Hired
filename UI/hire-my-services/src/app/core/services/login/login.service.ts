@@ -23,11 +23,15 @@ export class LoginService {
   }
 
 
-  registerUser(userDetails: UserParams, password:string):  Observable<RegisterResponse> {
+  registerUser(userDetails: UserParams, password:string, email:string):  Observable<RegisterResponse> {
     const httpHeaders: HttpHeaders = new HttpHeaders({
-      Authorization: `Basic ${window.btoa(userDetails.email + ':' + password)}`
+      Authorization: `Basic ${window.btoa(email + ':' + password)}`
   });
     // return this.http.post<RegisterResponse>(`${this.baseUrl}${urlConstants.REGISTER}`, userDetails, {headers: httpHeaders}); 
     return this.http.get<RegisterResponse>('http://localhost:3000/register');
+  }
+
+  logout():Observable<any> {
+    return this.http.get(`${this.baseUrl}${urlConstants.REGISTER}`);
   }
 }

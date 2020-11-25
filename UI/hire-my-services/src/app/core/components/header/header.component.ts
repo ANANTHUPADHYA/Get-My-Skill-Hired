@@ -15,13 +15,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public cartItems: number;
   public userEmail: string;
   public showLogIn: boolean = false;
+  public usertype: string;
   constructor(
     private router: Router,
     private snackBar: MatSnackBar,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private loginService: LoginService
   ) {}
 
   ngOnInit() {
+
+    this.usertype = sessionStorage.getItem('usertype');
     if (sessionStorage.getItem('sessionID')) {
       this.showLogIn = true;
     } else {
@@ -64,9 +68,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   } */
 
   logout() {
-          sessionStorage.clear();
+          this.loginService.logout().subscribe(data => {
+            sessionStorage.clear();
           this.router.navigate(['login']);
           this.showLogIn = false;
+          });
   }
 
 
@@ -78,5 +84,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
+  }
+
+  goToHome() {
+    if(this.usertype === 'consumer') {
+      this.router.navigate(['customer']);
+    } else {
+      this.router.navigate(['provider']);
+    }
   }
 }

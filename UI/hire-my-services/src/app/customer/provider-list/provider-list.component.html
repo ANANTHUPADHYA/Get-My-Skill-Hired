@@ -59,7 +59,7 @@
                         <mat-icon *ngFor="let emptyStar of emptyStars(provider.rating)">star_border</mat-icon>
                     </div>
                     <div fxFlex="50%" fxLayoutAlign="flex-end">
-                        <button mat-raised-button color="primary" class="cursor-pointer" (click)="bookAppointment()">Book</button>
+                        <button mat-raised-button color="primary" class="cursor-pointer" (click)="openAppointmentBookingComp(provider)">Book</button>
                     </div>
                 </div>
             </mat-card-actions>
