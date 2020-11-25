@@ -1,3 +1,4 @@
+from botocore.exceptions import ClientError
 from flask import Flask, request    # import flask
 import boto3, os
 import uuid
@@ -25,54 +26,54 @@ if not db_aws_region:
 def hello():                               # call method hello
     return "Hello World!"                  # which returns "hello world"
 
-@app.route("/register/serviceProvider", methods = ['POST'])
-def registerServiceProvider():
-    dynamodb = boto3.resource('dynamodb', region_name=db_aws_region)
-
-    providerID = uuid.uuid1()
-    providerEmail = request.json.get('providerEmail')
-    firstName = request.json.get('firstName')
-    lastName = request.json.get('lastName')
-    phoneNumber = request.json.get('phoneNumber')
-    address = request.json.get('address')
-    area = request.json.get('area')
-    city = request.json.get('city')
-    password = generate_password_hash(request.json.get('password'))
-    skillsSet = request.json.get('skillsSet')
-    daysAvailable  = request.json.get('daysAvailable')
-    workingHours = request.json.get('workingHours')
-    userType = request.json.get('userType')
-
-    table = dynamodb.Table('Services')
-    response = table.put_item(
-        Item={
-            'providerID': providerID,
-            'providerEmail': providerEmail,
-            'firstName': firstName,
-            'lastName': lastName,
-            'phoneNumber': phoneNumber,
-            'address': address,
-            'area': area,
-            'city': city,
-            'password': password,
-            'skillsSet': skillsSet,
-            'daysAvailable': daysAvailable,
-            'workingHours': workingHours,
-            'userType': userType,
-        }
-    )
-    if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
-        data = {
-            "success": "true",
-            "Message": "Successfully registered.Please login to proceed."
-        }
-        return data
-    else:
-        errData = {
-            "success": "false",
-            "Message": "Unable to register"
-        }
-        return errData
+# @app.route("/register/serviceProvider", methods = ['POST'])
+# def registerServiceProvider():
+#     dynamodb = boto3.resource('dynamodb', region_name=db_aws_region)
+#
+#     providerID = uuid.uuid1()
+#     providerEmail = request.json.get('providerEmail')
+#     firstName = request.json.get('firstName')
+#     lastName = request.json.get('lastName')
+#     phoneNumber = request.json.get('phoneNumber')
+#     address = request.json.get('address')
+#     area = request.json.get('area')
+#     city = request.json.get('city')
+#     password = generate_password_hash(request.json.get('password'))
+#     skillsSet = request.json.get('skillsSet')
+#     daysAvailable  = request.json.get('daysAvailable')
+#     workingHours = request.json.get('workingHours')
+#     userType = request.json.get('userType')
+#
+#     table = dynamodb.Table('Ser')
+#     response = table.put_item(
+#         Item={
+#             'providerID': providerID,
+#             'providerEmail': providerEmail,
+#             'firstName': firstName,
+#             'lastName': lastName,
+#             'phoneNumber': phoneNumber,
+#             'address': address,
+#             'area': area,
+#             'city': city,
+#             'password': password,
+#             'skillsSet': skillsSet,
+#             'daysAvailable': daysAvailable,
+#             'workingHours': workingHours,
+#             'userType': userType,
+#         }
+#     )
+#     if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
+#         data = {
+#             "success": "true",
+#             "Message": "Successfully registered.Please login to proceed."
+#         }
+#         return data
+#     else:
+#         errData = {
+#             "success": "false",
+#             "Message": "Unable to register"
+#         }
+#         return errData
 
 @app.route("/user/<userID>/appointments", methods = ['POST'])
 def bookappointment(userID):
@@ -124,18 +125,36 @@ def bookappointment(userID):
 
 @app.route("/user/<userID>/appointments/<appointmentID>", methods=['PATCH'])
 def updateAppointmentStatus(userID, appointmentID):
+    index = int
     dynamodb = boto3.resource('dynamodb', region_name=db_aws_region)
 
     status = request.json.get('appointmentStatus')
 
     table = dynamodb.Table('Users')
+    #Get the index of the appointment
+    try:
+        response = table.get_item(Key={'uuid': userID})
+    except ClientError as e:
+        print(e.response['Error']['Message'])
+    else:
+        result = response['Item']
+
+    for idx, appointment in enumerate(result.appointments):
+        if appointment.appointmentID == appointmentID:
+            index = idx
+            break
+
     response = table.update_item(
         Key={
             'uuid': userID,
         },
-        UpdateExpression="set appointmentStatus=:as",
+        UpdateExpression="set #app[index].#st = :stVal",
+        ExpressionAttributeNames={
+            '#app': 'appointments',
+            '#st': 'status'
+        },
         ExpressionAttributeValues={
-            ':as': status,
+            ':stVal': status,
         },
         ReturnValues="UPDATED_NEW"
     )
@@ -153,21 +172,38 @@ def updateAppointmentStatus(userID, appointmentID):
         return errData
 
 @app.route("/user/<userID>/appointments/<appointmentID>/ratingAndReview", methods = ['PATCH'])
-def updateReviewAndRating(appointmentID):
+def updateReviewAndRating(userID, appointmentID):
    dynamodb = boto3.resource('dynamodb', region_name=db_aws_region)
 
    rating = request.json.get('rating')
    review = request.json.get('review')
 
    table = dynamodb.Table('Users')
+   # Get the index of the appointment
+   try:
+       response = table.get_item(Key={'uuid': userID})
+   except ClientError as e:
+       print(e.response['Error']['Message'])
+   else:
+       result = response['Item']
+
+   for idx, appointment in enumerate(result.appointments):
+       if appointment.appointmentID == appointmentID:
+           break
+
    response = table.update_item(
        Key={
-           'appointmentID': appointmentID,
+           'uuid': userID,
        },
-        UpdateExpression="set rating=:ra, review=:re",
+        UpdateExpression="set #app[idx].#rt = :rtVal, #app[index].#rv = :rvVal",
+        ExpressionAttributeNames={
+            '#app': 'appointments',
+            '#rt': 'rating',
+            '#rv': 'review'
+        },
         ExpressionAttributeValues={
-            ':ra': rating,
-            ':re': review,
+            ':rtVal': rating,
+            ':rvVal': review
         },
         ReturnValues="UPDATED_NEW"
     )
