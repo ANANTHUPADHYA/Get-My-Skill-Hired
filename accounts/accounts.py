@@ -114,6 +114,7 @@ def sign_up():
             resp, err = ValidateRegistrationData(body)
             if err:
                 res = GetResponseObject(err, 400)
+                log.error(res)
                 return res
 
             try:
