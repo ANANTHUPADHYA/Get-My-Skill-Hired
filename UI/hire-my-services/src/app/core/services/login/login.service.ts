@@ -27,8 +27,8 @@ export class LoginService {
     const httpHeaders: HttpHeaders = new HttpHeaders({
       Authorization: `Basic ${window.btoa(email + ':' + password)}`
   });
-    // return this.http.post<RegisterResponse>(`${this.baseUrl}${urlConstants.REGISTER}`, userDetails, {headers: httpHeaders}); 
-    return this.http.get<RegisterResponse>('http://localhost:3000/register');
+    return this.http.post<RegisterResponse>(`${this.baseUrl}${urlConstants.REGISTER}`, userDetails, {headers: httpHeaders}); 
+    // return this.http.get<RegisterResponse>('http://localhost:3000/register');
   }
 
   logout():Observable<any> {
