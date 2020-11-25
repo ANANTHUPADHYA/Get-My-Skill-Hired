@@ -27,7 +27,7 @@ log.propagate = True
 
 AWS_ACCESS_KEY_ID = settings.AWS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY = settings.AWS_SECRET_ACCESS_KEY
-AWS_REGION = settings.AWS_REGION 
+AWS_REGION = settings.AWS_REGION
 COGNITO_USER_POOL_ID = settings.COGNITO_USER_POOL_ID
 COGNITO_APP_CLIENT_ID = settings.COGNITO_APP_CLIENT_ID
 S3_URL = settings.S3_URL
@@ -35,9 +35,9 @@ S3_BUCKET = settings.S3_BUCKET
 
 # creating aws cognito identity provider client
 client = boto3.client("cognito-idp", \
-    aws_access_key_id=AWS_ACCESS_KEY_ID, \
-    aws_secret_access_key=AWS_SECRET_ACCESS_KEY, \
-    region_name=AWS_REGION)
+                      aws_access_key_id=AWS_ACCESS_KEY_ID, \
+                      aws_secret_access_key=AWS_SECRET_ACCESS_KEY, \
+                      region_name=AWS_REGION)
 
 # session = boto3.session.Session()
 # s3_client = session.client('s3',
@@ -47,8 +47,8 @@ client = boto3.client("cognito-idp", \
 #                         aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
 s3_client = boto3.client("s3",
-   aws_access_key_id=AWS_ACCESS_KEY_ID,
-   aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+                         aws_access_key_id=AWS_ACCESS_KEY_ID,
+                         aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
 
 def sign_in():
@@ -58,21 +58,21 @@ def sign_in():
             log.error(err)
             res = GetResponseObject(err, 400)
             return res
-        
+
         username, password = resp[0], resp[1]
-        
+
         try:
             user = Cognito(user_pool_id=COGNITO_USER_POOL_ID, \
-                client_id=COGNITO_APP_CLIENT_ID, \
-                user_pool_region=AWS_REGION, \
-                username=username)
-            
+                           client_id=COGNITO_APP_CLIENT_ID, \
+                           user_pool_region=AWS_REGION, \
+                           username=username)
+
             user.admin_authenticate(password=password)
             user_rec = user.get_user()
-            
+
             uid = user_rec.sub
             usertype = user_rec._data['custom:usertype']
-            
+
             userObj = Users.get(uid)
             # userObj = Users.get(uid, usertype)
 
@@ -91,7 +91,7 @@ def sign_in():
 
         except Exception as e:
             msg = f"Error while authenticating user {str(e)}"
-            return  GetResponseObject(msg)
+            return GetResponseObject(msg)
             # return HttpResponseServerError(res)
     else:
         data = f"Invalid request method, method {request.method} not supported !!!"
@@ -106,7 +106,7 @@ def sign_up():
             res = GetResponseObject(err, 401)
             log.error(res)
             return res
-        
+
         username, password = resp[0], resp[1]
 
         if request.data:
@@ -120,7 +120,8 @@ def sign_up():
                 body["username"] = username
 
                 # Save user record in Cognito
-                user = Cognito(user_pool_id=COGNITO_USER_POOL_ID, client_id=COGNITO_APP_CLIENT_ID, user_pool_region=AWS_REGION)
+                user = Cognito(user_pool_id=COGNITO_USER_POOL_ID, client_id=COGNITO_APP_CLIENT_ID,
+                               user_pool_region=AWS_REGION)
                 user.add_base_attributes(
                     email=body["email"],
                     given_name=body["firstName"],
@@ -128,7 +129,7 @@ def sign_up():
                     phone_number=body["phone"],
                     address=body["address"]
                 )
-                
+
                 user.add_custom_attributes(
                     usertype=body["userType"],
                     area=body["area"],
@@ -149,7 +150,7 @@ def sign_up():
                 data = "User registered successfully !!!"
                 res = GetResponseObject(data, 200, True)
                 return res
-                
+
             except ClientError as e:
                 if e.response['Error']['Code'] == 'UsernameExistsException':
                     data = f"{username} username already exists !!!"
@@ -161,7 +162,7 @@ def sign_up():
                 user = Cognito( \
                     user_pool_id=COGNITO_USER_POOL_ID, \
                     client_id=COGNITO_APP_CLIENT_ID, \
-                    user_pool_region=AWS_REGION, 
+                    user_pool_region=AWS_REGION,
                     username=username)
 
                 user.authenticate(password=password)
@@ -185,11 +186,57 @@ def sign_up():
 
 
 @verify_token
+def providerCategoryServices():
+    user = 'provider'
+    providerSkillset = request.args.get('skillSet')
+
+    if user:
+        dynamodb = resource('dynamodb', region_name=db_aws_region)
+        table = dynamodb.Table("Users")
+
+        scan_kwargs = {
+            'FilterExpression': Key('userType').eq(user)}
+
+        response = table.scan(**scan_kwargs)
+        items = response['Items']
+        res = []
+        if len(items) > 0:
+
+            for i, item in enumerate(items):
+                skill = item['skillSet']
+                print(skill)
+                for s in skill:
+                    print(s['name'])
+                    if (s['name']) == providerSkillset:
+                        print("true")
+                        res.append({
+
+                            'address': item['address'],
+                            'area': item['area'],
+                            'city': item['city'],
+                            'days': item['days'],
+                            'email': item['email'],
+                            'firstname': item['firstName'],
+                            'lastname': item['lastName'],
+                            'phone': item['phone'],
+                            'price': s['price'],
+                            'time': item['time'],
+                            'uuid': item['uuid'],
+                            'rating': item['finalRating'],
+                            'image': item['image']
+                        }
+                        )
+            print(res)
+
+        return jsonify(res)
+
+
+@verify_token
 def sign_out():
     if request and request.method == "GET":
         try:
             auth = request.headers.get('AUTHORIZATION', b'').split()
-            response = client.global_sign_out(AccessToken=auth[1])   
+            response = client.global_sign_out(AccessToken=auth[1])
             data = "User signed out successfully !!!"
             res = GetResponseObject(data, 200, True)
             return res
@@ -248,7 +295,7 @@ def update_profile(usertype):
             auth = request.headers.get('AUTHORIZATION', b'').split()
             j = JWTTokenUtil(auth[1])
             uid = j.get_user_id()
-            
+
             body = None
             if request.data:
                 body = json.loads(request.data)
@@ -263,8 +310,8 @@ def update_profile(usertype):
                 return res
 
             user = Cognito(
-                user_pool_id=COGNITO_USER_POOL_ID, 
-                client_id=COGNITO_APP_CLIENT_ID, 
+                user_pool_id=COGNITO_USER_POOL_ID,
+                client_id=COGNITO_APP_CLIENT_ID,
                 user_pool_region=AWS_REGION
             )
 
@@ -280,7 +327,7 @@ def update_profile(usertype):
             data = f"Error while updating user profile: {str(e)}"
             log.error(data)
             res = GetResponseObject(data)
-            return res            
+            return res
 
     else:
         data = f"Invalid request method, method {request.method} not supported !!!"
@@ -311,10 +358,12 @@ def upload_profile_image(usertype):
                 j = JWTTokenUtil(auth[1])
                 uid = j.get_user_id()
 
-                resp, err = UpdateItem(uid, usertype, {"image": "https://" + settings.CLOUD_FRONT_URL + "/" + file.filename}, update=True)
+                resp, err = UpdateItem(uid, usertype,
+                                       {"image": "https://" + settings.CLOUD_FRONT_URL + "/" + file.filename},
+                                       update=True)
                 if err:
                     raise Exception(err)
-                
+
                 msg = f"User profile image uploaded to s3 and url saved in DB, response: {resp}"
                 log.info(msg)
                 res = GetResponseObject("User profile image updated !!!", 200, True)
@@ -324,12 +373,12 @@ def upload_profile_image(usertype):
                 msg = f"Error while uploading user profile image : {str(e)}"
                 log.error(msg)
                 res = GetResponseObject(msg)
-                return res            
+                return res
         else:
             msg = f"No image found"
             log.error(msg)
             res = GetResponseObject(msg)
-            return res            
+            return res
 
     else:
         data = f"Invalid request method, method {request.method} not supported !!!"
