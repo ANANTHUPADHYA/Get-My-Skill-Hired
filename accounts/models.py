@@ -22,10 +22,22 @@ log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
 log.propagate = True
 
-
 class SkillSet(MapAttribute):
     name = UnicodeAttribute(null=True)
     price = NumberAttribute(default=0, null=True)
+
+
+class Availability(MapAttribute):
+    day = UnicodeAttribute()
+    time = ListAttribute(default=list)
+
+class Address(MapAttribute):
+    street1 = UnicodeAttribute()
+    street2 = UnicodeAttribute()
+    city = UnicodeAttribute()
+    state = UnicodeAttribute()
+    country = UnicodeAttribute()
+    zipcode = UnicodeAttribute()
 
 
 class NameIndex(GlobalSecondaryIndex):
@@ -41,7 +53,7 @@ class UserProfile(MapAttribute):
     firstName = UnicodeAttribute()
     lastName = UnicodeAttribute()
 
-    skillset = ListAttribute(of=SkillSet)
+    skillSet = ListAttribute(of=SkillSet)
     address = ListAttribute(of=Address)
     availability = ListAttribute(of=Availability)
 
@@ -77,12 +89,23 @@ class Users(Model):
 
     nameIndex = NameIndex()
 
+    # profile = UserProfile()
+    # active = BinaryAttribute()
+    # date_created = UTCDateTimeAttribute(null=True)
+    # date_updated = UTCDateTimeAttribute(null=True)
+    # date_accessed = UTCDateTimeAttribute(null=True)
+    # tags = UnicodeSetAttribute()
+    # notes = ListAttribute(default=list)
+
     def save(self, **kwargs):
         return super(Users, self).save(**kwargs)
 
 
 def InitUserTable():
     try:
+        # print(User.describe_table())
+        # User.delete_table()
+
         if not Users.exists():
             # Users.delete_table()
             log.info("Creating Users table .....")
@@ -108,7 +131,7 @@ def SaveInDB(body, update=False):
             days=body["days"],
             time=body["time"],
             skillSet=body["skillSet"],
-            image=body["image"],
+            image="None",
             finalRating="0"
         )
     else:
@@ -153,10 +176,16 @@ def UpdateItem(uid, userType, body=None, update=False, delete=False):
             return r, None
             # return conn.put_item(hash_key=uid, range_key=userType, attributes={"firstName": body["firstName"]}), None
     except Exception as e:
+        print("Err", str(e))
         return None, str(e)
 
 
 def SerializeUserObj(user):
+    attributes = ["userType", "uuid", "username", \
+                "email", "firstName", "lastName", \
+                "phone", "address", "city", \
+                "days", "time", "skillSet"
+    ]
 
     if user.userType == "provider":
         out = {
@@ -187,7 +216,7 @@ def SerializeUserObj(user):
             "phone": user.phone,
             "address": user.address,
             "city": user.city,
-            # "time": user.time,
+            #"time": user.time,
             "appointments": user.appointments
         }        
 
