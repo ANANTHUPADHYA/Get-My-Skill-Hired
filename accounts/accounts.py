@@ -94,8 +94,8 @@ def sign_in():
         return GetResponseObject(data, 405)
         # return HttpResponseBadRequest(res)
 
-
-@cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
+@cross_origin(origin='*')
+#@cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
 def sign_up():
     if request and request.method == "POST":
         resp, err = GetUserPasswordFromAuthHeader(request)
