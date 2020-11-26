@@ -10,6 +10,10 @@ S3_BUCKET = os.getenv("S3_BUCKET", None)
 S3_URL = os.getenv("S3_BUCKET", None)
 CLOUD_FRONT_URL = os.getenv("CLOUD_FRONT_URL", None)
 
+HOST_NAME = os.getenv("HOST_NAME", "localhost")
+HOST_PORT = os.getenv("HOST_PORT", "8000")
+HOST_PROTOCOL = os.getenv("HOST_PROTOCOL", "http")
+
 TABLE_NAME = "Users"
 VALID_USER_TYPES = ["consumer", "provider"]
 VALID_SKILL_TYPES = ["driver", "electrician", "plumber", \
