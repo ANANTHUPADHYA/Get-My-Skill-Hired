@@ -108,6 +108,7 @@ def sign_up():
             resp, err = ValidateRegistrationData(body)
             if err:
                 res = GetResponseObject(err, 400)
+                log.error(res)
                 return res
 
             try:
@@ -275,6 +276,7 @@ def update_profile(usertype):
                 raise Exception(err)
 
             data = "User profile updated successfully !!!"
+
             res = GetResponseObject(data, 200, True)
             return res
 
