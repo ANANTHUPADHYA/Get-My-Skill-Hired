@@ -90,15 +90,14 @@ def updateAppointmentStatus(userID, appointmentID):
         result = response['Item']
 
     for idx, appointment in enumerate(result["appointments"]):
-        print(appointment)
         if appointment["appointmentID"] == appointmentID:
             break
-    print(idx)
+    updateExp = "set #app[{}].#st = :stVal".format(idx)
     response = table.update_item(
         Key={
             'uuid': userID,
         },
-        UpdateExpression="set #app[:${idx}].#st = :stVal",
+        UpdateExpression=updateExp,
         ExpressionAttributeNames={
             '#app': 'appointments',
             '#st': 'status'
@@ -137,15 +136,15 @@ def updateReviewAndRating(userID, appointmentID):
    else:
        result = response['Item']
 
-   for idx, appointment in enumerate(result.appointments):
+   for idx, appointment in enumerate(result["appointments"]):
        if appointment.appointmentID == appointmentID:
-           break
-
+        break
+   updateExp = "set #app[{}].#rt = :rtVal, #app[{}].#rv = : rvVal".format(idx, idx)
    response = table.update_item(
        Key={
            'uuid': userID,
        },
-        UpdateExpression="set #app[idx].#rt = :rtVal, #app[idx].#rv = :rvVal",
+        UpdateExpression=updateExp,
         ExpressionAttributeNames={
             '#app': 'appointments',
             '#rt': 'rating',
