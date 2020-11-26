@@ -59,6 +59,9 @@ export interface Appointment {
 }
 
 export interface AppointmentList {
-    success: boolean
+    success: boolean;
+    data: {
+        appointments: Appointment[];
+    }
 }
     

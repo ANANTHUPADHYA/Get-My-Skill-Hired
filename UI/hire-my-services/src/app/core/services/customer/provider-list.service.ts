@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+
 import { ProviderDetailsResponse } from './index';
 import { Observable } from 'rxjs';
 import { urlConstants } from '../../rest-api-configuration';
-import { BookAppointmentReq, BookAppointmentResp } from './models';
+import { AppointmentList, BookAppointmentReq, BookAppointmentResp } from './models';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +25,9 @@ export class ProviderListService {
      return this.http.get<BookAppointmentResp>('http://localhost:3000/book')
   }
 
- /*  getListOfAppointments(uuid: string):Observable<AppointmentList> {
-
-  } */
+  getListOfAppointments(uuid: string):Observable<AppointmentList> {
+    return this.http.get<AppointmentList>('http://localhost:3000/appointments');
+    // return this.http.get<AppointmentList>(`${this.baseUrl}${urlConstants.GET_APPOINTMENTS}/${uuid}`);
+  }
   
 }

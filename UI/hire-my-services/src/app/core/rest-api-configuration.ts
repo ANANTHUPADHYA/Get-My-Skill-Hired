@@ -8,5 +8,6 @@ export const urlConstants = {
     GET_PROVIDERS: '/provider',
     LOGOUT: '/account/signout',
     IMAGE_UPLOAD: '/account/profile/provider/upload',
-    BOOK_APPNT: '/'
+    BOOK_APPNT: '/',
+    GET_APPOINTMENTS: '/'
 }

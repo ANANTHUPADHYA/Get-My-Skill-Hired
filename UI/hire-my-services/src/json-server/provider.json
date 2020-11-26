@@ -153,5 +153,50 @@
         "data": {
             "message": "Appointment Scheduled successfully!"
         }
+    },
+    "appointments": {
+        "success": true,
+        "data": {
+            "appointments": [{
+                    "appointmentID": "98372eknfkj92u9efqwf",
+                    "appointmentStatus": "cancelled",
+                    "customerEmail": "abc@def@gmail.com",
+                    "date": "Monday, June 15, 2015",
+                    "providerEmail": "dsghc@gmail.com",
+                    "rating": "4",
+                    "review": "Good job!",
+                    "serviceType": "Carpenter",
+                    "time": "9:00AM-5:00PM",
+                    "providerFirstName": "Rachel",
+                    "providerLastName": "Green"
+                },
+                {
+                    "appointmentID": "98372eknfdsfkj92u9efqwf",
+                    "appointmentStatus": "upcoming",
+                    "customerEmail": "abc@dff@gmail.com",
+                    "date": "Tuesday, June 18, 2015",
+                    "providerEmail": "rachel.green@gmail.com",
+                    "rating": "3",
+                    "review": "Good job!",
+                    "serviceType": "Elder care",
+                    "time": "10:00AM-5:00PM",
+                    "providerFirstName": "Phoebe",
+                    "providerLastName": "Green"
+                },
+                {
+                    "appointmentID": "9wew2eknfkj92u9efqwf",
+                    "appointmentStatus": "completed",
+                    "customerEmail": "abc@def@gmail.com",
+                    "date": "Monday, June 16, 2015",
+                    "providerEmail": "dsghc@gmail.com",
+                    "rating": "",
+                    "review": "",
+                    "serviceType": "Carpenter",
+                    "time": "9:00AM-5:00PM",
+                    "providerFirstName": "Ross",
+                    "providerLastName": "Green"
+                }
+            ]
+        }
     }
 }
