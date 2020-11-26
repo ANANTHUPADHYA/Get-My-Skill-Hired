@@ -127,7 +127,7 @@ def GetResponseObject(data, status=500, success=False):
 
     response = Response(json.dumps(data), status=status)
     response.mimetype = "application/json"
-    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Origin', '*')    
     return response
 
 

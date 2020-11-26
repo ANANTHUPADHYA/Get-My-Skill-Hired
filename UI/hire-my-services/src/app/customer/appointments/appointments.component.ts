@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./appointments.component.scss']
 })
 export class AppointmentsComponent implements OnInit {
-
+public appointments = [];
   constructor() { }
 
   ngOnInit(): void {
@@ -20,6 +20,10 @@ export class AppointmentsComponent implements OnInit {
     }  else if(status === 'cancelled') {
       return 'warn';
     }  
+  }
+
+  getListOfAppointments() {
+    
   }
 
 }

@@ -45,4 +45,20 @@ export interface BookAppointmentResp {
     };
 
 }
+
+export interface Appointment {
+    appointmentID: string;
+    appointmentStatus: string;
+    customerEmail: string;
+    date: string;
+    providerEmail: string;
+    rating: string;
+    review: string;
+    serviceType: string;
+    time: string;
+}
+
+export interface AppointmentList {
+    success: boolean
+}
     

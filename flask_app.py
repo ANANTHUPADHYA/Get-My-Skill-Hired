@@ -1,10 +1,18 @@
+
 from accounts import accounts as acc
+from accounts import settings
 from accounts.models import InitUserTable
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 
+
 app = Flask(__name__)
-#cors = CORS(app)
+app.config['SECRET_KEY'] = 'HireMyService@SJSUFALL2020@CMP281'
+app.config['CORS_HEADERS'] = 'Content-Type'
+
+host = settings.HOST_PROTOCOL +  "://" + settings.HOST_NAME + ":" + settings.HOST_PORT
+print(host)
+cors = CORS(app, resources={r"/account": {"origins": host}})
 
 #Initializing DB
 InitUserTable()

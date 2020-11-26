@@ -1,28 +1,33 @@
-<!-- <div>
-    <mat-card fxFlex="0 1 calc(33.3% - 92px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" class="card" *ngFor="let app of appointments;">
+<div class="listingTop">
+    <mat-card fxFlex="0 1 calc(75% - 32px)" fxFlex.lt-sm="100%" class="card" *ngFor="let app of appointments;">
         <mat-card-header>
             <mat-card-title>Appointment ID:&nbsp;&nbsp;{{app.appointmentID}}</mat-card-title>
             <mat-card-subtitle>
-                <mat-chip [color]=g etColor(app.appointmentStatus)>{{app.appointmentStatus}}</mat-chip>
+                <mat-chip [color]=getColor(app.appointmentStatus)>{{app.appointmentStatus}}</mat-chip>
             </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
             <div><strong>Service offered by:&nbsp;&nbsp;</strong>{{app.providerFirstName}} &nbsp;{{app.providerLastName}}</div>
+            <div><strong>Service Type:&nbsp;&nbsp;</strong>{{app.serviceType}}</div>
             <div><strong>Contact:&nbsp;&nbsp;</strong>{{app.providerEmail}}</div>
             <div><strong>Date:&nbsp; &nbsp;</strong>{{app.date}}</div>
             <div><strong>Time:&nbsp;&nbsp;</strong>{{app.time}}</div>
-            <div><strong>Charge per hour:&nbsp;&nbsp;</strong>{{provider.skillset[0].price}}</div>
         </mat-card-content>
         <mat-card-actions>
             <div fxLayout="row wrap" fxLayout.lt-sm="column">
-                <div fxFlex="50%">
-                    <mat-icon class="checked" *ngFor="let fullStar of fullStars(provider.rating)">star</mat-icon>
-                    <mat-icon *ngFor="let emptyStar of emptyStars(provider.rating)">star_border</mat-icon>
+                <div fxFlex="0 1 calc(33.3% - 92px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" class="cursor-pointer">
+                    <mat-icon class="checked">star</mat-icon>
+                    <button mat-raised-button color="primary">Review</button>
                 </div>
-                <div fxFlex="50%" fxLayoutAlign="flex-end">
-                    <button mat-raised-button color="primary" class="cursor-pointer" (click)="openAppointmentBookingComp(provider)">Book</button>
+
+                <div fxFlex="0 1 calc(33.3% - 92px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" *ngIf="app.appointmentStatus === 'upcoming'">
+                    <button mat-raised-button color="accent" class="cursor-pointer">Complete</button>
                 </div>
+                <div fxFlex="0 1 calc(33.3% - 92px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" fxLayoutAlign="flex-end" *ngIf="app.appointmentStatus === 'upcoming'">
+                    <button mat-raised-button color="warn" class="cursor-pointer">Cancel</button>
+                </div>
+
             </div>
         </mat-card-actions>
     </mat-card>
-</div> -->
+</div>
