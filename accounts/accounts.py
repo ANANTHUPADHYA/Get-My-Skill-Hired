@@ -45,8 +45,7 @@ s3_client = boto3.client("s3",
    aws_access_key_id=AWS_ACCESS_KEY_ID,
    aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
-
-@cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
+@cross_origin()
 def sign_in():
     if request and request.method == "GET":
         resp, err = GetUserPasswordFromAuthHeader(request)
@@ -94,8 +93,7 @@ def sign_in():
         return GetResponseObject(data, 405)
         # return HttpResponseBadRequest(res)
 
-@cross_origin(origin='*')
-#@cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
+@cross_origin()
 def sign_up():
     if request and request.method == "POST":
         resp, err = GetUserPasswordFromAuthHeader(request)
@@ -189,9 +187,8 @@ def sign_up():
         log.error(res)
         return res
 
-
+@cross_origin()
 @verify_token
-@cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
 def sign_out():
     if request and request.method == "GET":
         try:
@@ -210,9 +207,8 @@ def sign_out():
         res = GetResponseObject(data, 405)
         return res
 
-
+@cross_origin()
 @verify_token
-@cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
 def delete_user(usertype):
     if request and request.method == "DELETE":
         try:
@@ -247,9 +243,8 @@ def delete_user(usertype):
         res = GetResponseObject(data, 405)
         return res
 
-
+@cross_origin()
 @verify_token
-@cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
 def update_profile(usertype):
     if request and request.method == "PUT":
         try:
@@ -300,9 +295,8 @@ def update_profile(usertype):
         data = f"Invalid request method, method {request.method} not supported !!!"
         return GetResponseObject(data, 405)
 
-
+@cross_origin()
 def upload_image(request):
-
     if "profile_image" in request.files:
         file = request.files["profile_image"]
         try:
@@ -323,9 +317,8 @@ def upload_image(request):
         return None, "image key name 'profile_image' is not found in header"
 
     
-
+@cross_origin()
 @verify_token
-@cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
 def upload_profile_image(usertype):
     if request and request.method == "PUT":
 

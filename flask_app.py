@@ -7,12 +7,10 @@ from flask_cors import CORS, cross_origin
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'HireMyService@SJSUFALL2020@CMP281'
-app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 host = settings.HOST_PROTOCOL +  "://" + settings.HOST_NAME + ":" + settings.HOST_PORT
 print(host)
-cors = CORS(app, resources={r"/account": {"origins": host}})
 
 #Initializing DB
 InitUserTable()
