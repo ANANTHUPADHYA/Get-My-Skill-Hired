@@ -38,8 +38,6 @@ class NameIndex(GlobalSecondaryIndex):
     name = UnicodeAttribute(hash_key=True)
 
 
-
-
 class Users(Model):
     class Meta:
         read_capacity_units = 1
