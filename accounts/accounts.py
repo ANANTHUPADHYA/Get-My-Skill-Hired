@@ -20,6 +20,8 @@ from accounts.utils import (
 
 from accounts.models import UpdateItem
 
+from flask_cors import CORS, cross_origin
+
 logging.basicConfig()
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)

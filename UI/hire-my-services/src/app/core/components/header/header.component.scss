@@ -1,0 +1,23 @@
+$secondary_font: 'Great Vibes';
+.header-font {
+    font-family: $secondary_font !important;
+    font-size: 28px;
+    color: white;
+    margin-left: 4px;
+}
+
+.header-icon {
+    height: 33px;
+    position: relative;
+    top: 10px;
+    border-radius: 50%;
+}
+
+.menu {
+    position: absolute;
+    right: 2vh;
+}
+
+.font {
+    font-family: 'Ubuntu';
+}

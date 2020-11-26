@@ -1,0 +1,20 @@
+mat-card {
+    max-width: 400px;
+    margin: 2em auto;
+    text-align: center;
+    background-color: #272424;
+    color: white;
+    font-family: 'Ubuntu';
+}
+
+mat-form-field {
+    display: block;
+    color: white;
+    font-family: 'Ubuntu';
+}
+
+.register {
+    text-decoration: underline;
+    cursor: pointer;
+    color: white;
+}

@@ -17,7 +17,33 @@ VALID_SKILL_TYPES = ["driver", "electrician", "plumber", \
     "elder care", "cook", "nanny", "beautician", \
     "painter", "delivery boy", "gardener",  \
     "cleaner", "pest control", "decorators"]
+CORS_ORIGIN_ALLOW_ALL = True # If this is used then `CORS_ORIGIN_WHITELIST` will not have any effect
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:4200',
+] # If this is used, then not need to use `CORS_ORIGIN_ALLOW_ALL = True`
+CORS_ORIGIN_REGEX_WHITELIST = [
+    'http://localhost:4200',
+]
 
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'X-CSRFToken',
+    'x-csrftoken',
+    'X-XSRF-TOKEN',
+    'XSRF-TOKEN',
+    'csrfmiddlewaretoken',
+    'csrftoken',
+    'X-CSRF'
+]
 
 if AWS_ACCESS_KEY_ID is None:
     print("Please set AWS_ACCESS_KEY_ID !!!")
@@ -43,3 +69,4 @@ elif S3_URL is None:
 elif CLOUD_FRONT_URL is None:
     print("Please set CLOUD_FRONT_URL !!!")
     sys.exit(1)
+
