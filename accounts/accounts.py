@@ -251,6 +251,10 @@ def update_profile(usertype):
             auth = request.headers.get('AUTHORIZATION', b'').split()
             j = JWTTokenUtil(auth[1])
             uid = j.get_user_id()
+
+            userObj = Users.get(uid)
+            if userObj.userType != usertype:
+                raise Exception("Please provide correct usertype !!!")
             
             body = None
             if request.data:
