@@ -5,6 +5,7 @@ import json
 import logging
 import requests
 from flask import request
+from flask_cors import cross_origin
 from accounts import settings
 
 from warrant import Cognito
@@ -44,7 +45,7 @@ s3_client = boto3.client("s3",
    aws_access_key_id=AWS_ACCESS_KEY_ID,
    aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
-
+@cross_origin()
 def sign_in():
     if request and request.method == "GET":
         resp, err = GetUserPasswordFromAuthHeader(request)
@@ -92,7 +93,7 @@ def sign_in():
         return GetResponseObject(data, 405)
         # return HttpResponseBadRequest(res)
 
-
+@cross_origin()
 def sign_up():
     if request and request.method == "POST":
         resp, err = GetUserPasswordFromAuthHeader(request)
@@ -188,6 +189,7 @@ def sign_up():
 
 
 @verify_token
+@cross_origin()
 def sign_out():
     if request and request.method == "GET":
         try:
@@ -208,6 +210,7 @@ def sign_out():
 
 
 @verify_token
+@cross_origin()
 def delete_user(usertype):
     if request and request.method == "DELETE":
         try:
@@ -244,6 +247,7 @@ def delete_user(usertype):
 
 
 @verify_token
+@cross_origin()
 def update_profile(usertype):
     if request and request.method == "PUT":
         try:
@@ -319,6 +323,7 @@ def upload_image(request):
     
 
 @verify_token
+@cross_origin()
 def upload_profile_image(usertype):
     if request and request.method == "PUT":
 
