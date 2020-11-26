@@ -12,4 +12,14 @@ export class AppointmentsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getColor(status: string) {
+    if(status === 'completed') {
+      return 'primary';
+    } else if(status === 'upcoming') {
+      return 'accent';
+    }  else if(status === 'cancelled') {
+      return 'warn';
+    }  
+  }
+
 }

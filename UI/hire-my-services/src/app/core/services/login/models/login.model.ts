@@ -29,7 +29,6 @@ export  interface LoginResponse {
   }
   
   export interface UserParams {
-      email:string;
       firstName: string;
       lastName: string;
       address: string;
