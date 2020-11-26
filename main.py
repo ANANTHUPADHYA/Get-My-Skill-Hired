@@ -10,70 +10,21 @@ from boto3.dynamodb.conditions import Key
 
 app = Flask(__name__)                      # create an app instance
 
-aws_access_key_id = os.environ.get("DB_AWS_ACCESS_KEY_ID")
+aws_access_key_id = os.environ.get("AWS_ACCESS_KEY_ID")
 if not aws_access_key_id:
-    raise ValueError("DB_AWS_ACCESS_KEY_ID not set")
+    raise ValueError("AWS_ACCESS_KEY_ID not set")
 
-aws_secret_access_key = os.environ.get("DB_AWS_SECRET_ACCESS_KEY")
+aws_secret_access_key = os.environ.get("AWS_SECRET_ACCESS_KEY")
 if not aws_secret_access_key:
-    raise ValueError("DB_AWS_SECRET_ACCESS_KEY not set")
+    raise ValueError("AWS_SECRET_ACCESS_KEY not set")
 
-db_aws_region = os.environ.get("DB_AWS_REGION")
+db_aws_region = os.environ.get("AWS_REGION")
 if not db_aws_region:
-    raise ValueError("DB_AWS_REGION not set")
+    raise ValueError("AWS_REGION not set")
 
 @app.route("/")                            # at the end point /
 def hello():                               # call method hello
     return "Hello World!"                  # which returns "hello world"
-
-# @app.route("/register/serviceProvider", methods = ['POST'])
-# def registerServiceProvider():
-#     dynamodb = boto3.resource('dynamodb', region_name=db_aws_region)
-#
-#     providerID = uuid.uuid1()
-#     providerEmail = request.json.get('providerEmail')
-#     firstName = request.json.get('firstName')
-#     lastName = request.json.get('lastName')
-#     phoneNumber = request.json.get('phoneNumber')
-#     address = request.json.get('address')
-#     area = request.json.get('area')
-#     city = request.json.get('city')
-#     password = generate_password_hash(request.json.get('password'))
-#     skillsSet = request.json.get('skillsSet')
-#     daysAvailable  = request.json.get('daysAvailable')
-#     workingHours = request.json.get('workingHours')
-#     userType = request.json.get('userType')
-#
-#     table = dynamodb.Table('Ser')
-#     response = table.put_item(
-#         Item={
-#             'providerID': providerID,
-#             'providerEmail': providerEmail,
-#             'firstName': firstName,
-#             'lastName': lastName,
-#             'phoneNumber': phoneNumber,
-#             'address': address,
-#             'area': area,
-#             'city': city,
-#             'password': password,
-#             'skillsSet': skillsSet,
-#             'daysAvailable': daysAvailable,
-#             'workingHours': workingHours,
-#             'userType': userType,
-#         }
-#     )
-#     if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
-#         data = {
-#             "success": "true",
-#             "Message": "Successfully registered.Please login to proceed."
-#         }
-#         return data
-#     else:
-#         errData = {
-#             "success": "false",
-#             "Message": "Unable to register"
-#         }
-#         return errData
 
 @app.route("/user/<userID>/appointments", methods = ['POST'])
 def bookappointment(userID):
@@ -89,13 +40,13 @@ def bookappointment(userID):
     providerEmail = request.json.get('providerEmail')
     date = request.json.get('date')
     day = request.json.get('day')
-    rating = request.json.get('rating')
-    review = request.json.get('review')
-    status = request.json.get('status')
+    rating = None
+    review = None
+    status = "upcoming"
     time = request.json.get('time')
     serviceType = request.json.get('serviceType')
 
-    appointment = [{'appointmentID': appointmentID, 'email': email, 'city': city, 'customerAddress': customerAddress, 'customerEmail': customerEmail, 'customerNumber': customerNumber, 'customerUsername': customerUsername, 'providerEmail': providerEmail, 'date': date, 'day': day, 'rating': rating, 'review': review, 'status': status, 'time': time, 'serviceType': serviceType}]
+    appointment = {'appointmentID': str(appointmentID), 'email': email, 'city': city, 'customerAddress': customerAddress, 'customerEmail': customerEmail, 'customerNumber': customerNumber, 'customerUsername': customerUsername, 'providerEmail': providerEmail, 'date': date, 'day': day, 'rating': rating, 'review': review, 'status': status, 'time': time, 'serviceType': serviceType}
     table = dynamodb.Table('Users')
     response = table.update_item(
         Key={
@@ -125,7 +76,6 @@ def bookappointment(userID):
 
 @app.route("/user/<userID>/appointments/<appointmentID>", methods=['PATCH'])
 def updateAppointmentStatus(userID, appointmentID):
-    index = int
     dynamodb = boto3.resource('dynamodb', region_name=db_aws_region)
 
     status = request.json.get('appointmentStatus')
@@ -139,16 +89,16 @@ def updateAppointmentStatus(userID, appointmentID):
     else:
         result = response['Item']
 
-    for idx, appointment in enumerate(result.appointments):
-        if appointment.appointmentID == appointmentID:
-            index = idx
+    for idx, appointment in enumerate(result["appointments"]):
+        print(appointment)
+        if appointment["appointmentID"] == appointmentID:
             break
-
+    print(idx)
     response = table.update_item(
         Key={
             'uuid': userID,
         },
-        UpdateExpression="set #app[index].#st = :stVal",
+        UpdateExpression="set #app[:${idx}].#st = :stVal",
         ExpressionAttributeNames={
             '#app': 'appointments',
             '#st': 'status'
@@ -195,7 +145,7 @@ def updateReviewAndRating(userID, appointmentID):
        Key={
            'uuid': userID,
        },
-        UpdateExpression="set #app[idx].#rt = :rtVal, #app[index].#rv = :rvVal",
+        UpdateExpression="set #app[idx].#rt = :rtVal, #app[idx].#rv = :rvVal",
         ExpressionAttributeNames={
             '#app': 'appointments',
             '#rt': 'rating',
