@@ -50,7 +50,7 @@ s3_client = boto3.client("s3",
    aws_access_key_id=AWS_ACCESS_KEY_ID,
    aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
-
+@cross_origin()
 def sign_in():
     if request and request.method == "GET":
         resp, err = GetUserPasswordFromAuthHeader(request)
@@ -98,7 +98,7 @@ def sign_in():
         return GetResponseObject(data, 405)
         # return HttpResponseBadRequest(res)
 
-
+@cross_origin()
 def sign_up():
     if request and request.method == "POST":
         resp, err = GetUserPasswordFromAuthHeader(request)
@@ -184,7 +184,7 @@ def sign_up():
         log.error(res)
         return res
 
-
+@cross_origin()
 @verify_token
 def sign_out():
     if request and request.method == "GET":
@@ -204,7 +204,7 @@ def sign_out():
         res = GetResponseObject(data, 405)
         return res
 
-
+@cross_origin()
 @verify_token
 def delete_user(usertype):
     if request and request.method == "DELETE":
@@ -240,7 +240,7 @@ def delete_user(usertype):
         res = GetResponseObject(data, 405)
         return res
 
-
+@cross_origin()
 @verify_token
 def update_profile(usertype):
     if request and request.method == "PUT":
@@ -287,7 +287,7 @@ def update_profile(usertype):
         data = f"Invalid request method, method {request.method} not supported !!!"
         return GetResponseObject(data, 405)
 
-
+@cross_origin()
 @verify_token
 def upload_profile_image(usertype):
     if request and request.method == "PUT":
