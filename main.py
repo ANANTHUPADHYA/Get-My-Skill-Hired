@@ -78,7 +78,7 @@ def bookappointment(userID):
 def updateAppointmentStatus(userID, appointmentID):
     dynamodb = boto3.resource('dynamodb', region_name=db_aws_region)
 
-    status = request.json.get('appointmentStatus')
+    status = request.json.get('status')
 
     table = dynamodb.Table('Users')
     #Get the index of the appointment
@@ -93,6 +93,7 @@ def updateAppointmentStatus(userID, appointmentID):
         if appointment["appointmentID"] == appointmentID:
             break
     updateExp = "set #app[{}].#st = :stVal".format(idx)
+    print(updateExp)
     response = table.update_item(
         Key={
             'uuid': userID,
@@ -137,9 +138,10 @@ def updateReviewAndRating(userID, appointmentID):
        result = response['Item']
 
    for idx, appointment in enumerate(result["appointments"]):
-       if appointment.appointmentID == appointmentID:
-        break
-   updateExp = "set #app[{}].#rt = :rtVal, #app[{}].#rv = : rvVal".format(idx, idx)
+       if appointment["appointmentID"] == appointmentID:
+            break
+   updateExp = "set #app[{}].#rt = :rtVal, #app[{}].#rv = :rvVal".format(idx, idx)
+   print(updateExp)
    response = table.update_item(
        Key={
            'uuid': userID,
