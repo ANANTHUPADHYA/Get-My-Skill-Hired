@@ -136,6 +136,7 @@ def sign_up():
                 user.admin_confirm_sign_up()
 
                 body["uuid"] = resp['UserSub']
+                body["email"] = username
 
                 # log.info(json.dumps(body, indent=2))
                 # saving user record in db
