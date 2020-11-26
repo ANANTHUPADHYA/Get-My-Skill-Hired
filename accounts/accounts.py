@@ -5,6 +5,7 @@ import json
 import logging
 import requests
 from flask import request
+from flask_cors import cross_origin
 from accounts import settings
 
 from warrant import Cognito
@@ -39,18 +40,12 @@ client = boto3.client("cognito-idp", \
     aws_secret_access_key=AWS_SECRET_ACCESS_KEY, \
     region_name=AWS_REGION)
 
-# session = boto3.session.Session()
-# s3_client = session.client('s3',
-#                         region_name=AWS_REGION,
-#                         endpoint_url=S3_URL,
-#                         aws_access_key_id=AWS_ACCESS_KEY_ID,
-#                         aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
 s3_client = boto3.client("s3",
    aws_access_key_id=AWS_ACCESS_KEY_ID,
    aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
-
+@cross_origin()
 def sign_in():
     if request and request.method == "GET":
         resp, err = GetUserPasswordFromAuthHeader(request)
@@ -98,7 +93,7 @@ def sign_in():
         return GetResponseObject(data, 405)
         # return HttpResponseBadRequest(res)
 
-
+@cross_origin()
 def sign_up():
     if request and request.method == "POST":
         resp, err = GetUserPasswordFromAuthHeader(request)
@@ -118,12 +113,13 @@ def sign_up():
                 return res
 
             try:
+                
                 body["username"] = username
 
                 # Save user record in Cognito
                 user = Cognito(user_pool_id=COGNITO_USER_POOL_ID, client_id=COGNITO_APP_CLIENT_ID, user_pool_region=AWS_REGION)
                 user.add_base_attributes(
-                    email=body["email"],
+                    email=username,
                     given_name=body["firstName"],
                     family_name=body["lastName"],
                     phone_number=body["phone"],
@@ -142,9 +138,16 @@ def sign_up():
                 user.admin_confirm_sign_up()
 
                 body["uuid"] = resp['UserSub']
+                body["email"] = username
 
                 # log.info(json.dumps(body, indent=2))
                 # saving user record in db
+                # filename, err = upload_image(request)
+                # if err:
+                #     raise Exception(err)
+
+                # body["image"] = "https://" + settings.CLOUD_FRONT_URL + "/" + filename
+
                 SaveInDB(body)
 
                 data = "User registered successfully !!!"
@@ -186,6 +189,7 @@ def sign_up():
 
 
 @verify_token
+@cross_origin()
 def sign_out():
     if request and request.method == "GET":
         try:
@@ -206,6 +210,7 @@ def sign_out():
 
 
 @verify_token
+@cross_origin()
 def delete_user(usertype):
     if request and request.method == "DELETE":
         try:
@@ -242,6 +247,7 @@ def delete_user(usertype):
 
 
 @verify_token
+@cross_origin()
 def update_profile(usertype):
     if request and request.method == "PUT":
         try:
@@ -249,6 +255,10 @@ def update_profile(usertype):
             auth = request.headers.get('AUTHORIZATION', b'').split()
             j = JWTTokenUtil(auth[1])
             uid = j.get_user_id()
+
+            userObj = Users.get(uid)
+            if userObj.userType != usertype:
+                raise Exception("Please provide correct usertype !!!")
             
             body = None
             if request.data:
@@ -273,7 +283,8 @@ def update_profile(usertype):
             if err:
                 raise Exception(err)
 
-            data = "Profile updated successfully !!!"
+            data = "User profile updated successfully !!!"
+
             res = GetResponseObject(data, 200, True)
             return res
 
@@ -288,7 +299,31 @@ def update_profile(usertype):
         return GetResponseObject(data, 405)
 
 
+def upload_image(request):
+
+    if "profile_image" in request.files:
+        file = request.files["profile_image"]
+        try:
+            s3_client.upload_fileobj(
+                file,
+                S3_BUCKET,
+                file.filename,
+                ExtraArgs={
+                    "ACL": "public-read",
+                    "ContentType": file.content_type
+                }
+            )
+            return file.filename, None
+
+        except Exception as e:
+            return file.filename, str(e)
+    else:
+        return None, "image key name 'profile_image' is not found in header"
+
+    
+
 @verify_token
+@cross_origin()
 def upload_profile_image(usertype):
     if request and request.method == "PUT":
 

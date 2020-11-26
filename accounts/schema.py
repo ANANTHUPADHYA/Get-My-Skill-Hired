@@ -11,9 +11,6 @@ consumer_profile = {
         "lastName" : {
             "type" : "string"
         },
-        "email" : {
-            "type" : "string"
-        },
         "phone" : {
             "type" : "string"
         },
@@ -40,7 +37,7 @@ consumer_profile = {
             }
         }
     },
-    "required": ["firstName", "lastName", "email", "phone", "userType", "address", "city", "area"]
+    "required": ["firstName", "lastName", "phone", "userType", "address", "city", "area"]
 }
 
 
@@ -78,9 +75,6 @@ provider_profile = {
             "type" : "string"
         },
         "lastName" : {
-            "type" : "string"
-        },
-        "email" : {
             "type" : "string"
         },
         "phone" : {
@@ -131,7 +125,7 @@ provider_profile = {
              }
         }
     },
-    "required": ["firstName", "lastName", "email", "phone", "userType", "address", "city", "area", "days", "time", "skillSet"]
+    "required": ["firstName", "lastName", "phone", "userType", "address", "city", "area", "days", "time", "skillSet"]
 }
 
 update_provider_profile = {
