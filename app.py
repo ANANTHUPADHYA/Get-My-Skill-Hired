@@ -5,11 +5,11 @@ import uuid
 from pprint import pprint
 from werkzeug.security import generate_password_hash, check_password_hash
 from boto3.dynamodb.conditions import Key
-
+from flask_cors import CORS, cross_origin
 # from functions import validatedate, isValidTime
 
 app = Flask(__name__)  # create an app instance
-
+cors = CORS(app)
 
 
 @app.route("/")  # at the end point /

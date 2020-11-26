@@ -1,1 +1,30 @@
-<p>appointments works!</p>
+<!-- <div>
+    <mat-card fxFlex="0 1 calc(33.3% - 92px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" class="card" *ngFor="let app of appointments;">
+        <mat-card-header>
+            <mat-card-title>Appointment ID:&nbsp;&nbsp;{{app.appointmentID}}</mat-card-title>
+            <mat-card-subtitle>
+              
+                <mat-chip  color="primary" >{{app.appointmentStatus}}</mat-chip>
+            </mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="http://d3ani98dzag63m.cloudfront.net/defaultUser.png" class="img-thumbnail" alt="Photo of a Shiba Inu">
+        <mat-card-content>
+            <div><strong>Contact:&nbsp;&nbsp;</strong>{{provider.phoneNumber}}</div>
+            <div><strong>Available on:&nbsp; &nbsp;</strong><span *ngFor="let day of provider.days;let isLast=last">{{day}}{{isLast ? '' : ', '}}</span>
+            </div>
+            <div><strong>Working hours:&nbsp;&nbsp;</strong>{{provider.time}}</div>
+            <div><strong>Charge per hour:&nbsp;&nbsp;</strong>{{provider.skillset[0].price}}</div>
+        </mat-card-content>
+        <mat-card-actions>
+            <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                <div fxFlex="50%">
+                    <mat-icon class="checked" *ngFor="let fullStar of fullStars(provider.rating)">star</mat-icon>
+                    <mat-icon *ngFor="let emptyStar of emptyStars(provider.rating)">star_border</mat-icon>
+                </div>
+                <div fxFlex="50%" fxLayoutAlign="flex-end">
+                    <button mat-raised-button color="primary" class="cursor-pointer" (click)="openAppointmentBookingComp(provider)">Book</button>
+                </div>
+            </div>
+        </mat-card-actions>
+    </mat-card>
+</div> -->

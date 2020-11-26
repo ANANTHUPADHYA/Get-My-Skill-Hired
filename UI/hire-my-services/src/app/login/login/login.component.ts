@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit, OnDestroy {
        
       }
     }, error => {
-      this.openSnackBar(error.error.error, 'mat-warn');
+      this.openSnackBar(error.error.data, 'mat-warn');
     }));
   }
 

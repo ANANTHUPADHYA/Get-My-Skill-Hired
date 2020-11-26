@@ -25,7 +25,7 @@
                         <h3 class="fontFamily">Date:</h3>
                         <mat-form-field appearance="fill">
                             <mat-label>Choose a date</mat-label>
-                            <input matInput [matDatepicker]="picker" formControlName="date" disabled>
+                            <input matInput [matDatepicker]="picker" formControlName="date" disabled [min]="minDate">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker disabled="false"></mat-datepicker>
                         </mat-form-field>
@@ -50,13 +50,12 @@
                         </div>
 
                     </form>
-                    <hr/>
                 </mat-card-content>
             </mat-card>
         </div>
         <div>
-            <mat-accordion class="borderTye">
-                <mat-expansion-panel>
+            <mat-accordion>
+                <mat-expansion-panel class="borderTye">
                     <mat-expansion-panel-header>
                         <mat-panel-title class="fontFamily">
                             Reviews:
@@ -64,7 +63,8 @@
                     </mat-expansion-panel-header>
                     <div class="fontFamily">
                         <div style="font-style:italic; padding:5px; font-weight: 300;" *ngFor="let review of data.provider.reviews">
-                            "{{review.comment}}"
+                            <span>"{{review.comment}}"</span>
+                            <hr/>
                         </div>
                     </div>
                 </mat-expansion-panel>

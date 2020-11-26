@@ -17,7 +17,7 @@
                         "price": 300
                     }],
                     "days": ["Monday", "Tuesday"],
-                    "time": "9:00 AM-5:00 PM",
+                    "time": "9:00AM-5:00PM",
                     "rating": 5,
                     "reviews": [{
                             "comment": "A good one"
@@ -43,7 +43,7 @@
                         "price": 600
                     }],
                     "days": ["Monday", "Tuesday", "Wednesday"],
-                    "time": "10:00 AM-4:00 PM",
+                    "time": "10:00AM-4:00PM",
                     "rating": 3,
                     "reviews": [{
                             "comment": "A good one"
@@ -69,7 +69,7 @@
                         "price": 900
                     }],
                     "days": ["Monday", "Tuesday", "Friday"],
-                    "time": "9:00 AM-5:00 PM",
+                    "time": "9:00AM-5:00PM",
                     "rating": 2,
                     "reviews": [{
                             "comment": "A good one"
@@ -95,7 +95,7 @@
                         "price": 200
                     }],
                     "days": ["Monday", "Saturday"],
-                    "time": "9:00 AM-5:00 PM",
+                    "time": "9:00AM-5:00PM",
                     "rating": 4,
                     "reviews": [{
                             "comment": "A good one"
@@ -145,6 +145,13 @@
         "success": true,
         "data": {
             "message": "Registered Successfully!"
+        }
+    },
+
+    "book": {
+        "success": true,
+        "data": {
+            "message": "Appointment Scheduled successfully!"
         }
     }
 }

@@ -18,7 +18,7 @@ export class LoginService {
     const httpHeaders: HttpHeaders = new HttpHeaders({
       Authorization: `Basic ${window.btoa(email + ':' + password)}`
   });
-    // return this.http.post<LoginResponse>(`${this.baseUrl}${urlConstants.LOGIN}`, '',{headers: httpHeaders});
+    // return this.http.get<LoginResponse>(`${this.baseUrl}${urlConstants.LOGIN}`,{headers: httpHeaders});
     return this.http.get<LoginResponse>('http://localhost:3000/login');
   }
 
@@ -32,6 +32,6 @@ export class LoginService {
   }
 
   logout():Observable<any> {
-    return this.http.get(`${this.baseUrl}${urlConstants.REGISTER}`);
+    return this.http.get(`${this.baseUrl}${urlConstants.LOGOUT}`);
   }
 }

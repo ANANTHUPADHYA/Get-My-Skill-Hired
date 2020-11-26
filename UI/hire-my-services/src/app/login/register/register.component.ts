@@ -75,12 +75,12 @@ export class RegisterComponent implements OnInit {
       delete formValue['selectedDays'];
       delete formValue['fromTime'];
       delete formValue['toTime'];
-      delete formValue['password'];
       delete formValue['image'];
     }
     console.log(formValue);
+    delete formValue['password'];
     email = formValue['email'];
-    formValue['phone']=['phone'].toString();
+    formValue['phone']=formValue['phone'].toString();
     this.loginService.registerUser(formValue, password, email).subscribe(response => {
       if (response.success) {
         sessionStorage.setItem('sessionID', response.data.accessToken);
