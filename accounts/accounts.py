@@ -39,12 +39,6 @@ client = boto3.client("cognito-idp", \
     aws_secret_access_key=AWS_SECRET_ACCESS_KEY, \
     region_name=AWS_REGION)
 
-# session = boto3.session.Session()
-# s3_client = session.client('s3',
-#                         region_name=AWS_REGION,
-#                         endpoint_url=S3_URL,
-#                         aws_access_key_id=AWS_ACCESS_KEY_ID,
-#                         aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
 s3_client = boto3.client("s3",
    aws_access_key_id=AWS_ACCESS_KEY_ID,
@@ -117,12 +111,13 @@ def sign_up():
                 return res
 
             try:
+                
                 body["username"] = username
 
                 # Save user record in Cognito
                 user = Cognito(user_pool_id=COGNITO_USER_POOL_ID, client_id=COGNITO_APP_CLIENT_ID, user_pool_region=AWS_REGION)
                 user.add_base_attributes(
-                    email=body["email"],
+                    email=username,
                     given_name=body["firstName"],
                     family_name=body["lastName"],
                     phone_number=body["phone"],
@@ -144,6 +139,12 @@ def sign_up():
 
                 # log.info(json.dumps(body, indent=2))
                 # saving user record in db
+                # filename, err = upload_image(request)
+                # if err:
+                #     raise Exception(err)
+
+                # body["image"] = "https://" + settings.CLOUD_FRONT_URL + "/" + filename
+
                 SaveInDB(body)
 
                 data = "User registered successfully !!!"
@@ -272,7 +273,7 @@ def update_profile(usertype):
             if err:
                 raise Exception(err)
 
-            data = "User registered successfully !!!"
+            data = "User profile updated successfully !!!"
             res = GetResponseObject(data, 200, True)
             return res
 
@@ -286,6 +287,29 @@ def update_profile(usertype):
         data = f"Invalid request method, method {request.method} not supported !!!"
         return GetResponseObject(data, 405)
 
+
+def upload_image(request):
+
+    if "profile_image" in request.files:
+        file = request.files["profile_image"]
+        try:
+            s3_client.upload_fileobj(
+                file,
+                S3_BUCKET,
+                file.filename,
+                ExtraArgs={
+                    "ACL": "public-read",
+                    "ContentType": file.content_type
+                }
+            )
+            return file.filename, None
+
+        except Exception as e:
+            return file.filename, str(e)
+    else:
+        return None, "image key name 'profile_image' is not found in header"
+
+    
 
 @verify_token
 def upload_profile_image(usertype):
