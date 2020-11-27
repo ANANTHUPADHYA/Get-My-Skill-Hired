@@ -574,3 +574,61 @@ def updateReviewAndRating(userID, appointmentID):
             "Message": "Unable to submit review and rating"
         }
         return errData
+  
+ @verify_token
+ def listCustomerAppointments(userID):
+   Cutomeruuid=userID
+   if Cutomeruuid:
+       dynamodb_resource = resource('dynamodb', region_name=db_aws_region)
+       table = dynamodb_resource.Table('Users')
+       response = table.query(KeyConditionExpression=Key('uuid').eq(Cutomeruuid))
+       items = response['Items']
+       print(items)
+
+       if len(items) > 0:
+           appointments = items[0]['appointments']
+
+       if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
+
+           data = {
+               "success": "true",
+               "data": appointments
+           }
+           return data
+
+       else:
+           errData = {
+               "success": "false",
+               "Message": "Unable to fetch data"
+           }
+           return errData
+    
+    
+    
+@verify_token
+def listProviderAppointments(userID):
+   providerUuid=userID
+
+   if providerUuid:
+       dynamodb_resource = resource('dynamodb', region_name=db_aws_region)
+       table = dynamodb_resource.Table('Users')
+       response = table.query(KeyConditionExpression=Key('uuid').eq (providerUuid))
+       items = response['Items']
+       if len(items) > 0:
+           appointments = items[0]['appointments']
+
+       if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
+
+           data = {
+               "success": "true",
+               "data": appointments
+           }
+           return data
+
+       else:
+           errData = {
+               "success": "false",
+               "Message": "Unable to fetch data"
+           }
+           return errData
+        
