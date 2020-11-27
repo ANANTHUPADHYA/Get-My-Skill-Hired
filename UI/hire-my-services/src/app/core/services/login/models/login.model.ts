@@ -3,22 +3,20 @@ export  interface LoginResponse {
         status: number; 
         success: boolean;
         data: {
-            idToken: string;
             accessToken: string;
-            refreshToken: string;
             profile: {
-                usertype: string;
-                uid: string; 
+                userType: string;
+                uuid: string; 
                 username: string; 
                 email: string;
-                firstname: string; 
-                lastname: string;
+                firstName: string; 
+                lastName: string;
                 phone: string;
                 address: string; 
                 city: string;
-                days: string[];
-                time: string;
-                skillset: 
+                days?: string[];
+                time?: string;
+                skillset?: 
                     {
                         name: string;
                         price: number;
@@ -46,10 +44,7 @@ export  interface LoginResponse {
   
   export interface RegisterResponse {
     success: boolean;
-    data?: {
-      message: string;
-      accessToken: string;
-    };
+    data?: string;
     
     
   }

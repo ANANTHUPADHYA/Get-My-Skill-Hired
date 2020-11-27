@@ -49,9 +49,9 @@ export class ProviderListComponent implements OnInit {
     this.subscriptions.add(
       this.providerListService.getListOfProviders(this.serviceType).subscribe(
         response => {
-          if (response.success) {
-            this.listOfProviders = response.data.providers;
-            this.originalList = response.data.providers.slice();
+          if (response.success === 'true') {
+            this.listOfProviders = response.data;
+            this.originalList = response.data.slice();
           }
         },
         error => {
@@ -81,7 +81,7 @@ export class ProviderListComponent implements OnInit {
 
     if (this.priceFilter) {
       filteredProviders = filteredProviders.filter(
-        provider => provider[0].price <= +this.priceFilter
+        provider => parseInt(provider.price) <= +this.priceFilter
       );
     }
     if (this.ratingFilter) {
@@ -119,12 +119,13 @@ numberOfFullStars(rating): number {
     return 5 - rating;
   }
 
- fullStars(rating): any[] {
-    return Array(this.numberOfFullStars(rating));
+ fullStars(rating:string): any[] {
+    
+    return Array(this.numberOfFullStars(parseInt(rating)));
   }
 
  emptyStars(rating): any[] {
-    return Array(this.numberOfEmptyStars(rating));
+    return Array(this.numberOfEmptyStars(parseInt(rating)));
   }
 
   openAppointmentBookingComp(providerDetails: any) {

@@ -4,7 +4,7 @@ import boto3
 import json
 import logging
 import requests
-from flask import request, Response
+from flask import Flask,request, Response,jsonify
 from flask_cors import cross_origin
 from accounts import settings
 
@@ -21,6 +21,9 @@ from accounts.utils import (
     GetTokenFromHeader, verify_token, JWTTokenUtil)
 
 from accounts.models import UpdateItem
+from boto3 import resource
+from boto3.dynamodb.conditions import Key
+
 
 logging.basicConfig()
 log = logging.getLogger(__name__)
@@ -192,9 +195,8 @@ def sign_up():
         log.error(res)
         return res
 
-
+@cross_origin()
 @verify_token
-@cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
 def sign_out():
     if request and request.method == "GET":
         try:
@@ -213,9 +215,8 @@ def sign_out():
         res = GetResponseObject(data, 405)
         return res
 
-
+@cross_origin()
 @verify_token
-@cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
 def delete_user(usertype):
     if request and request.method == "DELETE":
         try:
@@ -250,9 +251,8 @@ def delete_user(usertype):
         res = GetResponseObject(data, 405)
         return res
 
-
+@cross_origin()
 @verify_token
-@cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
 def update_profile(usertype):
     if request and request.method == "PUT":
         try:
@@ -303,9 +303,8 @@ def update_profile(usertype):
         data = f"Invalid request method, method {request.method} not supported !!!"
         return GetResponseObject(data, 405)
 
-
+@cross_origin()
 def upload_image(request):
-
     if "profile_image" in request.files:
         file = request.files["profile_image"]
         try:
@@ -326,9 +325,8 @@ def upload_image(request):
         return None, "image key name 'profile_image' is not found in header"
 
     
-
+@cross_origin()
 @verify_token
-@cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
 def upload_profile_image(usertype):
     if request and request.method == "PUT":
 
@@ -375,6 +373,56 @@ def upload_profile_image(usertype):
     else:
         data = f"Invalid request method, method {request.method} not supported !!!"
         return GetResponseObject(data, 405)
+    
+    
+    
+@verify_token
+def providerCategoryServices():
+
+    providerSkillset= request.args.get('skillSet')
+    user="provider"
+    dynamodb = resource('dynamodb', region_name=AWS_REGION)
+    table = dynamodb.Table("Users")
+
+    scan_kwargs = {
+            'FilterExpression': Key('userType').eq(user)}
+    response = table.scan(**scan_kwargs)
+    items = response['Items']
+    res = []
+    if len(items) > 0:
+        for i, item in enumerate(items):
+            skill=item['skillSet']
+            for s in skill:
+                if (s['name'])==providerSkillset:
+                    res.append({
+                        'address':item['address'],
+                        'area': item['area'],
+                        'city': item['city'],
+                        'days': item['days'],
+                        'email': item['email'],
+                        'firstname':item['firstName'],
+                        'lastname': item['lastName'],
+                        'phone': item['phone'],
+                        'price': str(s['price']),
+                        'time': item['time'],
+                        'uuid': item['uuid'],
+                        'rating' : item['finalRating'],
+                        'image': item['image']}
+                )
+    if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
+
+        data = {
+            "success": "true",
+            "data": res
+        }
+        return data
+
+    else:
+        errData = {
+            "success": "false",
+            "Message": "Unable to fetch data"
+              }
+        return errData
 
 @verify_token
 @cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
@@ -429,7 +477,7 @@ def bookappointment(userID):
 @verify_token
 @cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
 def updateAppointmentStatus(userID, appointmentID):
-    dynamodb = boto3.resource('dynamodb', region_name=db_aws_region)
+    dynamodb = boto3.resource('dynamodb', region_name=AWS_REGION)
 
     status = request.json.get('status')
 
@@ -478,7 +526,7 @@ def updateAppointmentStatus(userID, appointmentID):
 @verify_token
 @cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
 def updateReviewAndRating(userID, appointmentID):
-   dynamodb = boto3.resource('dynamodb', region_name=db_aws_region)
+   dynamodb = boto3.resource('dynamodb', region_name=AWS_REGION)
 
    rating = request.json.get('rating')
    review = request.json.get('review')
@@ -561,11 +609,13 @@ def updateReviewAndRating(userID, appointmentID):
         }
         return errData
   
- @verify_token
- def listCustomerAppointments(userID):
+
+@verify_token
+@cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
+def listCustomerAppointments(userID):
    Cutomeruuid=userID
    if Cutomeruuid:
-       dynamodb_resource = resource('dynamodb', region_name=db_aws_region)
+       dynamodb_resource = resource('dynamodb', region_name=AWS_REGION)
        table = dynamodb_resource.Table('Users')
        response = table.query(KeyConditionExpression=Key('uuid').eq(Cutomeruuid))
        items = response['Items']
@@ -592,11 +642,12 @@ def updateReviewAndRating(userID, appointmentID):
     
     
 @verify_token
+@cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
 def listProviderAppointments(userID):
    providerUuid=userID
 
    if providerUuid:
-       dynamodb_resource = resource('dynamodb', region_name=db_aws_region)
+       dynamodb_resource = resource('dynamodb', region_name=AWS_REGION)
        table = dynamodb_resource.Table('Users')
        response = table.query(KeyConditionExpression=Key('uuid').eq (providerUuid))
        items = response['Items']

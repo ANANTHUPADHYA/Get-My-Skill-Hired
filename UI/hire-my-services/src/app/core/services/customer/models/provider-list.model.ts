@@ -1,30 +1,23 @@
 export interface ProviderDetails {
     email: string;
-    phoneNumber: number;
+    phone: number;
     firstname: string;
     lastname: string;
     address: string;
     area: string;
     city:string;
-    skillset: 
-    {
-    name: string;
-    price: number;
-    }[];
+    price: string;
     days: string[];
     time: string;
     rating: number;
     image:string;
-    reviews: {
-        comment:string;
-    }[];
+    reviews: string[];
+    uuid: string;
 }
 
 export interface ProviderDetailsResponse {
-    success: boolean;
-    data: {
-        providers: ProviderDetails[];
-    }
+    success: string;
+    data:  ProviderDetails[];
 }
 
 export interface BookAppointmentReq {
@@ -32,14 +25,19 @@ export interface BookAppointmentReq {
 	providerEmail: string;
 	date: string;
 	time: string;
-	serviceType: string;
+    serviceType: string;
+    customerCity: string;
+    customerAddress: string;
+    customerNumber: string;
+    customerFirstName: string;
+    customerLastName: string;
+    providerFirstName: string;
+    providerLastName: string;
 }
 
 export interface BookAppointmentResp {
-    success: boolean;
-    data? :{
-        message: string;
-    };
+    success: string;
+    Message: string;
     error?: {
         message: string;
     };
@@ -48,7 +46,7 @@ export interface BookAppointmentResp {
 
 export interface Appointment {
     appointmentID: string;
-    appointmentStatus: string;
+    status: string;
     customerEmail: string;
     date: string;
     providerEmail: string;
@@ -59,9 +57,32 @@ export interface Appointment {
 }
 
 export interface AppointmentList {
-    success: boolean;
-    data: {
-        appointments: Appointment[];
-    }
+    success: string;
+    data: Appointment[];
+    
 }
     
+
+export interface ReviewParams {
+    rating: string;
+    review: string;
+    
+}
+
+export interface ChangeStatusParams {
+uuid: string;
+appId: string;
+status: string;
+}
+
+export interface ChangeStatusResponse {
+    success: string;
+        Message: string;
+}
+
+export interface ReviewParams {
+    uuid: string;
+appId: string;
+review: string;
+rating: string;
+}

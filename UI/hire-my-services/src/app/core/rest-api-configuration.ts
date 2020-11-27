@@ -5,9 +5,8 @@ export const urlConstants = {
     DELETE: '/files/delete',
     UPLOAD: '/files/upload',
     EDIT: '/files/edit',
-    GET_PROVIDERS: '/provider',
+    GET_PROVIDERS: '/account/services',
     LOGOUT: '/account/signout',
     IMAGE_UPLOAD: '/account/profile/provider/upload',
-    BOOK_APPNT: '/',
     GET_APPOINTMENTS: '/'
 }

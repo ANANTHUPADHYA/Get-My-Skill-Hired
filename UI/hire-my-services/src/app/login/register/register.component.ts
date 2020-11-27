@@ -80,11 +80,10 @@ export class RegisterComponent implements OnInit {
     console.log(formValue);
     delete formValue['password'];
     email = formValue['email'];
-    formValue['phone']=formValue['phone'].toString();
+    formValue['phone']= "+91" + formValue['phone'].toString();
     delete formValue['email'];
     this.loginService.registerUser(formValue, password, email).subscribe(response => {
       if (response.success) {
-        sessionStorage.setItem('sessionID', response.data.accessToken);
           if(this.signupFormProvider.controls.image.value !== '') {
             this.profileService.uploadImage(this.signupFormProvider.controls.image.value, email).subscribe(response => {
               if(response.success) {
@@ -92,7 +91,7 @@ export class RegisterComponent implements OnInit {
               }
             })
           }
-        this.openSnackBar(response.data.message, 'mat-primary');
+        this.openSnackBar(response.data, 'mat-primary');
         this.router.navigate(['/login']);
 
       }

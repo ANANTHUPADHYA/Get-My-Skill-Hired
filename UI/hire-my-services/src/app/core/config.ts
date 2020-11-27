@@ -16,5 +16,5 @@ export const servicesList = [{ name:"Driver", image: "assets/images/driver.png"}
 
 export const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
-export const timings = ["9:00AM", "10:00AM", "11:00AM","12:00PM","1:00PM","2:00PM","3:00PM","4:00PM","5:00PM","6:00PM"];
+export const timings = ["09:00AM", "10:00AM", "11:00AM","12:00PM","01:00PM","02:00PM","03:00PM","04:00PM","05:00PM","06:00PM"];
 

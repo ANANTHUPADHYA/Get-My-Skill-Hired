@@ -7,11 +7,12 @@ import { MaterialModule } from '../material/material.module';
 import { ProviderListComponent } from './provider-list/provider-list.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { BookAppointmentComponent } from './book-appointment/book-appointment.component';
+import { ReviewComponent } from './review/review.component';
 
 
 
 @NgModule({
-  declarations: [ServicesComponent, ProviderListComponent, AppointmentsComponent, BookAppointmentComponent],
+  declarations: [ServicesComponent, ProviderListComponent, AppointmentsComponent, BookAppointmentComponent, ReviewComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(CustomerRoutes),

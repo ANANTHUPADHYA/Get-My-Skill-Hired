@@ -44,13 +44,15 @@
                 <mat-card-title>{{provider.firstname | titlecase}}&nbsp;&nbsp;{{provider.lastname | titlecase}}</mat-card-title>
                 <mat-card-subtitle>{{provider.area | titlecase}},&nbsp;{{provider.city|titlecase}}</mat-card-subtitle>
             </mat-card-header>
-            <img mat-card-image src="http://d3ani98dzag63m.cloudfront.net/defaultUser.png" class="img-thumbnail" alt="Photo of a Shiba Inu">
+            <img mat-card-image *ngIf="provider.image ==''" src="http://d3ani98dzag63m.cloudfront.net/defaultUser.png" class="img-thumbnail" alt="Photo of a Shiba Inu">
+            <img mat-card-image *ngIf="provider.image !==''" src="{{provider.image}}" class="img-thumbnail" alt="Photo of a Shiba Inu">
+
             <mat-card-content>
-                <div><strong>Contact:&nbsp;&nbsp;</strong>{{provider.phoneNumber}}</div>
+                <div><strong>Contact:&nbsp;&nbsp;</strong>{{provider.phone}}</div>
                 <div><strong>Available on:&nbsp; &nbsp;</strong><span *ngFor="let day of provider.days;let isLast=last">{{day}}{{isLast ? '' : ', '}}</span>
                 </div>
                 <div><strong>Working hours:&nbsp;&nbsp;</strong>{{provider.time}}</div>
-                <div><strong>Charge per hour:&nbsp;&nbsp;</strong>{{provider.skillset[0].price}}</div>
+                <div><strong>Charge per hour:&nbsp;&nbsp;</strong>{{provider.price}}</div>
             </mat-card-content>
             <mat-card-actions>
                 <div fxLayout="row wrap" fxLayout.lt-sm="column">
