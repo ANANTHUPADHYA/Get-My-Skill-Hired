@@ -426,7 +426,6 @@ def providerCategoryServices():
 
 @verify_token
 @cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
-@app.route("/user/<userID>/appointments", methods = ['POST'])
 def bookappointment(userID):
     dynamodb = boto3.resource('dynamodb', region_name=db_aws_region)
 
@@ -475,7 +474,6 @@ def bookappointment(userID):
 
 @verify_token
 @cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
-@app.route("/user/<userID>/appointments/<appointmentID>", methods=['PATCH'])
 def updateAppointmentStatus(userID, appointmentID):
     dynamodb = boto3.resource('dynamodb', region_name=db_aws_region)
 
@@ -525,7 +523,6 @@ def updateAppointmentStatus(userID, appointmentID):
 
 @verify_token
 @cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
-@app.route("/user/<userID>/appointments/<appointmentID>/ratingAndReview", methods = ['PATCH'])
 def updateReviewAndRating(userID, appointmentID):
    dynamodb = boto3.resource('dynamodb', region_name=db_aws_region)
 
