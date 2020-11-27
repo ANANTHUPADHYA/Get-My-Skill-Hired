@@ -11,6 +11,7 @@ from accounts import settings
 from warrant import Cognito
 
 from botocore.exceptions import ClientError
+from boto3.dynamodb.conditions import Key
 
 from accounts.models import Users, SaveInDB, SerializeUserObj
 from accounts.schema import ValidateRegistrationData
