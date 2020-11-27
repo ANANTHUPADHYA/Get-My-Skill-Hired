@@ -14,7 +14,7 @@ export class AppHttpInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
    // Get the auth token from the session.
-   const authToken = sessionStorage.getItem('token');
+   const authToken = sessionStorage.getItem('sessionID');
 
    // Clone the request and replace the original headers with
    // cloned headers, updated with the authorization.

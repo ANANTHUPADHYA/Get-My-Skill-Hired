@@ -33,12 +33,14 @@ reviewSubmit() {
 
   this.providerListService.postReview(params).subscribe(response => {
     if(response.success) {
-    
+      this.openSnackBar(response.data.message, 'mat-primary')
     }
   });
 
 
 }
+
+
   ngOnInit(): void {
   }
 
