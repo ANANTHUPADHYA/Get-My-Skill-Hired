@@ -34,10 +34,11 @@ app.add_url_rule("/account/profile/<usertype>", \
 app.add_url_rule("/account/profile/<usertype>/upload", \
     view_func=acc.upload_profile_image, endpoint="UploadProfileImage", methods=["PUT"])
 
-"""
-app.add_url_rule("/account/<usertype>/<userID>/services", \
+
+app.add_url_rule("/account/services", \
     view_func=acc.providerCategoryServices, endpoint="Services", methods=["GET"])
 
+"""
 app.add_url_rule('/user/<userID>/customerAppointments', \
     view_func=acc.providerCategoryServices, endpoint="CustomerAppointment", methods=["GET"])
 
