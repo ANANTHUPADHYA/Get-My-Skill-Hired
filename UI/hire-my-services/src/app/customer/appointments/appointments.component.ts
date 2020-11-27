@@ -37,9 +37,9 @@ public statusFilter = [];
 
   getListOfAppointments() {
     this.providerListService.getListOfAppointments(this.uuid).subscribe(response => {
-      if(response.success){
-        this.appointments = response.data.appointments;
-        this.originalList = response.data.appointments.slice();
+      if(response.success === 'true'){
+        this.appointments = response.data;
+        this.originalList = response.data.slice();
       }    
     }, error => {
       this.openSnackBar(error.error.data, 'mat-warn')
@@ -74,7 +74,7 @@ public statusFilter = [];
     let filteredAppointments:Appointment[] = this.originalList.slice();
     if (this.statusFilter.length) {
       filteredAppointments = filteredAppointments.filter(
-        appt => this.statusFilter.includes(appt.appointmentStatus)
+        appt => this.statusFilter.includes(appt.status)
       );
     }
     
@@ -104,10 +104,10 @@ cancelAppointment(appId: string) {
     status: 'cancelled'
   }
   this.providerListService.changeApptStatus(params).subscribe(response => {
-    if(response.success) {
-      this.openSnackBar(response.data.message, 'mat-primary')
-
-    }
+    if(response.success === 'true') {
+      this.openSnackBar(response.Message, 'mat-primary')
+      this.getListOfAppointments();
+    } 
   }, error=> {
     this.openSnackBar(error, 'mat-warn');
   })

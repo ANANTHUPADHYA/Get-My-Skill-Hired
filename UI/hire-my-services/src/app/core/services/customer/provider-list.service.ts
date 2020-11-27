@@ -33,11 +33,12 @@ export class ProviderListService {
 
 
   changeApptStatus(changeStatusParams: ChangeStatusParams):Observable<ChangeStatusResponse>{
-    return this.http.post<ChangeStatusResponse>(`${this.baseUrl}/user/${changeStatusParams.uuid}/appointments/${changeStatusParams.appId}`, {status: changeStatusParams.status});
+    const params =  {status: changeStatusParams.status}
+    return this.http.patch<ChangeStatusResponse>(`${this.baseUrl}/user/${changeStatusParams.uuid}/appointments/${changeStatusParams.appId}`, params);
   }
 
   postReview(reviewParams: ReviewParams): Observable<ChangeStatusResponse> {
-    return this.http.post<ChangeStatusResponse>(`${this.baseUrl}/user/${reviewParams.uuid}/appointments/${reviewParams.appId}`, {review: reviewParams.review, rating: reviewParams.rating});
+    return this.http.patch<ChangeStatusResponse>(`${this.baseUrl}/user/${reviewParams.uuid}/appointments/${reviewParams.appId}/ratingAndReview`, {review: reviewParams.review, rating: reviewParams.rating});
 
   }
 }

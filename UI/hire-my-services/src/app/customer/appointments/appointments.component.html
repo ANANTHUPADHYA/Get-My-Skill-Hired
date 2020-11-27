@@ -45,7 +45,7 @@
                 <mat-card-title>Appointment ID:&nbsp;&nbsp;{{app.appointmentID}}</mat-card-title>
                 <mat-card-subtitle>
                     <mat-chip-list>
-                        <mat-chip selected [color]=getColor(app.appointmentStatus)>{{app.appointmentStatus | titlecase}}</mat-chip>
+                        <mat-chip selected [color]=getColor(app.status)>{{app.status | titlecase}}</mat-chip>
                     </mat-chip-list>
                 </mat-card-subtitle>
             </mat-card-header>
@@ -59,7 +59,7 @@
             <mat-card-actions>
                 <div fxLayout="row wrap" fxLayout.lt-sm="column" fxFlex>
                     <div fxFlex="0 1 calc(33% - 92px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" class="cursor-pointer">
-                        <button mat-raised-button color="primary" *ngIf="app.appointmentStatus !== 'upcoming' && app.review ==''" (click)="goToReview(app)"><mat-icon class="checked">star</mat-icon>Review</button>
+                        <button mat-raised-button color="primary" *ngIf="app.status !== 'upcoming' && app.review === null" (click)="goToReview(app)"><mat-icon class="checked">star</mat-icon>Review</button>
 
                     </div>
 
@@ -69,7 +69,7 @@
                     </div>
 
                     <div fxFlex="0 1 calc(33% - 92px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" fxLayoutAlign="flex-end">
-                        <button mat-raised-button color="warn" class="cursor-pointer" *ngIf="app.appointmentStatus === 'upcoming'" (click)="cancelAppointment(app.appointmentID)">Cancel</button>
+                        <button mat-raised-button color="warn" class="cursor-pointer" *ngIf="app.status === 'upcoming'" (click)="cancelAppointment(app.appointmentID)">Cancel</button>
                     </div>
 
                 </div>

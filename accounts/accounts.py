@@ -580,7 +580,7 @@ def updateReviewAndRating(userID, appointmentID):
 def listCustomerAppointments(userID):
    Cutomeruuid=userID
    if Cutomeruuid:
-       dynamodb_resource = resource('dynamodb', region_name=db_aws_region)
+       dynamodb_resource = resource('dynamodb', region_name=AWS_REGION)
        table = dynamodb_resource.Table('Users')
        response = table.query(KeyConditionExpression=Key('uuid').eq(Cutomeruuid))
        items = response['Items']
@@ -611,7 +611,7 @@ def listProviderAppointments(userID):
    providerUuid=userID
 
    if providerUuid:
-       dynamodb_resource = resource('dynamodb', region_name=db_aws_region)
+       dynamodb_resource = resource('dynamodb', region_name=AWS_REGION)
        table = dynamodb_resource.Table('Users')
        response = table.query(KeyConditionExpression=Key('uuid').eq (providerUuid))
        items = response['Items']

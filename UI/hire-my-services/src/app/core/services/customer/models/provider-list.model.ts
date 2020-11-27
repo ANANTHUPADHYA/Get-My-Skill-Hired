@@ -46,7 +46,7 @@ export interface BookAppointmentResp {
 
 export interface Appointment {
     appointmentID: string;
-    appointmentStatus: string;
+    status: string;
     customerEmail: string;
     date: string;
     providerEmail: string;
@@ -57,10 +57,9 @@ export interface Appointment {
 }
 
 export interface AppointmentList {
-    success: boolean;
-    data: {
-        appointments: Appointment[];
-    }
+    success: string;
+    data: Appointment[];
+    
 }
     
 
@@ -77,10 +76,8 @@ status: string;
 }
 
 export interface ChangeStatusResponse {
-    success: boolean;
-    data :{
-        message: string;
-    }
+    success: string;
+        Message: string;
 }
 
 export interface ReviewParams {

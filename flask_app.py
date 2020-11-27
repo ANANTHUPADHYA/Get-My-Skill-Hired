@@ -12,7 +12,7 @@ InitUserTable()
 def after_request(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS,PATCH')
     return response
 
 
@@ -41,7 +41,7 @@ app.add_url_rule("/user/<userID>/appointments", \
 app.add_url_rule("/user/<userID>/appointments/<appointmentID>", \
     view_func=acc.updateAppointmentStatus, endpoint="UpdateAppointmentStatus", methods=["PATCH"])
 
-app.add_url_rule("/user/<userID>/appointments/<appointmentID>", \
+app.add_url_rule("/user/<userID>/appointments/<appointmentID>/ratingAndReview", \
     view_func=acc.updateReviewAndRating, endpoint="UpdateReviewAndRating", methods=["PATCH"])
 
 app.add_url_rule("/account/services", \
