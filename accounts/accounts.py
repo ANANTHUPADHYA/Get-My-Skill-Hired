@@ -374,3 +374,155 @@ def upload_profile_image(usertype):
     else:
         data = f"Invalid request method, method {request.method} not supported !!!"
         return GetResponseObject(data, 405)
+
+@verify_token
+@cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
+@app.route("/user/<userID>/appointments", methods = ['POST'])
+def bookappointment(userID):
+    dynamodb = boto3.resource('dynamodb', region_name=db_aws_region)
+
+    appointmentID = uuid.uuid1()
+    email = request.json.get('email')
+    city = request.json.get('city')
+    customerAddress = request.json.get('customerAddress')
+    customerEmail = request.json.get('customerEmail')
+    customerNumber = request.json.get('customerNumber')
+    customerUsername = request.json.get('customerUsername')
+    providerEmail = request.json.get('providerEmail')
+    date = request.json.get('date')
+    day = request.json.get('day')
+    rating = None
+    review = None
+    status = "upcoming"
+    time = request.json.get('time')
+    serviceType = request.json.get('serviceType')
+
+    appointment = {'appointmentID': str(appointmentID), 'email': email, 'city': city, 'customerAddress': customerAddress, 'customerEmail': customerEmail, 'customerNumber': customerNumber, 'customerUsername': customerUsername, 'providerEmail': providerEmail, 'date': date, 'day': day, 'rating': rating, 'review': review, 'status': status, 'time': time, 'serviceType': serviceType}
+    table = dynamodb.Table('Users')
+    response = table.update_item(
+        Key={
+            'uuid': userID,
+        },
+        UpdateExpression="set appointments = list_append(appointments, :ap)",
+        ExpressionAttributeValues={
+            ':ap': [appointment],
+        },
+        ReturnValues="UPDATED_NEW"
+    )
+
+    if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
+        data = {
+            "success": "true",
+            "Message": "Successfully booked an appointment"
+        }
+        return data
+    else:
+        errData = {
+            "success": "false",
+            "Message": "Unable to book an appointment"
+        }
+        return errData
+
+
+@verify_token
+@cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
+@app.route("/user/<userID>/appointments/<appointmentID>", methods=['PATCH'])
+def updateAppointmentStatus(userID, appointmentID):
+    dynamodb = boto3.resource('dynamodb', region_name=db_aws_region)
+
+    status = request.json.get('status')
+
+    table = dynamodb.Table('Users')
+    try:
+        response = table.get_item(Key={'uuid': userID})
+    except ClientError as e:
+        print(e.response['Error']['Message'])
+    else:
+        result = response['Item']
+
+    #Get the index of the appointment
+    for idx, appointment in enumerate(result["appointments"]):
+        if appointment["appointmentID"] == appointmentID:
+            break
+    updateExp = "set #app[{}].#st = :stVal".format(idx)
+    print(updateExp)
+    response = table.update_item(
+        Key={
+            'uuid': userID,
+        },
+        UpdateExpression=updateExp,
+        ExpressionAttributeNames={
+            '#app': 'appointments',
+            '#st': 'status'
+        },
+        ExpressionAttributeValues={
+            ':stVal': status,
+        },
+        ReturnValues="UPDATED_NEW"
+    )
+    if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
+        data = {
+            "success": "true",
+            "Message": "Successfully updated appointment status"
+        }
+        return data
+    else:
+        errData = {
+            "success": "false",
+            "Message": "Unable to update appointment status"
+        }
+        return errData
+
+
+@verify_token
+@cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
+@app.route("/user/<userID>/appointments/<appointmentID>/ratingAndReview", methods = ['PATCH'])
+def updateReviewAndRating(userID, appointmentID):
+   dynamodb = boto3.resource('dynamodb', region_name=db_aws_region)
+
+   rating = request.json.get('rating')
+   review = request.json.get('review')
+
+   table = dynamodb.Table('Users')
+   try:
+       response = table.get_item(Key={'uuid': userID})
+   except ClientError as e:
+       print(e.response['Error']['Message'])
+   else:
+       result = response['Item']
+
+   # Get the index of the appointment
+   for idx, appointment in enumerate(result["appointments"]):
+       if appointment["appointmentID"] == appointmentID:
+            break
+   updateExp = "set #app[{}].#rt = :rtVal, #app[{}].#rv = :rvVal".format(idx, idx)
+   print(updateExp)
+   response = table.update_item(
+       Key={
+           'uuid': userID,
+       },
+        UpdateExpression=updateExp,
+        ExpressionAttributeNames={
+            '#app': 'appointments',
+            '#rt': 'rating',
+            '#rv': 'review'
+        },
+        ExpressionAttributeValues={
+            ':rtVal': rating,
+            ':rvVal': review
+        },
+        ReturnValues="UPDATED_NEW"
+    )
+
+   if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
+        data = {
+            "success": "true",
+            "Message": "Successfully rated and reviewed"
+        }
+        return data
+   else:
+        errData = {
+            "success": "false",
+            "Message": "Unable to submit review and rating"
+        }
+        return errData
