@@ -375,12 +375,12 @@ def upload_profile_image(usertype):
     
     
     
-    @verify_token
+@verify_token
 def providerCategoryServices():
 
     providerSkillset= request.args.get('skillSet')
     user="provider"
-    dynamodb = resource('dynamodb', region_name=db_aws_region)
+    dynamodb = resource('dynamodb', region_name=AWS_REGION)
     table = dynamodb.Table("Users")
 
     scan_kwargs = {
