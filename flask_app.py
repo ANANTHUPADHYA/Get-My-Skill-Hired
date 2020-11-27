@@ -43,7 +43,6 @@ app.add_url_rule("/user/<userID>/appointments/<appointmentID>", \
 app.add_url_rule("/user/<userID>/appointments/<appointmentID>", \
     view_func=acc.updateReviewAndRating, endpoint="UpdateReviewAndRating", methods=["PATCH"])
 
-"""
 app.add_url_rule("/account/<usertype>/<userID>/services", \
     view_func=acc.providerCategoryServices, endpoint="Services", methods=["GET"])
 
@@ -52,7 +51,7 @@ app.add_url_rule('/user/<userID>/customerAppointments', \
 
 app.add_url_rule('/user/<userID>/providerAppointments', \
     view_func=acc.listProviderAppointments, endpoint="providerAppointment", methods=["GET"])
-"""
+
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True, port=8000)
 
