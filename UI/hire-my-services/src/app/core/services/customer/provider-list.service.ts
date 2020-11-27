@@ -27,8 +27,8 @@ export class ProviderListService {
   }
 
   getListOfAppointments(uuid: string):Observable<AppointmentList> {
-    return this.http.get<AppointmentList>('http://localhost:3000/appointments');
-    // return this.http.get<AppointmentList>(`${this.baseUrl}${urlConstants.GET_APPOINTMENTS}/${uuid}`);
+    // return this.http.get<AppointmentList>('http://localhost:3000/appointments');
+    return this.http.get<AppointmentList>(`${this.baseUrl}/user/${uuid}/customerAppointments`);
   }
 
 

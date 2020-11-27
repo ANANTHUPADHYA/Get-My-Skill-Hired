@@ -36,10 +36,8 @@ export interface BookAppointmentReq {
 }
 
 export interface BookAppointmentResp {
-    success: boolean;
-    data? :{
-        message: string;
-    };
+    success: string;
+    Message: string;
     error?: {
         message: string;
     };

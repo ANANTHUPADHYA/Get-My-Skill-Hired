@@ -80,7 +80,7 @@ export class RegisterComponent implements OnInit {
     console.log(formValue);
     delete formValue['password'];
     email = formValue['email'];
-    formValue['phone']=formValue['phone'].toString();
+    formValue['phone']= "+91" + formValue['phone'].toString();
     delete formValue['email'];
     this.loginService.registerUser(formValue, password, email).subscribe(response => {
       if (response.success) {

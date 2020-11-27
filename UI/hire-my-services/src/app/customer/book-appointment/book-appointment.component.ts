@@ -71,9 +71,14 @@ export class BookAppointmentComponent implements OnInit {
 
     console.log(params);
     this.providerListService.scheduleAppointment(params, this.customerDetails.uuid).subscribe(response => {
-        if(response.success) {
-          this.openSnackBar(response.data.message, 'mat-primary');
-          this.dialogRef.close();
+        if(response.success === 'true') {
+          this.providerListService.scheduleAppointment(params, this.data.provider.uuid).subscribe(response1 => {
+            if(response1.success === 'true') {
+              this.openSnackBar(response1.Message, 'mat-primary');
+              this.dialogRef.close();
+            }
+          });
+        
         }
     }, error=> {
       this.openSnackBar(error.error.data, 'mat-warn');
