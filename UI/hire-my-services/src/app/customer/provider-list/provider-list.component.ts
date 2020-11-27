@@ -119,12 +119,13 @@ numberOfFullStars(rating): number {
     return 5 - rating;
   }
 
- fullStars(rating): any[] {
-    return Array(this.numberOfFullStars(rating));
+ fullStars(rating:string): any[] {
+    
+    return Array(this.numberOfFullStars(parseInt(rating)));
   }
 
  emptyStars(rating): any[] {
-    return Array(this.numberOfEmptyStars(rating));
+    return Array(this.numberOfEmptyStars(parseInt(rating)));
   }
 
   openAppointmentBookingComp(providerDetails: any) {

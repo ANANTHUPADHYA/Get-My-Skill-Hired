@@ -5,111 +5,69 @@
         "success": true,
         "data": {
             "providers": [{
-                    "email": "abc.def@gmail.com",
-                    "phoneNumber": 9879821731,
-                    "firstname": "Chandler",
-                    "lastname": "Bing",
-                    "address": "Temple Road",
-                    "area": "MG Road",
-                    "city": "Bangalore",
-                    "skillset": [{
-                        "name": "Carpenter",
-                        "price": 300
-                    }],
-                    "days": ["Monday", "Tuesday"],
-                    "time": "9:00AM-5:00PM",
-                    "rating": 5,
-                    "reviews": [{
-                            "comment": "A good one"
-                        },
-                        {
-                            "comment": "A bad one"
-                        },
-                        {
-                            "comment": "A terrible one"
-                        }
-                    ]
+
+                    "address": "#132,gandinagar,Gujrath",
+                    "area": "rk ashram",
+                    "city": "Gandhinagar",
+                    "days": [
+                        "Mon",
+                        "Tue",
+                        "Wed",
+                        "Sat"
+                    ],
+                    "email": "myuser@gmail.com",
+                    "firstname": "abc",
+                    "image": "https://s3.amazonaws.com/bucket/path/image.png",
+                    "lastname": "xyz",
+                    "phone": "+91 9312753412",
+                    "price": "650",
+                    "rating": "4",
+                    "time": "09:00AM-5:30PM",
+                    "uuid": "d560ac63-6ea1-4a6a-b759-e9fb01634645",
+                    "reviews": ["A good job!!", "A terrible job"]
                 },
                 {
-                    "email": "abc.def@gmail.com",
-                    "phoneNumber": 873441,
-                    "firstname": "Rachel",
-                    "lastname": "Green",
-                    "address": "Near CMC High School",
-                    "area": "Station Road",
-                    "city": "Delhi",
-                    "skillset": [{
-                        "name": "Carpenter",
-                        "price": 600
-                    }],
-                    "days": ["Monday", "Tuesday", "Wednesday"],
-                    "time": "10:00AM-4:00PM",
-                    "rating": 3,
-                    "reviews": [{
-                            "comment": "A good one"
-                        },
-                        {
-                            "comment": "A bad one"
-                        },
-                        {
-                            "comment": "A terrible one"
-                        }
-                    ]
+                    "address": "#132,gandinagar,Gujrath",
+                    "area": "rk ashram",
+                    "city": "Gandhinagar",
+                    "days": [
+                        "Mon",
+                        "Tue",
+                        "Wed",
+                        "Sat"
+                    ],
+                    "email": "myuser@gmail.com",
+                    "firstname": "abc",
+                    "image": "https://s3.amazonaws.com/bucket/path/image.png",
+                    "lastname": "xyz",
+                    "phone": "+91 9312753412",
+                    "price": "650",
+                    "rating": "3",
+                    "time": "09:00AM-5:30PM",
+                    "uuid": "t960ac63-6ea1-4a6a-b759-e9fb01634645",
+                    "reviews": ["A good job!!", "A terrible job"]
                 },
                 {
-                    "email": "abc.def@gmail.com",
-                    "phoneNumber": 9879821731,
-                    "firstname": "Ross",
-                    "lastname": "Geller",
-                    "address": "Central Perk",
-                    "area": "Commercial street",
-                    "city": "Pune",
-                    "skillset": [{
-                        "name": "Carpenter",
-                        "price": 900
-                    }],
-                    "days": ["Monday", "Tuesday", "Friday"],
-                    "time": "9:00AM-5:00PM",
-                    "rating": 2,
-                    "reviews": [{
-                            "comment": "A good one"
-                        },
-                        {
-                            "comment": "A bad one"
-                        },
-                        {
-                            "comment": "A terrible one"
-                        }
-                    ]
-                },
-                {
-                    "email": "abc.def@gmail.com",
-                    "phoneNumber": 9879821731,
-                    "firstname": "Monica",
-                    "lastname": "Bing",
-                    "address": "Church street",
-                    "area": "Bandra",
-                    "city": "Mumbai",
-                    "skillset": [{
-                        "name": "Carpenter",
-                        "price": 200
-                    }],
-                    "days": ["Monday", "Saturday"],
-                    "time": "9:00AM-5:00PM",
-                    "rating": 4,
-                    "reviews": [{
-                            "comment": "A good one"
-                        },
-                        {
-                            "comment": "A bad one"
-                        },
-                        {
-                            "comment": "A terrible one"
-                        }
-                    ]
+                    "address": "#132,gandinagar,Gujrath",
+                    "area": "rk ashram",
+                    "city": "Gandhinagar",
+                    "days": [
+                        "Mon",
+                        "Tue",
+                        "Wed",
+                        "Sat"
+                    ],
+                    "email": "myuser@gmail.com",
+                    "firstname": "abc",
+                    "image": "https://s3.amazonaws.com/bucket/path/image.png",
+                    "lastname": "xyz",
+                    "phone": "+91 9312753412",
+                    "price": "650",
+                    "rating": "5",
+                    "time": "09:00AM-5:30PM",
+                    "uuid": "d560ac63-6ea1-4a6a-b759-e9f7801634645",
+                    "reviews": ["A good job!!", "A terrible job"]
                 }
-
-
             ]
         }
     },

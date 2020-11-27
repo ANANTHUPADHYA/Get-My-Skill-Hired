@@ -1,23 +1,18 @@
 export interface ProviderDetails {
     email: string;
-    phoneNumber: number;
+    phone: number;
     firstname: string;
     lastname: string;
     address: string;
     area: string;
     city:string;
-    skillset: 
-    {
-    name: string;
-    price: number;
-    }[];
+    price: string;
     days: string[];
     time: string;
     rating: number;
     image:string;
-    reviews: {
-        comment:string;
-    }[];
+    reviews: string[];
+    uuid: string;
 }
 
 export interface ProviderDetailsResponse {
