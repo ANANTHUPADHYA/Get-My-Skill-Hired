@@ -17,6 +17,6 @@ export class ProfileService {
   uploadImage(fileToUpload: File, email: string): Observable<UploadImageResponse> {
     const formData: FormData = new FormData();
     formData.append('profile_image', fileToUpload, fileToUpload.name);
-    return this.http.post<UploadImageResponse>(`${this.baseUrl}${urlConstants.IMAGE_UPLOAD}/${email}`, formData);
+    return this.http.put<UploadImageResponse>(`${this.baseUrl}${urlConstants.IMAGE_UPLOAD}`, formData);
   }
 }

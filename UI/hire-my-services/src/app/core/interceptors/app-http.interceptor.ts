@@ -18,7 +18,7 @@ export class AppHttpInterceptor implements HttpInterceptor {
 
    // Clone the request and replace the original headers with
    // cloned headers, updated with the authorization.
-   if (authToken) {
+   if (authToken && !request.url.includes('signin')) {
    const authReq = request.clone({
      headers: request.headers.set('Authorization',  `Bearer ${authToken}`)
    });
