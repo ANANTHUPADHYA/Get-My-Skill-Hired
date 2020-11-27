@@ -35,6 +35,15 @@ app.add_url_rule("/account/profile/<usertype>/upload", \
     view_func=acc.upload_profile_image, endpoint="UploadProfileImage", methods=["PUT"])
 
 
+app.add_url_rule("/user/<userID>/appointments", \
+    view_func=appointment.bookappointment, endpoint="CreateAppointment", methods=["POST"])
+
+app.add_url_rule("/user/<userID>/appointments/<appointmentID>", \
+    view_func=appointment.updateAppointmentStatus, endpoint="UpdateAppointmentStatus", methods=["PATCH"])
+
+app.add_url_rule("/user/<userID>/appointments/<appointmentID>", \
+    view_func=appointment.updateReviewAndRating, endpoint="UpdateReviewAndRating", methods=["PATCH"])
+
 app.add_url_rule("/account/services", \
     view_func=acc.providerCategoryServices, endpoint="Services", methods=["GET"])
 
