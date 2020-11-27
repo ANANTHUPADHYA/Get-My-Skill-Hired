@@ -32,7 +32,14 @@ export interface BookAppointmentReq {
 	providerEmail: string;
 	date: string;
 	time: string;
-	serviceType: string;
+    serviceType: string;
+    city: string;
+    customerAddress: string;
+    customerNumber: string;
+    customerFirstName: string;
+    customerLastName: string;
+    providerFirstName: string;
+    providerLastName: string;
 }
 
 export interface BookAppointmentResp {
@@ -65,3 +72,29 @@ export interface AppointmentList {
     }
 }
     
+
+export interface ReviewParams {
+    rating: string;
+    review: string;
+    
+}
+
+export interface ChangeStatusParams {
+uuid: string;
+appId: string;
+status: string;
+}
+
+export interface ChangeStatusResponse {
+    success: boolean;
+    data :{
+        message: string;
+    }
+}
+
+export interface ReviewParams {
+    uuid: string;
+appId: string;
+review: string;
+rating: string;
+}

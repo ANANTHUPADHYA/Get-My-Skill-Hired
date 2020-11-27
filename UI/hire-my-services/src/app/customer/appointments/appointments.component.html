@@ -1,33 +1,83 @@
 <div class="listingTop">
-    <mat-card fxFlex="0 1 calc(75% - 32px)" fxFlex.lt-sm="100%" class="card" *ngFor="let app of appointments;">
-        <mat-card-header>
-            <mat-card-title>Appointment ID:&nbsp;&nbsp;{{app.appointmentID}}</mat-card-title>
-            <mat-card-subtitle>
-                <mat-chip [color]=getColor(app.appointmentStatus)>{{app.appointmentStatus}}</mat-chip>
-            </mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-            <div><strong>Service offered by:&nbsp;&nbsp;</strong>{{app.providerFirstName}} &nbsp;{{app.providerLastName}}</div>
-            <div><strong>Service Type:&nbsp;&nbsp;</strong>{{app.serviceType}}</div>
-            <div><strong>Contact:&nbsp;&nbsp;</strong>{{app.providerEmail}}</div>
-            <div><strong>Date:&nbsp; &nbsp;</strong>{{app.date}}</div>
-            <div><strong>Time:&nbsp;&nbsp;</strong>{{app.time}}</div>
-        </mat-card-content>
-        <mat-card-actions>
-            <div fxLayout="row wrap" fxLayout.lt-sm="column">
-                <div fxFlex="0 1 calc(33.3% - 92px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" class="cursor-pointer">
-                    <mat-icon class="checked">star</mat-icon>
-                    <button mat-raised-button color="primary">Review</button>
+    <h2 style="font-family:Ubuntu;margin:12px">My Appointments</h2>
+
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="20px" style="margin:12px">
+        <div fxFlex="0 1 calc(50% - 40px)" fxFlex.lt-sm="100%">
+            <mat-form-field class="search fontFamily">
+                <input matInput placeholder="Search apppointments by ID " [(ngModel)]="searchKey" (keyup.enter)="search()" type="text" name="search" (keyup)="keyupFilter()">
+                <span matSuffix fxHide.lt-md (click)="search()">
+        <mat-icon class="cursor-pointer">search</mat-icon>
+      </span>
+            </mat-form-field>
+        </div>
+
+        <div fxFlex="0 1 calc(50% - 40px)" fxFlex.lt-sm="100%">
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="fontFamily">
+                        <i class="material-icons header-icon ">filter_alt</i><span class="filterBox">Filter Appointments</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                    <div fxFlex fxFlex.lt-sm="100%">
+                        <mat-label class="fontFamily">By Status:</mat-label>
+                        <mat-select multiple required [(value)]=statusFilter class="width100 selectClass">
+                            <mat-option [value]="'upcoming'">Upcoming</mat-option>
+                            <mat-option [value]="'completed'">Completed</mat-option>
+                            <mat-option [value]="'cancelled'">Cancelled</mat-option>
+                        </mat-select>
+                    </div>
+
+
                 </div>
 
-                <div fxFlex="0 1 calc(33.3% - 92px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" *ngIf="app.appointmentStatus === 'upcoming'">
-                    <button mat-raised-button color="accent" class="cursor-pointer">Complete</button>
+                <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="10px">
+                    <button fxFlex="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" mat-raised-button color="primary" class="fontFamily" (click)="applyFilters()">Apply</button>
+                    <button fxFlex="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" mat-raised-button color="warn" class="fontFamily" (click)="clearFilters()">Clear</button>
                 </div>
-                <div fxFlex="0 1 calc(33.3% - 92px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" fxLayoutAlign="flex-end" *ngIf="app.appointmentStatus === 'upcoming'">
-                    <button mat-raised-button color="warn" class="cursor-pointer">Cancel</button>
-                </div>
+            </mat-expansion-panel>
+        </div>
+    </div>
 
-            </div>
-        </mat-card-actions>
-    </mat-card>
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="flex-center" fxLayoutGap="30px" class="listProvider" *ngIf="appointments.length">
+        <mat-card fxFlex="0 1 calc(75% - 32px)" fxFlex.lt-sm="100%" class="card" *ngFor="let app of appointments;">
+            <mat-card-header>
+                <mat-card-title>Appointment ID:&nbsp;&nbsp;{{app.appointmentID}}</mat-card-title>
+                <mat-card-subtitle>
+                    <mat-chip-list>
+                        <mat-chip selected [color]=getColor(app.appointmentStatus)>{{app.appointmentStatus | titlecase}}</mat-chip>
+                    </mat-chip-list>
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <div><strong>Service offered by:&nbsp;&nbsp;</strong>{{app.providerFirstName}} &nbsp;{{app.providerLastName}}</div>
+                <div><strong>Service Type:&nbsp;&nbsp;</strong>{{app.serviceType}}</div>
+                <div><strong>Contact:&nbsp;&nbsp;</strong>{{app.providerEmail}}</div>
+                <div><strong>Date:&nbsp; &nbsp;</strong>{{app.date}}</div>
+                <div><strong>Time:&nbsp;&nbsp;</strong>{{app.time}}</div>
+            </mat-card-content>
+            <mat-card-actions>
+                <div fxLayout="row wrap" fxLayout.lt-sm="column" fxFlex>
+                    <div fxFlex="0 1 calc(33% - 92px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" class="cursor-pointer">
+                        <button mat-raised-button color="primary" *ngIf="app.appointmentStatus !== 'upcoming' && app.review ==''" (click)="goToReview(app)"><mat-icon class="checked">star</mat-icon>Review</button>
+
+                    </div>
+
+                    <div fxFlex="0 1 calc(33% - 92px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
+                    </div>
+                    <div fxFlex="0 1 calc(33% - 92px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" fxLayoutAlign="flex-end">
+                    </div>
+
+                    <div fxFlex="0 1 calc(33% - 92px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" fxLayoutAlign="flex-end">
+                        <button mat-raised-button color="warn" class="cursor-pointer" *ngIf="app.appointmentStatus === 'upcoming'" (click)="cancelAppointment(app.appointmentID)">Cancel</button>
+                    </div>
+
+                </div>
+            </mat-card-actions>
+        </mat-card>
+        <div fxLayout="row wrap" *ngIf="!appointments.length" class="search">
+            No appointments Available.
+        </div>
+    </div>
+
 </div>

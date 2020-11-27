@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ProviderDetailsResponse } from './index';
 import { Observable } from 'rxjs';
 import { urlConstants } from '../../rest-api-configuration';
-import { AppointmentList, BookAppointmentReq, BookAppointmentResp } from './models';
+import { AppointmentList, BookAppointmentReq, BookAppointmentResp, ChangeStatusParams, ChangeStatusResponse, ReviewParams } from './models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -29,5 +29,14 @@ export class ProviderListService {
     return this.http.get<AppointmentList>('http://localhost:3000/appointments');
     // return this.http.get<AppointmentList>(`${this.baseUrl}${urlConstants.GET_APPOINTMENTS}/${uuid}`);
   }
-  
+
+
+  changeApptStatus(changeStatusParams: ChangeStatusParams):Observable<ChangeStatusResponse>{
+    return this.http.post<ChangeStatusResponse>(`${this.baseUrl}/user/${changeStatusParams.uuid}/appointments/${changeStatusParams.appId}`, {status: changeStatusParams.status});
+  }
+
+  postReview(reviewParams: ReviewParams): Observable<ChangeStatusResponse> {
+    return this.http.post<ChangeStatusResponse>(`${this.baseUrl}/user/${reviewParams.uuid}/appointments/${reviewParams.appId}`, {review: reviewParams.review, rating: reviewParams.rating});
+
+  }
 }

@@ -54,12 +54,19 @@ export class BookAppointmentComponent implements OnInit {
 
   scheduleAppointment() {
     const format =  new DatePipe(this.locale).transform(this.appointmentForm.controls.date.value, 'fullDate');
-    let params = {
+    let params: BookAppointmentReq = {
       customerEmail:this.customerDetails.email,
     providerEmail: this.data.provider.email,
    serviceType:this.data.serviceType,
    date: format,
-   time: this.appointmentForm.controls.fromTime.value + "-" + this.appointmentForm.controls.toTime.value
+   time: this.appointmentForm.controls.fromTime.value + "-" + this.appointmentForm.controls.toTime.value,
+   city: this.customerDetails.city,
+    customerAddress: this.customerDetails.address,
+    customerNumber: this.customerDetails.phone,
+    customerFirstName: this.customerDetails.firstname,
+    customerLastName: this.customerDetails.lastname,
+    providerFirstName: this.data.provider.firstname,
+    providerLastName: this.data.provider.lastname
     }
 
     console.log(params);
