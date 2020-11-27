@@ -1,21 +1,20 @@
-
 from accounts import accounts as acc
 from accounts import settings
 from accounts.models import InitUserTable
 from flask import Flask, request, jsonify
-from flask_cors import CORS, cross_origin
-
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'HireMyService@SJSUFALL2020@CMP281'
-app.config['CORS_HEADERS'] = 'Content-Type'
-
-host = settings.HOST_PROTOCOL +  "://" + settings.HOST_NAME + ":" + settings.HOST_PORT
-print(host)
-cors = CORS(app, resources={r"/account": {"origins": host}})
 
 #Initializing DB
 InitUserTable()
+
+@app.after_request
+def after_request(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    return response
+
 
 app.add_url_rule("/account/signin", \
     view_func=acc.sign_in, endpoint="SignIn", methods=["GET"])
