@@ -4,7 +4,7 @@ import boto3
 import json
 import logging
 import requests
-from flask import request
+from flask import request, Response
 from flask_cors import cross_origin
 from accounts import settings
 
@@ -46,7 +46,7 @@ s3_client = boto3.client("s3",
    aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
 
-@cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
+# @cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
 def sign_in():
     if request and request.method == "GET":
         resp, err = GetUserPasswordFromAuthHeader(request)
@@ -94,9 +94,8 @@ def sign_in():
         return GetResponseObject(data, 405)
         # return HttpResponseBadRequest(res)
 
-@cross_origin(origin='*')
-#@cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
 def sign_up():
+
     if request and request.method == "POST":
         resp, err = GetUserPasswordFromAuthHeader(request)
         if err:
@@ -115,9 +114,7 @@ def sign_up():
                 return res
 
             try:
-                
                 body["username"] = username
-
                 # Save user record in Cognito
                 user = Cognito(user_pool_id=COGNITO_USER_POOL_ID, client_id=COGNITO_APP_CLIENT_ID, user_pool_region=AWS_REGION)
                 user.add_base_attributes(
@@ -162,6 +159,11 @@ def sign_up():
                     log.error(data)
                     res = GetResponseObject(data)
                     return res
+
+                data = f"Error: {str(e)}"
+                log.error(data)
+                res = GetResponseObject(data)
+                return res
 
             except Exception as e:
                 user = Cognito( \

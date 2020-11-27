@@ -1,0 +1,79 @@
+<div>
+    <h2 class="fontFamily" mat-dialog-title>Schedule an Appointment</h2>
+    <mat-dialog-content>
+        <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="flex-center" fxLayoutGap="30px" class="listProvider">
+            <mat-card class="card borderTye">
+                <mat-card-header>
+                    <mat-card-title>{{data.provider.firstname | titlecase}}&nbsp;&nbsp;{{data.provider.lastname | titlecase}}</mat-card-title>
+                    <mat-card-subtitle>{{data.provider.area | titlecase}},&nbsp;{{data.provider.city|titlecase}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="20px">
+                        <div fxFlex="0 1 calc(50% - 40px)" fxFlex.lt-sm="100%">
+                            <img mat-card-image src="http://d3ani98dzag63m.cloudfront.net/defaultUser.png" class="img-thumbnail" alt="Photo of a Shiba Inu">
+                        </div>
+                        <div fxFlex="0 1 calc(50% - 40px)" fxFlex.lt-sm="100%">
+                            <div><strong>Contact:&nbsp;&nbsp;</strong>{{data.provider.phoneNumber}}</div>
+                            <div><strong>Available on:&nbsp; &nbsp;</strong><span *ngFor="let day of data.provider.days;let isLast=last">{{day}}{{isLast ? '' : ', '}}</span>
+                            </div>
+                            <div><strong>Working hours:&nbsp;&nbsp;</strong>{{data.provider.time}}</div>
+                            <div><strong>Charge per hour:&nbsp;&nbsp;</strong>{{data.provider.skillset[0].price}}</div>
+                        </div>
+                    </div>
+                    <hr/>
+                    <form [formGroup]="appointmentForm">
+                        <h3 class="fontFamily">Date:</h3>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Choose a date</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="date" disabled [min]="minDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker disabled="false"></mat-datepicker>
+                        </mat-form-field>
+                        <h3 class="fontFamily">Time:</h3>
+                        <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="20px">
+                            <div fxFlex="0 1 calc(50% - 40px)" fxFlex.lt-sm="100%">
+                                <mat-form-field>
+                                    <mat-label>From</mat-label>
+                                    <mat-select formControlName="fromTime" required (selectionChange)="populateToTiming() ">
+                                        <mat-option *ngFor="let time of fromTimeArray; let i=index" [value]=time [disabled]="i == fromTimeArray.length-1">{{time}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="0 1 calc(50% - 40px)" fxFlex.lt-sm="100%">
+                                <mat-form-field>
+                                    <mat-label>To</mat-label>
+                                    <mat-select formControlName="toTime" required>
+                                        <mat-option *ngFor="let time of toTimeArray; " [value]=time>{{time}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </form>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div>
+            <mat-accordion>
+                <mat-expansion-panel class="borderTye">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title class="fontFamily">
+                            Reviews:
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="fontFamily">
+                        <div style="font-style:italic; padding:5px; font-weight: 300;" *ngFor="let review of data.provider.reviews">
+                            <span>"{{review.comment}}"</span>
+                            <hr/>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-raised-button type="submit" color="accent" [disabled]=!appointmentForm.valid (click)="scheduleAppointment()">Schedule</button>
+        <button mat-raised-button color="cancel" mat-dialog-close>Cancel</button>
+    </mat-dialog-actions>
+
+</div>
