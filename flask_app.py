@@ -34,13 +34,13 @@ app.add_url_rule("/account/profile/<usertype>", \
 app.add_url_rule("/account/profile/<usertype>/upload", \
     view_func=acc.upload_profile_image, endpoint="UploadProfileImage", methods=["PUT"])
 
-app.add_url_rule("/user/<userID>/appointments", \
+app.add_url_rule("/users/<userID>/appointments", \
     view_func=acc.bookappointment, endpoint="CreateAppointment", methods=["POST"])
 
-app.add_url_rule("/user/<userID>/appointments/<appointmentID>", \
+app.add_url_rule("/users/<userID>/appointments/<appointmentID>", \
     view_func=acc.updateAppointmentStatus, endpoint="UpdateAppointmentStatus", methods=["PATCH"])
 
-app.add_url_rule("/user/<userID>/appointments/<appointmentID>", \
+app.add_url_rule("/users/<userID>/appointments/<appointmentID>", \
     view_func=acc.updateReviewAndRating, endpoint="UpdateReviewAndRating", methods=["PATCH"])
 
 """

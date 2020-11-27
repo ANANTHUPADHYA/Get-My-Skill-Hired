@@ -379,7 +379,7 @@ def upload_profile_image(usertype):
 @verify_token
 @cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
 def bookappointment(userID):
-    dynamodb = boto3.resource('dynamodb', region_name=db_aws_region)
+    dynamodb = boto3.resource('dynamodb', region_name=AWS_REGION)
 
     appointmentID = uuid.uuid1()
     customerCity = request.json.get('customerCity')
@@ -399,7 +399,7 @@ def bookappointment(userID):
     time = request.json.get('time')
     serviceType = request.json.get('serviceType')
 
-    appointment = {'appointmentID': str(appointmentID), 'customerCity': customerCity, 'customerAddress': customerAddress, 'customerEmail': customerEmail, 'customerNumber': customerNumber, 'customerFirstName': customerFirstName, 'customerLastName': customerLastName, 'providerFirstName': providerFirstName, 'providerLastName': providerLastName, 'providerEmail': providerEmail, 'date': date, 'day': day, 'rating': rating, 'review': review, 'status': status, 'time': time, 'serviceType': serviceType}
+    appointment = {'appointmentID': str(appointmentID), 'uuid': userID, 'customerCity': customerCity, 'customerAddress': customerAddress, 'customerEmail': customerEmail, 'customerNumber': customerNumber, 'customerFirstName': customerFirstName, 'customerLastName': customerLastName, 'providerFirstName': providerFirstName, 'providerLastName': providerLastName, 'providerEmail': providerEmail, 'date': date, 'day': day, 'rating': rating, 'review': review, 'status': status, 'time': time, 'serviceType': serviceType}
     table = dynamodb.Table('Users')
     response = table.update_item(
         Key={
@@ -515,11 +515,45 @@ def updateReviewAndRating(userID, appointmentID):
     )
 
    if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
-        data = {
-            "success": "true",
-            "Message": "Successfully rated and reviewed"
-        }
-        return data
+       #Update final rating
+       finalrating = 0.0
+       count = 0
+       for _, appointment in enumerate(result["appointments"]):
+           if appointment["rating"] is not None:
+               count = count + 1
+               print(count)
+               finalrating = finalrating + float(appointment["rating"])
+
+       if count != 0:
+           finalrating = finalrating/count
+
+       updatefinalRatingExp = "set #app.#fr = :frVal"
+       updatedRes = table.update_item(
+           Key={
+               'uuid': userID,
+           },
+           UpdateExpression=updatefinalRatingExp,
+           ExpressionAttributeNames={
+               '#app': 'appointments',
+               '#fr': 'finalRating'
+           },
+           ExpressionAttributeValues={
+               ':frVal': finalrating,
+           },
+           ReturnValues="UPDATED_NEW"
+       )
+       if updatedRes["ResponseMetadata"]["HTTPStatusCode"] == 200:
+            updatedmessage = {
+                "success": "true",
+                "Message": "Successfully rated and reviewed the appointment. Also updated the final rating of the provider"
+            }
+            return updatedmessage
+       else:
+           data = {
+               "success": "true",
+               "Message": "Successfully rated and reviewed the appointment. Failed to update the final rating"
+           }
+           return data
    else:
         errData = {
             "success": "false",
