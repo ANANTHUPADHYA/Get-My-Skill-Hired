@@ -22,23 +22,23 @@ export class ProviderListService {
   }
 
   scheduleAppointment(params: BookAppointmentReq, uuid: string):Observable<BookAppointmentResp> {
-     return this.http.post<BookAppointmentResp>(`${this.baseUrl}/user/${uuid}/appointments`, params); 
+     return this.http.post<BookAppointmentResp>(`${this.baseUrl}/users/${uuid}/appointments`, params); 
     //  return this.http.get<BookAppointmentResp>('http://localhost:3000/book')
   }
 
   getListOfAppointments(uuid: string):Observable<AppointmentList> {
     // return this.http.get<AppointmentList>('http://localhost:3000/appointments');
-    return this.http.get<AppointmentList>(`${this.baseUrl}/user/${uuid}/customerAppointments`);
+    return this.http.get<AppointmentList>(`${this.baseUrl}/users/${uuid}/customerAppointments`);
   }
 
 
   changeApptStatus(changeStatusParams: ChangeStatusParams):Observable<ChangeStatusResponse>{
     const params =  {status: changeStatusParams.status}
-    return this.http.patch<ChangeStatusResponse>(`${this.baseUrl}/user/${changeStatusParams.uuid}/appointments/${changeStatusParams.appId}`, params);
+    return this.http.patch<ChangeStatusResponse>(`${this.baseUrl}/users/${changeStatusParams.uuid}/appointments/${changeStatusParams.appId}`, params);
   }
 
   postReview(reviewParams: ReviewParams): Observable<ChangeStatusResponse> {
-    return this.http.patch<ChangeStatusResponse>(`${this.baseUrl}/user/${reviewParams.uuid}/appointments/${reviewParams.appId}/ratingAndReview`, {review: reviewParams.review, rating: reviewParams.rating});
+    return this.http.patch<ChangeStatusResponse>(`${this.baseUrl}/users/${reviewParams.uuid}/appointments/${reviewParams.appId}/ratingAndReview`, {review: reviewParams.review, rating: reviewParams.rating});
 
   }
 }
