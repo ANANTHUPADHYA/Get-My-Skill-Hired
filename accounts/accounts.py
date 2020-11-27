@@ -430,13 +430,15 @@ def bookappointment(userID):
     dynamodb = boto3.resource('dynamodb', region_name=db_aws_region)
 
     appointmentID = uuid.uuid1()
-    email = request.json.get('email')
-    city = request.json.get('city')
+    customerCity = request.json.get('customerCity')
     customerAddress = request.json.get('customerAddress')
     customerEmail = request.json.get('customerEmail')
     customerNumber = request.json.get('customerNumber')
-    customerUsername = request.json.get('customerUsername')
+    customerFirstName = request.json.get('customerFirstName')
+    customerLastName = request.json.get('customerLastName')
     providerEmail = request.json.get('providerEmail')
+    providerFirstName = request.json.get('providerFirstName')
+    providerLastName = request.json.get('providerLastName')
     date = request.json.get('date')
     day = request.json.get('day')
     rating = None
@@ -445,7 +447,7 @@ def bookappointment(userID):
     time = request.json.get('time')
     serviceType = request.json.get('serviceType')
 
-    appointment = {'appointmentID': str(appointmentID), 'email': email, 'city': city, 'customerAddress': customerAddress, 'customerEmail': customerEmail, 'customerNumber': customerNumber, 'customerUsername': customerUsername, 'providerEmail': providerEmail, 'date': date, 'day': day, 'rating': rating, 'review': review, 'status': status, 'time': time, 'serviceType': serviceType}
+    appointment = {'appointmentID': str(appointmentID), 'customerCity': customerCity, 'customerAddress': customerAddress, 'customerEmail': customerEmail, 'customerNumber': customerNumber, 'customerFirstName': customerFirstName, 'customerLastName': customerLastName, 'providerFirstName': providerFirstName, 'providerLastName': providerLastName, 'providerEmail': providerEmail, 'date': date, 'day': day, 'rating': rating, 'review': review, 'status': status, 'time': time, 'serviceType': serviceType}
     table = dynamodb.Table('Users')
     response = table.update_item(
         Key={
