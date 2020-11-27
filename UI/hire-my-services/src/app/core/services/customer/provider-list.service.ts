@@ -17,8 +17,8 @@ export class ProviderListService {
   }
   getListOfProviders(serviceName: string): Observable<ProviderDetailsResponse> {
     const name = serviceName.toLowerCase();
-    // return this.http.get<ProviderDetailsResponse>(`${this.baseUrl}${urlConstants.GET_PROVIDERS}?skillSet=${name}`); 
-    return this.http.get<ProviderDetailsResponse>('http://localhost:3000/providers');
+    return this.http.get<ProviderDetailsResponse>(`${this.baseUrl}${urlConstants.GET_PROVIDERS}?skillSet=${name}`); 
+    // return this.http.get<ProviderDetailsResponse>('http://localhost:3000/providers');
   }
 
   scheduleAppointment(params: BookAppointmentReq):Observable<BookAppointmentResp> {

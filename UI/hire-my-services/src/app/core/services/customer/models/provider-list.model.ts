@@ -16,10 +16,8 @@ export interface ProviderDetails {
 }
 
 export interface ProviderDetailsResponse {
-    success: boolean;
-    data: {
-        providers: ProviderDetails[];
-    }
+    success: string;
+    data:  ProviderDetails[];
 }
 
 export interface BookAppointmentReq {

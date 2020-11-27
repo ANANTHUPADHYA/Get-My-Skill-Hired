@@ -49,9 +49,9 @@ export class ProviderListComponent implements OnInit {
     this.subscriptions.add(
       this.providerListService.getListOfProviders(this.serviceType).subscribe(
         response => {
-          if (response.success) {
-            this.listOfProviders = response.data.providers;
-            this.originalList = response.data.providers.slice();
+          if (response.success === 'true') {
+            this.listOfProviders = response.data;
+            this.originalList = response.data.slice();
           }
         },
         error => {
@@ -81,7 +81,7 @@ export class ProviderListComponent implements OnInit {
 
     if (this.priceFilter) {
       filteredProviders = filteredProviders.filter(
-        provider => provider[0].price <= +this.priceFilter
+        provider => parseInt(provider.price) <= +this.priceFilter
       );
     }
     if (this.ratingFilter) {
