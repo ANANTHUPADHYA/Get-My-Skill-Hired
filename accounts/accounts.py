@@ -577,6 +577,7 @@ def updateReviewAndRating(userID, appointmentID):
   
 
 @verify_token
+@cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
 def listCustomerAppointments(userID):
    Cutomeruuid=userID
    if Cutomeruuid:
@@ -607,6 +608,7 @@ def listCustomerAppointments(userID):
     
     
 @verify_token
+@cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
 def listProviderAppointments(userID):
    providerUuid=userID
 
