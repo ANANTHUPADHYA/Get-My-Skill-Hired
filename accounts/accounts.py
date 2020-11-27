@@ -575,8 +575,9 @@ def updateReviewAndRating(userID, appointmentID):
         }
         return errData
   
- @verify_token
- def listCustomerAppointments(userID):
+
+@verify_token
+def listCustomerAppointments(userID):
    Cutomeruuid=userID
    if Cutomeruuid:
        dynamodb_resource = resource('dynamodb', region_name=db_aws_region)

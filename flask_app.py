@@ -51,7 +51,7 @@ app.add_url_rule("/account/services", \
 app.add_url_rule('/user/<userID>/customerAppointments', \
     view_func=acc.listCustomerAppointments, endpoint="CustomerAppointment", methods=["GET"])
 
-"""
+
 app.add_url_rule('/user/<userID>/providerAppointments', \
     view_func=acc.listProviderAppointments, endpoint="providerAppointment", methods=["GET"])
 
