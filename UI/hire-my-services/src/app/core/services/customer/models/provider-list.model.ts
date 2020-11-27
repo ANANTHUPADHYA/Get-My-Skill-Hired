@@ -26,7 +26,7 @@ export interface BookAppointmentReq {
 	date: string;
 	time: string;
     serviceType: string;
-    city: string;
+    customerCity: string;
     customerAddress: string;
     customerNumber: string;
     customerFirstName: string;

@@ -60,7 +60,7 @@ export class BookAppointmentComponent implements OnInit {
    serviceType:this.data.serviceType,
    date: format,
    time: this.appointmentForm.controls.fromTime.value + "-" + this.appointmentForm.controls.toTime.value,
-   city: this.customerDetails.city,
+   customerCity: this.customerDetails.city,
     customerAddress: this.customerDetails.address,
     customerNumber: this.customerDetails.phone,
     customerFirstName: this.customerDetails.firstname,
@@ -70,7 +70,7 @@ export class BookAppointmentComponent implements OnInit {
     }
 
     console.log(params);
-    this.providerListService.scheduleAppointment(params).subscribe(response => {
+    this.providerListService.scheduleAppointment(params, this.customerDetails.uuid).subscribe(response => {
         if(response.success) {
           this.openSnackBar(response.data.message, 'mat-primary');
           this.dialogRef.close();

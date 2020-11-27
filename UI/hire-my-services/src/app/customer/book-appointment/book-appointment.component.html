@@ -13,11 +13,11 @@
                             <img mat-card-image src="http://d3ani98dzag63m.cloudfront.net/defaultUser.png" class="img-thumbnail" alt="Photo of a Shiba Inu">
                         </div>
                         <div fxFlex="0 1 calc(50% - 40px)" fxFlex.lt-sm="100%">
-                            <div><strong>Contact:&nbsp;&nbsp;</strong>{{data.provider.phoneNumber}}</div>
+                            <div><strong>Contact:&nbsp;&nbsp;</strong>{{data.provider.phone}}</div>
                             <div><strong>Available on:&nbsp; &nbsp;</strong><span *ngFor="let day of data.provider.days;let isLast=last">{{day}}{{isLast ? '' : ', '}}</span>
                             </div>
                             <div><strong>Working hours:&nbsp;&nbsp;</strong>{{data.provider.time}}</div>
-                            <div><strong>Charge per hour:&nbsp;&nbsp;</strong>{{data.provider.skillset[0].price}}</div>
+                            <div><strong>Charge per hour:&nbsp;&nbsp;</strong>{{data.provider.price}}</div>
                         </div>
                     </div>
                     <hr/>
@@ -54,7 +54,7 @@
             </mat-card>
         </div>
         <div>
-            <mat-accordion>
+            <mat-accordion *ngIf="data.provider.reviews">
                 <mat-expansion-panel class="borderTye">
                     <mat-expansion-panel-header>
                         <mat-panel-title class="fontFamily">
@@ -63,7 +63,7 @@
                     </mat-expansion-panel-header>
                     <div class="fontFamily">
                         <div style="font-style:italic; padding:5px; font-weight: 300;" *ngFor="let review of data.provider.reviews">
-                            <span>"{{review.comment}}"</span>
+                            <span>"{{review}}"</span>
                             <hr/>
                         </div>
                     </div>

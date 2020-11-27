@@ -21,9 +21,9 @@ export class ProviderListService {
     // return this.http.get<ProviderDetailsResponse>('http://localhost:3000/providers');
   }
 
-  scheduleAppointment(params: BookAppointmentReq):Observable<BookAppointmentResp> {
-     // return this.http.post<ProviderDetailsResponse>(`${this.baseUrl}${urlConstants.BOOK_APPNT}`, params); 
-     return this.http.get<BookAppointmentResp>('http://localhost:3000/book')
+  scheduleAppointment(params: BookAppointmentReq, uuid: string):Observable<BookAppointmentResp> {
+     return this.http.post<BookAppointmentResp>(`${this.baseUrl}/user/${uuid}/appointments`, params); 
+    //  return this.http.get<BookAppointmentResp>('http://localhost:3000/book')
   }
 
   getListOfAppointments(uuid: string):Observable<AppointmentList> {
