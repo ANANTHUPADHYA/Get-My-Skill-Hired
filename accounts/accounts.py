@@ -408,4 +408,17 @@ def providerCategoryServices():
                         'rating' : item['finalRating'],
                         'image': item['image']}
                 )
-    return jsonify(res)
+    if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
+
+        data = {
+            "success": "true",
+            "data": res
+        }
+        return data
+
+    else:
+        errData = {
+            "success": "false",
+            "Message": "Unable to fetch data"
+        }
+        return errData
