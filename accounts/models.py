@@ -160,6 +160,7 @@ def SerializeUserObj(user):
             "lastName": user.lastName,
             "phone": user.phone,
             "address": user.address,
+            "area": user.area,            
             "city": user.city,
             "image": user.image,
             "days":user.days,
@@ -178,6 +179,7 @@ def SerializeUserObj(user):
             "lastName": user.lastName,
             "phone": user.phone,
             "address": user.address,
+            "area": user.area,            
             "city": user.city,
             # "time": user.time,
             "appointments": user.appointments
