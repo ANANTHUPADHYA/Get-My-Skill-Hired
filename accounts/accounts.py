@@ -569,8 +569,8 @@ def updateReviewAndRating(userID, appointmentID):
    # Get the index of the appointment
    for idx, appointment in enumerate(result["appointments"]):
        if appointment["appointmentID"] == appointmentID:
-           UUID = appointment["uuid"]
-           break
+        UUID = appointment["uuid"]
+        break
    updateExp = "set #app[{}].#rt = :rtVal, #app[{}].#rv = :rvVal".format(idx, idx)
 
    providerResponse = table.update_item(
@@ -589,6 +589,20 @@ def updateReviewAndRating(userID, appointmentID):
         },
         ReturnValues="UPDATED_NEW"
     )
+
+   table = dynamodb.Table('Users')
+   try:
+       response = table.get_item(Key={'uuid': UUID})
+   except ClientError as e:
+       print(e.response['Error']['Message'])
+   else:
+       result = response['Item']
+
+   for idx, appointment in enumerate(result["appointments"]):
+        if appointment["appointmentID"] == appointmentID:
+            break
+
+   updateExp = "set #app[{}].#rt = :rtVal, #app[{}].#rv = :rvVal".format(idx, idx)
 
    customerResponse = table.update_item(
        Key={
