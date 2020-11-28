@@ -376,39 +376,48 @@ def upload_profile_image(usertype):
     
     
     
+
+    
 @verify_token
 def providerCategoryServices():
 
-    providerSkillset= request.args.get('skillSet')
-    user="provider"
+    providerSkillset = request.args.get('skillSet')
+    user = "provider"
     dynamodb = resource('dynamodb', region_name=AWS_REGION)
     table = dynamodb.Table("Users")
 
     scan_kwargs = {
-            'FilterExpression': Key('userType').eq(user)}
+        'FilterExpression': Key('userType').eq(user)}
     response = table.scan(**scan_kwargs)
     items = response['Items']
     res = []
     if len(items) > 0:
         for i, item in enumerate(items):
-            skill=item['skillSet']
+            skill = item['skillSet']
+            appointments=item['appointment']
+            review = []
+            for appointment in appointments:
+                if (appointment['serviceType'])==providerSkillset:
+                    review.append(appointment['review'])
             for s in skill:
-                if (s['name'])==providerSkillset:
+                if (s['name']) == providerSkillset:
                     res.append({
-                        'address':item['address'],
+                        'address': item['address'],
                         'area': item['area'],
                         'city': item['city'],
                         'days': item['days'],
                         'email': item['email'],
-                        'firstname':item['firstName'],
+                        'firstname': item['firstName'],
                         'lastname': item['lastName'],
                         'phone': item['phone'],
                         'price': str(s['price']),
                         'time': item['time'],
                         'uuid': item['uuid'],
-                        'rating' : item['finalRating'],
-                        'image': item['image']}
-                )
+                        'rating': item['finalRating'],
+                        'image': item['image']
+                        'review': review
+                    }
+                    )
     if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
 
         data = {
@@ -421,8 +430,12 @@ def providerCategoryServices():
         errData = {
             "success": "false",
             "Message": "Unable to fetch data"
-              }
+        }
         return errData
+        
+
+
+
 
 @verify_token
 @cross_origin(origin=settings.HOST_NAME, headers=['Content-Type', 'Authorization'])
