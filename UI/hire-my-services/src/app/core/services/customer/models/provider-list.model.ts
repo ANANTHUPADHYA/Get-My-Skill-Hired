@@ -33,6 +33,7 @@ export interface BookAppointmentReq {
     customerLastName: string;
     providerFirstName: string;
     providerLastName: string;
+    uuid: string;
 }
 
 export interface BookAppointmentResp {

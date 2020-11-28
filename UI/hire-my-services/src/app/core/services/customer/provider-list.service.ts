@@ -16,18 +16,14 @@ export class ProviderListService {
     this.baseUrl = environment.url;
   }
   getListOfProviders(serviceName: string): Observable<ProviderDetailsResponse> {
-    const name = serviceName.toLowerCase();
-    return this.http.get<ProviderDetailsResponse>(`${this.baseUrl}${urlConstants.GET_PROVIDERS}?skillSet=${name}`); 
-    // return this.http.get<ProviderDetailsResponse>('http://localhost:3000/providers');
+    return this.http.get<ProviderDetailsResponse>(`${this.baseUrl}${urlConstants.GET_PROVIDERS}?skillSet=${serviceName}`); 
   }
 
   scheduleAppointment(params: BookAppointmentReq, uuid: string):Observable<BookAppointmentResp> {
      return this.http.post<BookAppointmentResp>(`${this.baseUrl}/users/${uuid}/appointments`, params); 
-    //  return this.http.get<BookAppointmentResp>('http://localhost:3000/book')
   }
 
   getListOfAppointments(uuid: string):Observable<AppointmentList> {
-    // return this.http.get<AppointmentList>('http://localhost:3000/appointments');
     return this.http.get<AppointmentList>(`${this.baseUrl}/users/${uuid}/customerAppointments`);
   }
 

@@ -31,7 +31,15 @@ export class CustomerProfileComponent implements OnInit {
       phone: [this.userProfile.phone, Validators.required],
       
     });
+    this.signupFormCustomer.disable();
   }
+
+  edit() {
+    this.signupFormCustomer.enable();
+    this.signupFormCustomer.controls.email.disable()
+  }
+
+
 
   profileDetailsSet() {
     this.userProfile.email = this.signupFormCustomer.controls.email.value;

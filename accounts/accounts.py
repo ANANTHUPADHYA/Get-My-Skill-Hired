@@ -394,7 +394,7 @@ def providerCategoryServices():
     if len(items) > 0:
         for i, item in enumerate(items):
             skill = item['skillSet']
-            appointments=item['appointment']
+            appointments=item['appointments']
             review = []
             for appointment in appointments:
                 if (appointment['serviceType'])==providerSkillset:

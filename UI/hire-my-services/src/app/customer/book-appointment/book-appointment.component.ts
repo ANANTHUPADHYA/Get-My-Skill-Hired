@@ -55,34 +55,29 @@ export class BookAppointmentComponent implements OnInit {
   scheduleAppointment() {
     const format =  new DatePipe(this.locale).transform(this.appointmentForm.controls.date.value, 'fullDate');
     let params: BookAppointmentReq = {
-      customerEmail:this.customerDetails.email,
+    customerEmail:this.customerDetails.email,
     providerEmail: this.data.provider.email,
-   serviceType:this.data.serviceType,
-   date: format,
-   time: this.appointmentForm.controls.fromTime.value + "-" + this.appointmentForm.controls.toTime.value,
-   customerCity: this.customerDetails.city,
+    serviceType:this.data.serviceType,
+    date: format,
+    time: this.appointmentForm.controls.fromTime.value + "-" + this.appointmentForm.controls.toTime.value,
+    customerCity: this.customerDetails.city,
     customerAddress: this.customerDetails.address,
     customerNumber: this.customerDetails.phone,
-    customerFirstName: this.customerDetails.firstname,
-    customerLastName: this.customerDetails.lastname,
+    customerFirstName: this.customerDetails.firstName,
+    customerLastName: this.customerDetails.lastName,
     providerFirstName: this.data.provider.firstname,
-    providerLastName: this.data.provider.lastname
+    providerLastName: this.data.provider.lastname,
+    uuid: this.customerDetails.uuid
     }
 
-    console.log(params);
-    this.providerListService.scheduleAppointment(params, this.customerDetails.uuid).subscribe(response => {
-        if(response.success === 'true') {
           this.providerListService.scheduleAppointment(params, this.data.provider.uuid).subscribe(response1 => {
             if(response1.success === 'true') {
               this.openSnackBar(response1.Message, 'mat-primary');
               this.dialogRef.close();
             }
+          }, error=> {
+            this.openSnackBar(error.error.data, 'mat-warn');
           });
-        
-        }
-    }, error=> {
-      this.openSnackBar(error.error.data, 'mat-warn');
-    })
   }
 
 

@@ -28,6 +28,7 @@ openSnackBar(message: string, className: string) {
 reviewSubmit() {
 
   const params: ReviewParams = this.reviewForm.value;
+  params.rating = params.rating.toString();
   params.appId = this.data.appointmentID;
   params.uuid = JSON.parse(sessionStorage.getItem('profile')).uuid;
 
