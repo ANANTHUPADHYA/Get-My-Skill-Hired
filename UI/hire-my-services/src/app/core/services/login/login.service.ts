@@ -19,7 +19,6 @@ export class LoginService {
       Authorization: `Basic ${window.btoa(email + ':' + password)}`
   });
     return this.http.get<LoginResponse>(`${this.baseUrl}${urlConstants.LOGIN}`,{headers: httpHeaders});
-    // return this.http.get<LoginResponse>('http://localhost:3000/login');
   }
 
 
@@ -28,7 +27,6 @@ export class LoginService {
       Authorization: `Basic ${window.btoa(email + ':' + password)}`
   });
     return this.http.post<RegisterResponse>(`${this.baseUrl}${urlConstants.REGISTER}`, userDetails, {headers: httpHeaders}); 
-    // return this.http.get<RegisterResponse>('http://localhost:3000/register');
   }
 
   logout():Observable<any> {

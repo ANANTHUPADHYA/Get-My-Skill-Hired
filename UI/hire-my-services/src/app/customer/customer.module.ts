@@ -8,11 +8,12 @@ import { ProviderListComponent } from './provider-list/provider-list.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { BookAppointmentComponent } from './book-appointment/book-appointment.component';
 import { ReviewComponent } from './review/review.component';
+import { CustomerProfileComponent } from './customer-profile/customer-profile.component';
 
 
 
 @NgModule({
-  declarations: [ServicesComponent, ProviderListComponent, AppointmentsComponent, BookAppointmentComponent, ReviewComponent],
+  declarations: [ServicesComponent, ProviderListComponent, AppointmentsComponent, BookAppointmentComponent, ReviewComponent, CustomerProfileComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(CustomerRoutes),

@@ -85,11 +85,11 @@ export class RegisterComponent implements OnInit {
     this.loginService.registerUser(formValue, password, email).subscribe(response => {
       if (response.success) {
           if(this.signupFormProvider.controls.image.value !== '') {
-            this.profileService.uploadImage(this.signupFormProvider.controls.image.value, email).subscribe(response => {
+            /* this.profileService.uploadImage(this.signupFormProvider.controls.image.value, email).subscribe(response => {
               if(response.success) {
                 this.openSnackBar('Profile picture uploaded', 'mat-primary')
               }
-            })
+            }) */
           }
         this.openSnackBar(response.data, 'mat-primary');
         this.router.navigate(['/login']);

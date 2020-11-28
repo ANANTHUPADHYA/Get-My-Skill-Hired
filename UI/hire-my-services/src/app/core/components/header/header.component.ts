@@ -24,7 +24,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-
     this.usertype = sessionStorage.getItem('usertype');
     if (sessionStorage.getItem('sessionID')) {
       this.showLogIn = true;
@@ -35,15 +34,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.sharedService.userLoggedIn.subscribe(isLoggedIn => {
           this.showLogIn = isLoggedIn;
       })
-    );
-    
+    );   
   }
 
-  initializeUser() {
-   
-    this.userEmail = sessionStorage.getItem('email');
-    // this.getUserData();
-  }
 
   openSnackBar(message: string, className: string) {
     this.snackBar.open(message, '', {
@@ -52,20 +45,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
-
-  /* getUserData() {
-    this.subscriptions.add(
-      this.userService.getUserDetails(this.userEmail).subscribe(response => {
-        if (response.success) {
-          this.userData = response.data;
-          sessionStorage.setItem('userData', JSON.stringify(response.data));
-        }
-      },
-      error => {
-        this.openSnackBar(error.error.error, 'mat-warn');
-      })
-    );
-  } */
 
   logout() {
           this.loginService.logout().subscribe(data => {
@@ -79,12 +58,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   goToAppointment() {
     this.router.navigate(['customer/appointments']);
   }
-  goToAdmin() {
-    this.router.navigate(['/admin']);
-  }
-  ngOnDestroy() {
-    this.subscriptions.unsubscribe();
-  }
 
   goToHome() {
     if(this.usertype === 'consumer') {
@@ -92,5 +65,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     } else {
       this.router.navigate(['provider']);
     }
+  }
+
+  goToProfile() {
+    if(this.usertype === 'consumer') {
+      this.router.navigate(['customer/profile']);
+    } else {
+      this.router.navigate(['provider/profile']);
+    }
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }
