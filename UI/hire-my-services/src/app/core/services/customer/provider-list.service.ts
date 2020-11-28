@@ -28,9 +28,9 @@ export class ProviderListService {
   }
 
 
-  changeApptStatus(changeStatusParams: ChangeStatusParams):Observable<ChangeStatusResponse>{
+  changeApptStatus(changeStatusParams: ChangeStatusParams, uuid: string):Observable<ChangeStatusResponse>{
     const params =  {status: changeStatusParams.status}
-    return this.http.patch<ChangeStatusResponse>(`${this.baseUrl}/users/${changeStatusParams.uuid}/appointments/${changeStatusParams.appId}`, params);
+    return this.http.patch<ChangeStatusResponse>(`${this.baseUrl}/users/${uuid}/appointments/${changeStatusParams.appId}`, params);
   }
 
   postReview(reviewParams: ReviewParams): Observable<ChangeStatusResponse> {

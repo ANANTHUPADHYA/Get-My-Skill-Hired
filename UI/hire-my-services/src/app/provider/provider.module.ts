@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ProviderAppointmentsComponent } from './provider-appointments/provider-appointments.component';
 import { ProviderProfileComponent } from './provider-profile/provider-profile.component';
 import { MaterialModule } from '../material/material.module';
+import { RouterModule } from '@angular/router';
+import { ProviderRoutes } from './provider.routes';
 
 
 
@@ -10,7 +12,8 @@ import { MaterialModule } from '../material/material.module';
   declarations: [ProviderAppointmentsComponent, ProviderProfileComponent],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    RouterModule.forChild(ProviderRoutes),
   ]
 })
 export class ProviderModule { }

@@ -61,7 +61,7 @@
             <mat-card-actions>
                 <div fxLayout="row wrap" fxLayout.lt-sm="column" fxFlex>
                     <div fxFlex="0 1 calc(33% - 92px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" class="cursor-pointer">
-                        <button mat-raised-button color="accent" class="cursor-pointer" *ngIf="app.status === 'upcoming'" (click)="updateStatus(app.appointmentID, 'completed')">Complete</button>
+                        <button mat-raised-button color="accent" class="cursor-pointer" *ngIf="app.status === 'upcoming'" (click)="updateStatus(app.appointmentID, 'completed', app.uuid)">Complete</button>
 
                     </div>
 
@@ -71,15 +71,15 @@
                     </div>
 
                     <div fxFlex="0 1 calc(33% - 92px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" fxLayoutAlign="flex-end">
-                        <button mat-raised-button color="warn" class="cursor-pointer" *ngIf="app.status === 'upcoming'" (click)="updateStatus(app.appointmentID, 'cancelled')">Cancel</button>
+                        <button mat-raised-button color="warn" class="cursor-pointer" *ngIf="app.status === 'upcoming'" (click)="updateStatus(app.appointmentID, 'cancelled', app.uuid)">Cancel</button>
                     </div>
 
                 </div>
             </mat-card-actions>
         </mat-card>
-        <div fxLayout="row wrap" *ngIf="!appointments.length" class="search">
-            No appointments Available.
-        </div>
+    </div>
+    <div fxLayout="row wrap" *ngIf="appointments.length === 0" class="search">
+        No appointments Available.
     </div>
 
 </div>

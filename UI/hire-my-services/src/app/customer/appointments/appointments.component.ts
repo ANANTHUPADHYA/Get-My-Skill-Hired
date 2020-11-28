@@ -97,17 +97,20 @@ goToReview(appointment:Appointment) {
   });
 }
 
-cancelAppointment(appId: string) {
+cancelAppointment(appId: string, uuid: string) {
   const params: ChangeStatusParams = {
-    uuid: this.uuid,
     appId: appId,
-    status: 'cancelled'
+    status: 'cancelled',
   }
-  this.providerListService.changeApptStatus(params).subscribe(response => {
+  this.providerListService.changeApptStatus(params, uuid).subscribe(response => {
     if(response.success === 'true') {
-      this.openSnackBar(response.Message, 'mat-primary')
+      this.providerListService.changeApptStatus(params, this.uuid).subscribe(response1 => {
+        if(response1.success === 'true') {
+      this.openSnackBar(response1.Message, 'mat-primary')
       this.getListOfAppointments();
-    } 
+        }
+    });
+  }
   }, error=> {
     this.openSnackBar(error, 'mat-warn');
   })

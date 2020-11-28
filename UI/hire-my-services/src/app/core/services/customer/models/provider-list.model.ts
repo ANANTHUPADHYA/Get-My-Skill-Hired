@@ -33,7 +33,7 @@ export interface BookAppointmentReq {
     customerLastName: string;
     providerFirstName: string;
     providerLastName: string;
-    uuid: string;
+    uuid: string
 }
 
 export interface BookAppointmentResp {
@@ -71,7 +71,6 @@ export interface ReviewParams {
 }
 
 export interface ChangeStatusParams {
-uuid: string;
 appId: string;
 status: string;
 }

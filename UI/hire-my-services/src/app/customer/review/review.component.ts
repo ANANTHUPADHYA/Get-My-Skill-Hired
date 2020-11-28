@@ -29,8 +29,8 @@ reviewSubmit() {
 
   const params: ReviewParams = this.reviewForm.value;
   params.rating = params.rating.toString();
-  params.appId = this.data.appointmentID;
-  params.uuid = JSON.parse(sessionStorage.getItem('profile')).uuid;
+  params.appId = this.data.appointment.appointmentID;
+  params.uuid = this.data.appointment.uuid;
 
   this.providerListService.postReview(params).subscribe(response => {
     if(response.success) {

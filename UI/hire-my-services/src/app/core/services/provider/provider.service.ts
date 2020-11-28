@@ -18,9 +18,9 @@ export class ProviderService {
     return this.http.get<AppointmentList>(`${this.baseUrl}/users/${uuid}/providerAppointments`);
   }
 
-  changeApptStatus(changeStatusParams: ChangeStatusParams):Observable<ChangeStatusResponse>{
+  changeApptStatus(changeStatusParams: ChangeStatusParams, uuid):Observable<ChangeStatusResponse>{
     const params =  {status: changeStatusParams.status}
-    return this.http.patch<ChangeStatusResponse>(`${this.baseUrl}/users/${changeStatusParams.uuid}/appointments/${changeStatusParams.appId}`, params);
+    return this.http.patch<ChangeStatusResponse>(`${this.baseUrl}/users/${uuid}/appointments/${changeStatusParams.appId}`, params);
   }
 
 }

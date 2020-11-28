@@ -89,17 +89,22 @@ public statusFilter = [];
 
 
 
-updateStatus(appId: string, status: string) {
+updateStatus(appId: string, status: string, uuid: string) {
   const params: ChangeStatusParams = {
-    uuid: this.uuid,
     appId: appId,
     status: status
   }
-  this.providerListService.changeApptStatus(params).subscribe(response => {
+  this.providerListService.changeApptStatus(params, this.uuid).subscribe(response => {
     if(response.success === 'true') {
+      this.providerListService.changeApptStatus(params, uuid).subscribe(response => {
+        if(response.success === 'true') {
       this.openSnackBar(response.Message, 'mat-primary')
       this.getListOfAppointments();
-    } 
+        }
+    }, error=> {
+      this.openSnackBar(error, 'mat-warn');
+    }) 
+  }
   }, error=> {
     this.openSnackBar(error, 'mat-warn');
   })

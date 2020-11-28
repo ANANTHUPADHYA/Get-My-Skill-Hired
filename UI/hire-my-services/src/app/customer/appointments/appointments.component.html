@@ -69,7 +69,7 @@
                     </div>
 
                     <div fxFlex="0 1 calc(33% - 92px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" fxLayoutAlign="flex-end">
-                        <button mat-raised-button color="warn" class="cursor-pointer" *ngIf="app.status === 'upcoming'" (click)="cancelAppointment(app.appointmentID)">Cancel</button>
+                        <button mat-raised-button color="warn" class="cursor-pointer" *ngIf="app.status === 'upcoming'" (click)="cancelAppointment(app.appointmentID, app.uuid)">Cancel</button>
                     </div>
 
                 </div>
