@@ -394,7 +394,8 @@ def providerCategoryServices():
             review = []
             for appointment in appointments:
                 if (appointment['serviceType'])==providerSkillset:
-                    review.append(appointment['review'])
+                    if appointment['review']:
+                        review.append(appointment['review'])
             for s in skill:
                 if (s['name']) == providerSkillset:
                     res.append({
