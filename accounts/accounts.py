@@ -374,10 +374,6 @@ def upload_profile_image(usertype):
         data = f"Invalid request method, method {request.method} not supported !!!"
         return GetResponseObject(data, 405)
     
-    
-    
-
-    
 @verify_token
 def providerCategoryServices():
 
@@ -607,18 +603,19 @@ def updateReviewAndRating(userID, appointmentID):
        if count != 0:
            finalrating = finalrating/count
 
-       updatefinalRatingExp = "set #app.#fr = :frVal"
+       finalRating = str(finalrating)
+
+       updatefinalRatingExp = "set #fr = :frVal"
        updatedRes = table.update_item(
            Key={
                'uuid': userID,
            },
            UpdateExpression=updatefinalRatingExp,
            ExpressionAttributeNames={
-               '#app': 'appointments',
                '#fr': 'finalRating'
            },
            ExpressionAttributeValues={
-               ':frVal': finalrating,
+               ':frVal': finalRating,
            },
            ReturnValues="UPDATED_NEW"
        )
