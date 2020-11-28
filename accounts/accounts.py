@@ -522,7 +522,6 @@ def updateAppointmentStatus(userID, appointmentID):
         if appointment["appointmentID"] == appointmentID:
             break
     updateExp = "set #app[{}].#st = :stVal".format(idx)
-    print(updateExp)
     response = table.update_item(
         Key={
             'uuid': userID,
@@ -570,10 +569,11 @@ def updateReviewAndRating(userID, appointmentID):
    # Get the index of the appointment
    for idx, appointment in enumerate(result["appointments"]):
        if appointment["appointmentID"] == appointmentID:
-            break
+           UUID = appointment["uuid"]
+           break
    updateExp = "set #app[{}].#rt = :rtVal, #app[{}].#rv = :rvVal".format(idx, idx)
-   print(updateExp)
-   response = table.update_item(
+
+   providerResponse = table.update_item(
        Key={
            'uuid': userID,
        },
@@ -590,20 +590,44 @@ def updateReviewAndRating(userID, appointmentID):
         ReturnValues="UPDATED_NEW"
     )
 
-   if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
+   customerResponse = table.update_item(
+       Key={
+           'uuid': UUID,
+       },
+       UpdateExpression=updateExp,
+       ExpressionAttributeNames={
+           '#app': 'appointments',
+           '#rt': 'rating',
+           '#rv': 'review'
+       },
+       ExpressionAttributeValues={
+           ':rtVal': rating,
+           ':rvVal': review
+       },
+       ReturnValues="UPDATED_NEW"
+   )
+
+   if providerResponse["ResponseMetadata"]["HTTPStatusCode"] == 200 and customerResponse["ResponseMetadata"]["HTTPStatusCode"] == 200:
        #Update final rating
        finalrating = 0.0
        count = 0
+
+       try:
+           response = table.get_item(Key={'uuid': userID})
+       except ClientError as e:
+           print(e.response['Error']['Message'])
+       else:
+           result = response['Item']
+
        for _, appointment in enumerate(result["appointments"]):
            if appointment["rating"] is not None:
                count = count + 1
-               print(count)
                finalrating = finalrating + float(appointment["rating"])
 
        if count != 0:
            finalrating = finalrating/count
 
-       finalRating = str(finalrating)
+       finalrating = str(finalrating)
 
        updatefinalRatingExp = "set #fr = :frVal"
        updatedRes = table.update_item(
@@ -615,7 +639,7 @@ def updateReviewAndRating(userID, appointmentID):
                '#fr': 'finalRating'
            },
            ExpressionAttributeValues={
-               ':frVal': finalRating,
+               ':frVal': finalrating,
            },
            ReturnValues="UPDATED_NEW"
        )
@@ -648,7 +672,6 @@ def listCustomerAppointments(userID):
        table = dynamodb_resource.Table('Users')
        response = table.query(KeyConditionExpression=Key('uuid').eq(Cutomeruuid))
        items = response['Items']
-       print(items)
 
        if len(items) > 0:
            appointments = items[0]['appointments']
