@@ -58,10 +58,28 @@
                 <div><strong>Date:&nbsp; &nbsp;</strong>{{app.date}}</div>
                 <div><strong>Time:&nbsp;&nbsp;</strong>{{app.time}}</div>
             </mat-card-content>
+            <mat-accordion *ngIf="app.review">
+                <mat-expansion-panel class="borderTye">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title class="fontFamily">
+                            Review:
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="fontFamily">
+                        <div style="font-style:italic; padding:5px; font-weight: 300;">
+                            <span>"{{app.review}}"</span> --
+                            <span>
+                                <mat-icon class="checked size"  *ngFor="let fullStar of fullStars(app.rating)">star</mat-icon>
+                            <mat-icon class="size" *ngFor="let emptyStar of emptyStars(app.rating)">star_border</mat-icon>
+                            </span>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
             <mat-card-actions>
                 <div fxLayout="row wrap" fxLayout.lt-sm="column" fxFlex>
                     <div fxFlex="0 1 calc(33% - 92px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" class="cursor-pointer">
-                        <button mat-raised-button color="accent" class="cursor-pointer" *ngIf="app.status === 'upcoming'" (click)="updateStatus(app.appointmentID, 'completed')">Complete</button>
+                        <button mat-raised-button color="accent" class="cursor-pointer" *ngIf="app.status === 'upcoming'" (click)="updateStatus(app.appointmentID, 'completed', app.uuid)">Complete</button>
 
                     </div>
 
@@ -71,15 +89,16 @@
                     </div>
 
                     <div fxFlex="0 1 calc(33% - 92px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" fxLayoutAlign="flex-end">
-                        <button mat-raised-button color="warn" class="cursor-pointer" *ngIf="app.status === 'upcoming'" (click)="updateStatus(app.appointmentID, 'cancelled')">Cancel</button>
+                        <button mat-raised-button color="warn" class="cursor-pointer" *ngIf="app.status === 'upcoming'" (click)="updateStatus(app.appointmentID, 'cancelled', app.uuid)">Cancel</button>
                     </div>
 
                 </div>
             </mat-card-actions>
+
         </mat-card>
-        <div fxLayout="row wrap" *ngIf="!appointments.length" class="search">
-            No appointments Available.
-        </div>
+    </div>
+    <div fxLayout="row wrap" *ngIf="appointments.length === 0" class="search">
+        No appointments Available.
     </div>
 
 </div>

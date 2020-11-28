@@ -1,10 +1,14 @@
-<!-- <mat-card>
+<mat-card>
     <mat-card-content>
+        <h3 class="fontFamily">Profile Picture</h3>
+        <img mat-card-image *ngIf="userProfile.image =='None'" src="http://d3ani98dzag63m.cloudfront.net/defaultUser.png" class="img-thumbnail" alt="profile-picture">
+        <img mat-card-image *ngIf="userProfile.image !=='None'" src="{{userProfile.image}}" class="img-thumbnail" alt="profile-picture">
+        <input type="file" id="file" (change)="handleFileInput($event.target.files)" style="padding: 5px; width: 100%" [disabled]="isDisabled">
         <h2 style="font-family: Ubuntu;">My Profile</h2>
-        <form [formGroup]="signupFormProvider" *ngIf="userType=== 'provider'" [disabled]="isDisabled">
+        <form [formGroup]="signupFormProvider">
             <mat-form-field>
                 <mat-label>Email:</mat-label>
-                <input matInput placeholder="Email" formControlName="email" required disabled>
+                <input matInput placeholder="Email" formControlName="email" required>
                 <mat-error>
                     Please provide a valid email address
                 </mat-error>
@@ -41,7 +45,7 @@
                 <div *ngFor="let selectSkill of selectedSkills; let i=index">
                     <mat-form-field>
                         <mat-label>Skills:</mat-label>
-                        <mat-select [(ngModel)]="selectSkill.name" name=select{{i}} [ngModelOptions]="{standalone: true}">
+                        <mat-select [(ngModel)]="selectSkill.name" name=select{{i}} [ngModelOptions]="{standalone: true}" [disabled]="isDisabled">
                             <mat-option *ngFor="let skill of skillset" [value]="skill.name" class="fontFamily" [disabled]="checkPresent(skill.name)">
                                 {{skill.name}}
                             </mat-option>
@@ -49,42 +53,41 @@
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Charges:</mat-label>
-                        <input matInput placeholder="Charges" [(ngModel)]="selectSkill.price" required name={{i}} [ngModelOptions]="{standalone: true}" type="number">
+                        <input matInput placeholder="Charges" [(ngModel)]="selectSkill.price" required name={{i}} [ngModelOptions]="{standalone: true}" type="number" [disabled]="isDisabled">
                     </mat-form-field>
-                    <mat-icon color="warn" (click)="removeSkill(i)" *ngIf="i!==0" style="cursor: pointer;">delete</mat-icon>
+                    <button mat-icon-button [disabled]="isDisabled" color="warn" (click)="removeSkill(i)" *ngIf="i!==0"><mat-icon>delete</mat-icon></button>
                 </div>
 
-                <button mat-raised-button color="primary" (click)="addSkill()">Add skill</button>
+                <button mat-raised-button color="primary" (click)="addSkill()" [disabled]="isDisabled">Add skill</button>
             </div>
             <mat-form-field>
                 <mat-label>Available Days:</mat-label>
-                <mat-select multiple formControlName="selectedDays">
+                <mat-select multiple formControlName="selectedDays" [disabled]="isDisabled">
                     <mat-option *ngFor="let day of days" [value]="day" class="fontFamily">
                         {{day}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
 
-
-
             <h3 class="fontFamily">Timing:</h3>
             <mat-form-field>
                 <mat-label>From</mat-label>
-                <mat-select formControlName="fromTime" required (selectionChange)="populateToTiming() ">
+                <mat-select formControlName="fromTime" required (selectionChange)="populateToTiming()" [disabled]="isDisabled">
                     <mat-option *ngFor="let time of timing" [value]=time>{{time}}</mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>To</mat-label>
-                <mat-select formControlName="toTime" required>
+                <mat-select formControlName="toTime" required [disabled]="isDisabled">
                     <mat-option *ngFor="let time of toTimeArray; " [value]=time>{{time}}</mat-option>
                 </mat-select>
             </mat-form-field>
-            <h3 class="fontFamily">Profile Picture</h3>
-            <input type="file" id="file" (change)="handleFileInput($event.target.files)" style="padding: 5px; width: 100%">
-            <button mat-raised-button color="primary" type="submit" [disabled]="!signupFormProvider.valid " (click)="register()">Register</button>
+
+            <button mat-raised-button style="margin:10px;" color="accent" type="submit" *ngIf="isDisabled" (click)="isDisabled=false;edit()">Edit</button>
+            <button mat-raised-button style="margin:10px;" color="primary" type="submit" *ngIf="!isDisabled" [disabled]="!signupFormProvider.valid" (click)="register()">Submit</button>
+            <button mat-raised-button style="margin:10px;" color="warn" type="submit" (click)="isDisabled=true;initializeForm()">Cancel</button>
         </form>
 
 
     </mat-card-content>
-</mat-card> -->
+</mat-card>

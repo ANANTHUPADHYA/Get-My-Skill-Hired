@@ -54,7 +54,7 @@
             </mat-card>
         </div>
         <div>
-            <mat-accordion *ngIf="data.provider.reviews">
+            <mat-accordion *ngIf="data.provider.review">
                 <mat-expansion-panel class="borderTye">
                     <mat-expansion-panel-header>
                         <mat-panel-title class="fontFamily">
@@ -62,7 +62,7 @@
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div class="fontFamily">
-                        <div style="font-style:italic; padding:5px; font-weight: 300;" *ngFor="let review of data.provider.reviews">
+                        <div style="font-style:italic; padding:5px; font-weight: 300;" *ngFor="let review of data.provider.review">
                             <span>"{{review}}"</span>
                             <hr/>
                         </div>

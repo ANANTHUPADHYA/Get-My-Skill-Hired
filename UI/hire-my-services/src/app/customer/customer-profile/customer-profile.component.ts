@@ -28,10 +28,17 @@ export class CustomerProfileComponent implements OnInit {
       address: [this.userProfile.address, Validators.required],
       area: [this.userProfile.area, Validators.required],
       city: [this.userProfile.city, Validators.required],
-      phone: [this.userProfile.phone, Validators.required],
-      
+      phone: [parseInt(this.userProfile.phone.substring(2)), Validators.required],
     });
+    this.signupFormCustomer.disable();
   }
+
+  edit() {
+    this.signupFormCustomer.enable();
+    this.signupFormCustomer.controls.email.disable()
+  }
+
+
 
   profileDetailsSet() {
     this.userProfile.email = this.signupFormCustomer.controls.email.value;
@@ -40,7 +47,7 @@ export class CustomerProfileComponent implements OnInit {
     this.userProfile.address = this.signupFormCustomer.controls.address.value;
     this.userProfile.area = this.signupFormCustomer.controls.area.value;
     this.userProfile.city = this.signupFormCustomer.controls.city.value;
-    this.userProfile.phone = this.signupFormCustomer.controls.phone.value;
+    this.userProfile.phone = "+91"  + this.signupFormCustomer.controls.phone.value.toString();
     sessionStorage.setItem('profile', JSON.stringify(this.userProfile));
 
   }
