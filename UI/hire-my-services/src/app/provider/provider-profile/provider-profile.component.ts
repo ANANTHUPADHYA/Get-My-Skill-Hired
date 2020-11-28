@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { servicesList, days, timings } from 'src/app/core/config';
 import { ProfileService, UserParams } from 'src/app/core/services';
+import { threadId } from 'worker_threads';
 
 @Component({
   selector: 'app-provider-profile',
@@ -20,6 +21,7 @@ export class ProviderProfileComponent implements OnInit {
   public showAddSkill = true;
   public userProfile;
   public isDisabled = true;
+  private filename;
   constructor(private formBuilder: FormBuilder, private profileService: ProfileService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
@@ -42,7 +44,7 @@ export class ProviderProfileComponent implements OnInit {
       address: [this.userProfile.address, Validators.required],
       area: [this.userProfile.area, Validators.required],
       city: [this.userProfile.city, Validators.required],
-      phone: [this.userProfile.phone, Validators.required],
+      phone: [parseInt(this.userProfile.phone.substring(3)), Validators.required],
       fromTime: [timeArray[0], Validators.required],
       toTime: [timeArray[1], Validators.required],
       selectedDays: [this.userProfile.days, Validators.required],
@@ -50,6 +52,13 @@ export class ProviderProfileComponent implements OnInit {
     });
     this.selectedSkills = this.userProfile.skillSet;
     this.signupFormProvider.disable();
+    const selectedIndex= this.timing.indexOf(timeArray[0]);
+    this.toTimeArray = [];
+    this.timing.forEach((element,index) => {
+      if(index > selectedIndex) {
+        this.toTimeArray.push(element)
+      }
+    });
   }
 
   openSnackBar(message: string, className: string) {
@@ -72,6 +81,7 @@ export class ProviderProfileComponent implements OnInit {
   }
   handleFileInput(files: FileList) {
     this.signupFormProvider.controls.image.setValue(files.item(0));
+    this.filename = files.item(0).name;
   }
 
   addSkill() {
@@ -127,12 +137,22 @@ export class ProviderProfileComponent implements OnInit {
       const userType = this.userProfile.userType;
       this.profileService.updateProfile(formValue, userType).subscribe(response => {
         if (response.success) {
-          this.openSnackBar('Profile Updated', 'mat-primary')
+          this.openSnackBar('Profile Updated', 'mat-primary');
+
           this.isDisabled = true;
           this.profileDetailsSet();
         }
       },  error => {
         this.openSnackBar(error.error.data, 'mat-warn');
       });
+
+      if(this.filename) {
+        this.profileService.uploadImage(this.signupFormProvider.controls.image.value, this.filename).subscribe(data => {
+          if (data.success) {
+            this.openSnackBar('Picture Updated', 'mat-primary');
+          }
+        });
+    
+      }
     }
 }

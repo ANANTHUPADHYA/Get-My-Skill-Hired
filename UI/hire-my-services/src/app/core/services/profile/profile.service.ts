@@ -15,9 +15,9 @@ export class ProfileService {
     this.baseUrl = environment.url;
   }
 
-  uploadImage(fileToUpload: File, email: string): Observable<UploadImageResponse> {
+  uploadImage(fileToUpload: File, name: string): Observable<UploadImageResponse> {
     const formData: FormData = new FormData();
-    formData.append('profile_image', fileToUpload, fileToUpload.name);
+    formData.append('profile_image', fileToUpload, name);
     return this.http.put<UploadImageResponse>(`${this.baseUrl}${urlConstants.IMAGE_UPLOAD}`, formData);
   }
   updateProfile(userDetails: UserParams, userType: string):  Observable<RegisterResponse> {
