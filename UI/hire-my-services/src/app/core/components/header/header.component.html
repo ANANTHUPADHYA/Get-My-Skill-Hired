@@ -6,11 +6,11 @@
       </button>
         <mat-menu #menu="matMenu" class="font">
 
-            <button mat-menu-item disabled>
+            <button mat-menu-item (click)="goToProfile()">
           <mat-icon>persona</mat-icon>
           <span>My Profile</span>
         </button>
-            <button mat-menu-item (click)="goToAppointment()">
+            <button mat-menu-item (click)="goToAppointment()" *ngIf="usertype === 'consumer'">
           <mat-icon>calendar_today</mat-icon>
           <span>My Appointments</span>
         </button>

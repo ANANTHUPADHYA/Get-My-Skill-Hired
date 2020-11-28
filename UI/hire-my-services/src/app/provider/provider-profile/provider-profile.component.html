@@ -1,0 +1,90 @@
+<!-- <mat-card>
+    <mat-card-content>
+        <h2 style="font-family: Ubuntu;">My Profile</h2>
+        <form [formGroup]="signupFormProvider" *ngIf="userType=== 'provider'" [disabled]="isDisabled">
+            <mat-form-field>
+                <mat-label>Email:</mat-label>
+                <input matInput placeholder="Email" formControlName="email" required disabled>
+                <mat-error>
+                    Please provide a valid email address
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Firstname:</mat-label>
+                <input matInput placeholder="Firstname" formControlName="firstName" required>
+
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Lastname:</mat-label>
+                <input matInput placeholder="Lastname" formControlName="lastName" required>
+            </mat-form-field>
+
+
+            <mat-form-field style="width:100%">
+                <mat-label>Address:</mat-label>
+                <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="6" formControlName="address" required></textarea>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Area:</mat-label>
+                <input matInput placeholder="Area" formControlName="area" required>
+
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>City:</mat-label>
+                <input matInput placeholder="City" formControlName="city" required>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Phone:</mat-label>
+                <input matInput type="number" placeholder="Phone" formControlName="phone" required>
+            </mat-form-field>
+            <div class="skillset">
+                <div *ngFor="let selectSkill of selectedSkills; let i=index">
+                    <mat-form-field>
+                        <mat-label>Skills:</mat-label>
+                        <mat-select [(ngModel)]="selectSkill.name" name=select{{i}} [ngModelOptions]="{standalone: true}">
+                            <mat-option *ngFor="let skill of skillset" [value]="skill.name" class="fontFamily" [disabled]="checkPresent(skill.name)">
+                                {{skill.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Charges:</mat-label>
+                        <input matInput placeholder="Charges" [(ngModel)]="selectSkill.price" required name={{i}} [ngModelOptions]="{standalone: true}" type="number">
+                    </mat-form-field>
+                    <mat-icon color="warn" (click)="removeSkill(i)" *ngIf="i!==0" style="cursor: pointer;">delete</mat-icon>
+                </div>
+
+                <button mat-raised-button color="primary" (click)="addSkill()">Add skill</button>
+            </div>
+            <mat-form-field>
+                <mat-label>Available Days:</mat-label>
+                <mat-select multiple formControlName="selectedDays">
+                    <mat-option *ngFor="let day of days" [value]="day" class="fontFamily">
+                        {{day}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+
+            <h3 class="fontFamily">Timing:</h3>
+            <mat-form-field>
+                <mat-label>From</mat-label>
+                <mat-select formControlName="fromTime" required (selectionChange)="populateToTiming() ">
+                    <mat-option *ngFor="let time of timing" [value]=time>{{time}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>To</mat-label>
+                <mat-select formControlName="toTime" required>
+                    <mat-option *ngFor="let time of toTimeArray; " [value]=time>{{time}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <h3 class="fontFamily">Profile Picture</h3>
+            <input type="file" id="file" (change)="handleFileInput($event.target.files)" style="padding: 5px; width: 100%">
+            <button mat-raised-button color="primary" type="submit" [disabled]="!signupFormProvider.valid " (click)="register()">Register</button>
+        </form>
+
+
+    </mat-card-content>
+</mat-card> -->
