@@ -413,8 +413,8 @@ def providerCategoryServices():
                         'price': str(s['price']),
                         'time': item['time'],
                         'uuid': item['uuid'],
-                        'rating': item['finalRating'],
-                        'image': item['image']
+                        'rating':str(item['finalRating']),
+                        'image': item['image'],
                         'review': review
                     }
                     )

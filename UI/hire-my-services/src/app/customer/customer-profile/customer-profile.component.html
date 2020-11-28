@@ -1,7 +1,7 @@
 <mat-card>
     <mat-card-content>
         <h2 style="font-family: Ubuntu;">My Profile</h2>
-        <form [formGroup]="signupFormCustomer" [disabled]="isDisabled">
+        <form [formGroup]="signupFormCustomer">
             <mat-form-field>
                 <mat-label>Email:</mat-label>
                 <input matInput placeholder="Email" formControlName="email" required disabled>
@@ -9,31 +9,31 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Firstname:</mat-label>
-                <input matInput placeholder="Firstname" formControlName="firstName" required>
+                <input matInput placeholder="Firstname" formControlName="firstName" required [disabled]="isDisabled">
 
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Lastname:</mat-label>
-                <input matInput placeholder="Lastname" formControlName="lastName" required>
+                <input matInput placeholder="Lastname" formControlName="lastName" required [disabled]="isDisabled">
             </mat-form-field>
 
 
             <mat-form-field style="width:100%">
                 <mat-label>Address:</mat-label>
-                <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="6" formControlName="address" required></textarea>
+                <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="6" formControlName="address" required [disabled]="isDisabled"></textarea>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Area:</mat-label>
-                <input matInput placeholder="Area" formControlName="area" required>
+                <input matInput placeholder="Area" formControlName="area" required [disabled]="isDisabled">
 
             </mat-form-field>
             <mat-form-field>
                 <mat-label>City:</mat-label>
-                <input matInput placeholder="City" formControlName="city" required>
+                <input matInput placeholder="City" formControlName="city" required [disabled]="isDisabled">
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Phone:</mat-label>
-                <input matInput type="number" placeholder="Phone" formControlName="phone" required>
+                <input matInput type="number" placeholder="Phone" formControlName="phone" required [disabled]="isDisabled">
             </mat-form-field>
             <button mat-raised-button color="primary" type="submit" *ngIf="isDisabled" (click)="isDisabled=false">Edit</button>
             <button mat-raised-button color="primary" type="submit" *ngIf="!isDisabled" [disabled]="!signupFormCustomer.valid" (click)="register()">Submit</button>
