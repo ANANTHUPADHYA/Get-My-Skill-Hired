@@ -449,6 +449,7 @@ def bookappointment(userID):
     customerNumber = request.json.get('customerNumber')
     customerFirstName = request.json.get('customerFirstName')
     customerLastName = request.json.get('customerLastName')
+    UUID = request.json.get('uuid')
     providerEmail = request.json.get('providerEmail')
     providerFirstName = request.json.get('providerFirstName')
     providerLastName = request.json.get('providerLastName')
@@ -460,9 +461,9 @@ def bookappointment(userID):
     time = request.json.get('time')
     serviceType = request.json.get('serviceType')
 
-    appointment = {'appointmentID': str(appointmentID), 'uuid': userID, 'customerCity': customerCity, 'customerAddress': customerAddress, 'customerEmail': customerEmail, 'customerNumber': customerNumber, 'customerFirstName': customerFirstName, 'customerLastName': customerLastName, 'providerFirstName': providerFirstName, 'providerLastName': providerLastName, 'providerEmail': providerEmail, 'date': date, 'day': day, 'rating': rating, 'review': review, 'status': status, 'time': time, 'serviceType': serviceType}
+    appointment = {'appointmentID': str(appointmentID), 'uuid': UUID, 'customerCity': customerCity, 'customerAddress': customerAddress, 'customerEmail': customerEmail, 'customerNumber': customerNumber, 'customerFirstName': customerFirstName, 'customerLastName': customerLastName, 'providerFirstName': providerFirstName, 'providerLastName': providerLastName, 'providerEmail': providerEmail, 'date': date, 'day': day, 'rating': rating, 'review': review, 'status': status, 'time': time, 'serviceType': serviceType}
     table = dynamodb.Table('Users')
-    response = table.update_item(
+    providerResponse = table.update_item(
         Key={
             'uuid': userID,
         },
@@ -473,7 +474,25 @@ def bookappointment(userID):
         ReturnValues="UPDATED_NEW"
     )
 
-    if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
+    appointment = {'appointmentID': str(appointmentID), 'uuid': userID, 'customerCity': customerCity,
+                   'customerAddress': customerAddress, 'customerEmail': customerEmail, 'customerNumber': customerNumber,
+                   'customerFirstName': customerFirstName, 'customerLastName': customerLastName,
+                   'providerFirstName': providerFirstName, 'providerLastName': providerLastName,
+                   'providerEmail': providerEmail, 'date': date, 'day': day, 'rating': rating, 'review': review,
+                   'status': status, 'time': time, 'serviceType': serviceType}
+    table = dynamodb.Table('Users')
+    customerResponse = table.update_item(
+        Key={
+            'uuid': UUID,
+        },
+        UpdateExpression="set appointments = list_append(appointments, :ap)",
+        ExpressionAttributeValues={
+            ':ap': [appointment],
+        },
+        ReturnValues="UPDATED_NEW"
+    )
+
+    if providerResponse["ResponseMetadata"]["HTTPStatusCode"] == 200 and customerResponse["ResponseMetadata"]["HTTPStatusCode"]:
         data = {
             "success": "true",
             "Message": "Successfully booked an appointment"
