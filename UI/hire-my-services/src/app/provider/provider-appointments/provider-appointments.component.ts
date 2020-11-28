@@ -110,4 +110,21 @@ updateStatus(appId: string, status: string, uuid: string) {
   })
 }
 
+numberOfFullStars(rating): number {
+  return rating;
+}
+
+  numberOfEmptyStars(rating): number {
+  return 5 - rating;
+}
+
+fullStars(rating:string): any[] {
+  
+  return Array(this.numberOfFullStars(parseInt(rating)));
+}
+
+emptyStars(rating): any[] {
+  return Array(this.numberOfEmptyStars(parseInt(rating)));
+}
+
 }

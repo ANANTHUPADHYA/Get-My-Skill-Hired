@@ -67,7 +67,11 @@
                     </mat-expansion-panel-header>
                     <div class="fontFamily">
                         <div style="font-style:italic; padding:5px; font-weight: 300;">
-                            <span>"{{app.review}}"</span>
+                            <span>"{{app.review}}"</span> --
+                            <span>
+                                <mat-icon class="checked size"  *ngFor="let fullStar of fullStars(app.rating)">star</mat-icon>
+                            <mat-icon class="size" *ngFor="let emptyStar of emptyStars(app.rating)">star_border</mat-icon>
+                            </span>
                             <hr/>
                         </div>
                     </div>

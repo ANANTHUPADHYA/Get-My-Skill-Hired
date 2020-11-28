@@ -35,9 +35,9 @@
                 <mat-label>Phone:</mat-label>
                 <input matInput type="number" placeholder="Phone" formControlName="phone" required>
             </mat-form-field>
-            <button mat-raised-button color="primary" type="submit" *ngIf="isDisabled" (click)="isDisabled=false;edit()">Edit</button>
-            <button mat-raised-button color="primary" type="submit" *ngIf="!isDisabled" [disabled]="!signupFormCustomer.valid" (click)="register()">Submit</button>
-            <button mat-raised-button color="primary" type="submit" (click)="isDisabled=true;initializeForm()">Cancel</button>
+            <button mat-raised-button color="accent" style="margin:10px" type="submit" *ngIf="isDisabled" (click)="isDisabled=false;edit()">Edit</button>
+            <button mat-raised-button color="primary" style="margin:10px" type="submit" *ngIf="!isDisabled" [disabled]="!signupFormCustomer.valid" (click)="register()">Submit</button>
+            <button mat-raised-button color="warn" style="margin:10px" type="submit" (click)="isDisabled=true;initializeForm()">Cancel</button>
 
         </form>
 

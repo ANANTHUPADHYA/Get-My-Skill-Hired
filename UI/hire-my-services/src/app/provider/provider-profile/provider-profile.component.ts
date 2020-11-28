@@ -135,6 +135,13 @@ export class ProviderProfileComponent implements OnInit {
       formValue['phone']= "+91" + formValue['phone'].toString();
       delete formValue['email'];
       const userType = this.userProfile.userType;
+      delete formValue['image'];
+      formValue.skillSet = this.selectedSkills;
+      formValue.time = this.signupFormProvider.controls.fromTime.value + "-" + this.signupFormProvider.controls.toTime.value;
+      formValue.days = this.signupFormProvider.controls.selectedDays.value;
+      delete formValue['selectedDays'];
+      delete formValue['fromTime'];
+      delete formValue['toTime'];
       this.profileService.updateProfile(formValue, userType).subscribe(response => {
         if (response.success) {
           this.openSnackBar('Profile Updated', 'mat-primary');
