@@ -6,5 +6,6 @@ import { Subject } from 'rxjs';
 })
 export class SharedService {
   public userLoggedIn = new Subject<boolean>();
+  public showSppiner = new Subject<boolean>();
   constructor() { }
 }

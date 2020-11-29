@@ -6,7 +6,7 @@
             <form [formGroup]="reviewForm">
                 <mat-form-field style="width:100%">
                     <mat-label>Review:</mat-label>
-                    <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="6" formControlName="review" required></textarea>
+                    <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="4" formControlName="review"></textarea>
                 </mat-form-field>
 
                 <mat-form-field>
@@ -33,7 +33,7 @@
         </mat-card-content>
     </mat-card>
     <mat-dialog-actions align="end">
-        <button mat-raised-button color="primary" type="submit" (click)=reviewSubmit()>Submit</button>
+        <button mat-raised-button mat-dialog-close color="primary" type="submit" (click)=reviewSubmit()>Submit</button>
         <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
     </mat-dialog-actions>
 </mat-dialog-content>
