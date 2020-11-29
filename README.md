@@ -13,9 +13,9 @@
 ### Project Introduction
    
    ###### Feature List:
-   * Consumer Provider can ragister and update their profile.
+   * Consumer and Provider can ragister and update their profile.
    * Provider can select multiple skillset, can select days and time according to their preferences, and have track of list of appointments.
-   * Consumer can book an service on hourly basis and provide review about their experince. 
+   * Consumer can book an service on hourly basis and provide review about their experience. 
 
 ### Sample Demo Screenshots
 
