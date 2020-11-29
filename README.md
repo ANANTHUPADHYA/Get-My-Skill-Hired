@@ -79,7 +79,7 @@
 
 ###### Provider Dashboard Page 
 
-![Get-My-Skills-Hire Provider Dashboard](Log_in_Provider.png)
+![Get-My-Skills-Hire Provider Dashboard](Appointments_provider.png)
  
  
 ![Get-My-Skills-Hire Provider Appointment status update](Appointments_update_provider.png)
