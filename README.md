@@ -27,6 +27,64 @@
 
 ![Get-My-Skills-Hire UML](UML_Diagram.jpeg)
 
+###### Consumer Sign Up Page
+
+![Get-My-Skills-Hire Sign Up](Sign_up_consumer.png)
+
+###### Consumer Log In Page
+
+![Get-My-Skills-Hire Log In](Log_in_consumer.png)
+
+###### Consumer Dashboard Page
+
+![Get-My-Skills-Hire Dashboard](Dashboard_consumer.png)
+
+###### Consumer Update Profile Page 
+
+![Get-My-Skills-Hire Update Profile](Update_profile_consumer.png)
+
+###### Search Provider Page 
+
+![Get-My-Skills-Hire Search Provider](Search_Provider.png)
+
+###### Schedule Appointment Page 
+
+![Get-My-Skills-Hire Schedule_Appointment](Schedule_Appointment.png)
+
+###### Appointments status Page 
+
+![Get-My-Skills-Hire Appointment status](Appointments_with_filter_consumer.png)
+
+###### Review & Rating by Consumer Page 
+
+![Get-My-Skills-Hire Review_rating_by_consumer](Review_rating_by_consumer.png)
+
+![Get-My-Skills-Hire Review_rating_success](Review_rated_successful_message_consumer.png)
+
+###### Provider Sign Up Page 
+
+![Get-My-Skills-Hire Provider Sign Up](Sign_up_1_Provider.png)
+
+![Get-My-Skills-Hire Provider Sign Up](Sign_up_2_Provider.png)
+
+###### Provider Log In Page 
+
+![Get-My-Skills-Hire Provider Log In](Log_in_Provider.png)
+
+###### Provider Update Profile Page 
+
+![Get-My-Skills-Hire Provider Update Profile](Update_Profile_provider.png)
+
+![Get-My-Skills-Hire Provider Update Profile](Update_profile_message_provider.png)
+
+###### Provider Dashboard Page 
+
+![Get-My-Skills-Hire Provider Dashboard](Log_in_Provider.png)
+ 
+ 
+![Get-My-Skills-Hire Provider Appointment status update](Appointments_update_provider.png)
+
+
 ### Pre-requisites Set Up:
 
 ###### Frontend:
