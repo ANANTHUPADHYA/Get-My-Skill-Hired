@@ -236,8 +236,7 @@ c2FtcGxldXNlckBnbWFpbC5jb206QFNhbXBsZVVzZXIxMjM0
         "uuid": "c3b3b606-f1de-415b-b623-0740a4629e87"
     }
    ]
-   
-```
+   ```
 
 8. To get all the appointments booked by the provider:
    ``` http://127.0.0.1:5000/user/userID/providerAppointments ```
@@ -276,9 +275,7 @@ c2FtcGxldXNlckBnbWFpbC5jb206QFNhbXBsZVVzZXIxMjM0
         "status": "completed",
         "time": "02:30PM-03:30PM"
     },
-   ]
-   
-```
+   ]```   
 
 9. To get all the appointments booked by the Consumer:
    ``` http://127.0.0.1:5000/user/627userID/customerAppointments ```
