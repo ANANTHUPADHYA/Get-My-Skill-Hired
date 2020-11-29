@@ -1,14 +1,14 @@
-## University Name: http://www.sjsu.edu/
+### University Name: http://www.sjsu.edu/
 
-## Course: Cloud Technologies
+### Course: [Cloud Technologies](https://catalog.sjsu.edu/preview_course_nopop.php?catoid=2&coid=6785)
 
-## Professor [Sanjay Garje](https://www.linkedin.com/in/sanjaygarje/)
+### Professor [Sanjay Garje](https://www.linkedin.com/in/sanjaygarje/)
 
-## Team Members
-    * [PREETI PARIHAR](https://www.linkedin.com/in/preetiparihar/)
-    * [ANANTH UPADHYA(https://www.linkedin.com/in/560085/)
-    * [DEESHA DESAI](https://www.linkedin.com/in/deeshadesai/)
-    * [PRIYANKA DEVENDRAN](https://www.linkedin.com/in/priyanka-devendran-76244479/)
+### Team Members
+   #### [PREETI PARIHAR](https://www.linkedin.com/in/preetiparihar/)
+   #### [ANANTH UPADHYA(https://www.linkedin.com/in/560085/)
+   #### [DEESHA DESAI](https://www.linkedin.com/in/deeshadesai/)
+   #### [PRIYANKA DEVENDRAN](https://www.linkedin.com/in/priyanka-devendran-76244479/)
 
 
 APIs
