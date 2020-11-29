@@ -25,7 +25,7 @@
 
 ###### UML Diagram
 
-![Get-My-Skills-Hire UML](UML.jpeg)
+![Get-My-Skills-Hire UML](UML_Diagram.jpeg)
 
 ### Pre-requisites Set Up:
 
