@@ -17,6 +17,16 @@
    * Provider can select multiple skillset, can select days and time according to their preferences, and have track of list of appointments.
    * Consumer can book an service on hourly basis and provide review about their experince. 
 
+### Sample Demo Screenshots
+
+###### Architecture Diagram
+
+![Get-My-Skills-Hire Architecture](Architechture_Diagram.jpeg)
+
+###### UML Diagram
+
+![Get-My-Skills-Hire UML](UML.jpeg)
+
 ### Pre-requisites Set Up:
 
 ###### Frontend:
