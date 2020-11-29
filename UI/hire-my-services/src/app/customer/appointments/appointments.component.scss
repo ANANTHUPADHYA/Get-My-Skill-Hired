@@ -32,7 +32,7 @@
 .selectClass {
     margin: 10px;
     font-family: 'Ubuntu';
-    background-color: black;
+    background-color: #303030;
 }
 
 .checked {
@@ -41,4 +41,20 @@
 
 .size {
     font-size: 20px;
+}
+
+.mat-expansion-panel {
+    background-color: white;
+    color: black;
+}
+
+.mat-expansion-panel-header-title,
+.mat-expansion-panel-header-description {
+    color: black
+}
+
+::ng-deep {
+    .mat-expansion-indicator::after {
+        color: black
+    }
 }

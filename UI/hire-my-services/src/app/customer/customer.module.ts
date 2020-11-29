@@ -9,6 +9,7 @@ import { AppointmentsComponent } from './appointments/appointments.component';
 import { BookAppointmentComponent } from './book-appointment/book-appointment.component';
 import { ReviewComponent } from './review/review.component';
 import { CustomerProfileComponent } from './customer-profile/customer-profile.component';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 
 
@@ -17,7 +18,8 @@ import { CustomerProfileComponent } from './customer-profile/customer-profile.co
   imports: [
     CommonModule,
     RouterModule.forChild(CustomerRoutes),
-    MaterialModule
+    MaterialModule,
+    MatDialogModule
   ],
   entryComponents: [
     BookAppointmentComponent

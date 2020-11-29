@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Appointment, AppointmentList, ChangeStatusParams, ProviderListService } from 'src/app/core/services';
 import { ReviewComponent } from '../review/review.component';
@@ -22,6 +22,8 @@ public statusFilter = [];
   ngOnInit(): void {
     this.uuid = JSON.parse(sessionStorage.getItem('profile')).uuid;
     this.getListOfAppointments();
+
+    
   }
   
 

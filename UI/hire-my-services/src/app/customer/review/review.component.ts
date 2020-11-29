@@ -13,7 +13,7 @@ export class ReviewComponent implements OnInit {
 public reviewForm: FormGroup;
   constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data, private providerListService: ProviderListService, private snackBar: MatSnackBar) { 
     this.reviewForm = this.formBuilder.group({
-      review: ['', Validators.email],
+      review: ['', Validators.required],
       rating: [1, Validators.required],
   });
 }
@@ -34,8 +34,10 @@ reviewSubmit() {
 
   this.providerListService.postReview(params).subscribe(response => {
     if(response.success) {
-      this.openSnackBar(response.Message, 'mat-primary')
-    }
+      this.openSnackBar(response.Message, 'mat-primary');
+       }
+  }, error => {
+    this.openSnackBar(error.error.Message, 'mat-warn');
   });
 
 
