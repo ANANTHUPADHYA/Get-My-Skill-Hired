@@ -112,20 +112,24 @@ export class ProviderListComponent implements OnInit {
   }
 
 numberOfFullStars(rating): number {
-    return rating;
+  return Math.floor(rating);
   }
 
     numberOfEmptyStars(rating): number {
-    return 5 - rating;
+      return 5 - Math.ceil(rating);
   }
 
  fullStars(rating:string): any[] {
     
-    return Array(this.numberOfFullStars(parseInt(rating)));
+    return Array(this.numberOfFullStars(parseFloat(rating)));
   }
 
  emptyStars(rating): any[] {
-    return Array(this.numberOfEmptyStars(parseInt(rating)));
+    return Array(this.numberOfEmptyStars(parseFloat(rating)));
+  }
+
+  hasHalfStar(rating): boolean {
+    return parseFloat(rating) % 1 !== 0;
   }
 
   openAppointmentBookingComp(providerDetails: any) {

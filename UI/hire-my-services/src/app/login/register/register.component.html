@@ -48,7 +48,7 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Phone:</mat-label>
-                <input matInput type="number" placeholder="Phone" formControlName="phone" required>git
+                <input matInput type="number" placeholder="Phone" formControlName="phone" required>
             </mat-form-field>
             <button mat-raised-button color="primary" type="submit" [disabled]="!signupFormCustomer.valid" (click)="register()">Register</button>
         </form>
@@ -138,8 +138,7 @@
                     <mat-option *ngFor="let time of toTimeArray; " [value]=time>{{time}}</mat-option>
                 </mat-select>
             </mat-form-field>
-            <h3 class="fontFamily">Profile Picture</h3>
-            <input type="file" id="file" (change)="handleFileInput($event.target.files)" style="padding: 5px; width: 100%">
+
             <button mat-raised-button color="primary" type="submit" [disabled]="!signupFormProvider.valid " (click)="register()">Register</button>
         </form>
 
