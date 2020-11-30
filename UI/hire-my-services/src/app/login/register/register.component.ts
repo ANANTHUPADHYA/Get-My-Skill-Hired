@@ -46,8 +46,7 @@ export class RegisterComponent implements OnInit {
       phone: ['', Validators.required],
       fromTime: ['', Validators.required],
       toTime: ['', Validators.required],
-      selectedDays: [[], Validators.required],
-      image: [''],
+      selectedDays: [[], Validators.required]
     });
    }
 
@@ -75,7 +74,6 @@ export class RegisterComponent implements OnInit {
       delete formValue['selectedDays'];
       delete formValue['fromTime'];
       delete formValue['toTime'];
-      delete formValue['image'];
     }
     console.log(formValue);
     delete formValue['password'];
@@ -84,16 +82,8 @@ export class RegisterComponent implements OnInit {
     delete formValue['email'];
     this.loginService.registerUser(formValue, password, email).subscribe(response => {
       if (response.success) {
-          if(this.signupFormProvider.controls.image.value !== '') {
-            /* this.profileService.uploadImage(this.signupFormProvider.controls.image.value, email).subscribe(response => {
-              if(response.success) {
-                this.openSnackBar('Profile picture uploaded', 'mat-primary')
-              }
-            }) */
-          }
         this.openSnackBar(response.data, 'mat-primary');
         this.router.navigate(['/login']);
-
       }
     },  error => {
       this.openSnackBar(error.error.data, 'mat-warn');
@@ -118,9 +108,7 @@ export class RegisterComponent implements OnInit {
       }
     });
   }
-  handleFileInput(files: FileList) {
-    this.signupFormProvider.controls.image.setValue(files.item(0));
-  }
+
 
   addSkill() {
     this.selectedSkills.push({
