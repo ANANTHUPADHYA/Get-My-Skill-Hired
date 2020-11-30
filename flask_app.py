@@ -16,41 +16,42 @@ def after_request(response):
     return response
 
 
-app.add_url_rule("/account/signin", \
+app.add_url_rule("/api/account/signin", \
     view_func=acc.sign_in, endpoint="SignIn", methods=["GET"])
 
-app.add_url_rule("/account/signup", \
+app.add_url_rule("/api/account/signup", \
     view_func=acc.sign_up, endpoint="SignUp", methods=["POST"])
 
-app.add_url_rule("/account/signout", \
+app.add_url_rule("/api/account/signout", \
     view_func=acc.sign_out, endpoint="SignOut", methods=["GET"])
 
-app.add_url_rule("/account/delete/<usertype>", \
+app.add_url_rule("/api/account/delete/<usertype>", \
     view_func=acc.delete_user, endpoint="DeleteUser", methods=["DELETE"])
 
-app.add_url_rule("/account/profile/<usertype>", \
+app.add_url_rule("/api/account/profile/<usertype>", \
     view_func=acc.update_profile, endpoint="UpdateProfile", methods=["PUT"])
 
-app.add_url_rule("/account/profile/<usertype>/upload", \
+app.add_url_rule("/api/account/profile/<usertype>/upload", \
     view_func=acc.upload_profile_image, endpoint="UploadProfileImage", methods=["PUT"])
 
-app.add_url_rule("/users/<userID>/appointments", \
+app.add_url_rule("/api/users/<userID>/appointments", \
     view_func=acc.bookappointment, endpoint="CreateAppointment", methods=["POST"])
 
-app.add_url_rule("/users/<userID>/appointments/<appointmentID>", \
+app.add_url_rule("/api/users/<userID>/appointments/<appointmentID>", \
     view_func=acc.updateAppointmentStatus, endpoint="UpdateAppointmentStatus", methods=["PATCH"])
 
-app.add_url_rule("/users/<userID>/appointments/<appointmentID>/ratingAndReview", \
+app.add_url_rule("/api/users/<userID>/appointments/<appointmentID>/ratingAndReview", \
     view_func=acc.updateReviewAndRating, endpoint="UpdateReviewAndRating", methods=["PATCH"])
 
-app.add_url_rule("/account/services", \
+app.add_url_rule("/api/account/services", \
     view_func=acc.providerCategoryServices, endpoint="Services", methods=["GET"])
 
-app.add_url_rule('/users/<userID>/customerAppointments', \
+app.add_url_rule('/api/users/<userID>/customerAppointments', \
     view_func=acc.listCustomerAppointments, endpoint="CustomerAppointment", methods=["GET"])
 
-app.add_url_rule('/users/<userID>/providerAppointments', \
+app.add_url_rule('/api/users/<userID>/providerAppointments', \
     view_func=acc.listProviderAppointments, endpoint="providerAppointment", methods=["GET"])
+
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True, port=8000)
