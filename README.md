@@ -25,64 +25,64 @@
 
 ###### UML Diagram
 
-![Get-My-Skills-Hire UML](https://github.com/ANANTHUPADHYA/cloud/blob/master/screenshots/UML_Diagram.jpeg)
+![Get-My-Skills-Hire UML](https://github.com/ANANTHUPADHYA/Get-My-Skill-Hired/blob/master/screenshots/UML_Diagram.jpeg)
 
 ###### Consumer Sign Up Page
 
-![Get-My-Skills-Hire Sign Up](https://github.com/ANANTHUPADHYA/cloud/blob/master/screenshots/Sign_up_consumer.png)
+![Get-My-Skills-Hire Sign Up](https://github.com/ANANTHUPADHYA/Get-My-Skill-Hired/blob/master/screenshots/Sign_up_consumer.png)
 
 ###### Consumer Log In Page
 
-![Get-My-Skills-Hire Log In](https://github.com/ANANTHUPADHYA/cloud/blob/master/screenshots/Log_in_consumer.png)
+![Get-My-Skills-Hire Log In](https://github.com/ANANTHUPADHYA/Get-My-Skill-Hired/blob/master/screenshots/Log_in_consumer.png)
 
 ###### Consumer Dashboard Page
 
-![Get-My-Skills-Hire Dashboard](https://github.com/ANANTHUPADHYA/Get-My-Skills-Hired/blob/main/screenshots/Dashboard_consumer.png)
+![Get-My-Skills-Hire Dashboard](https://github.com/ANANTHUPADHYA/Get-My-Skill-Hired/blob/main/screenshots/Dashboard_consumer.png)
 
 ###### Consumer Update Profile Page 
 
-![Get-My-Skills-Hire Update Profile](https://github.com/ANANTHUPADHYA/cloud/blob/master/screenshots/Update_profile_consumer.png)
+![Get-My-Skills-Hire Update Profile](https://github.com/ANANTHUPADHYA/Get-My-Skill-Hired/blob/master/screenshots/Update_profile_consumer.png)
 
 ###### Search Provider Page 
 
-![Get-My-Skills-Hire Search Provider](https://github.com/ANANTHUPADHYA/cloud/blob/master/screenshots/Search_Provider.png)
+![Get-My-Skills-Hire Search Provider](https://github.com/ANANTHUPADHYA/Get-My-Skill-Hired/blob/master/screenshots/Search_Provider.png)
 
 ###### Schedule Appointment Page 
 
-![Get-My-Skills-Hire Schedule_Appointment](https://github.com/ANANTHUPADHYA/cloud/blob/master/screenshots/Schedule_Appointment.png)
+![Get-My-Skills-Hire Schedule_Appointment](https://github.com/ANANTHUPADHYA/Get-My-Skill-Hired/blob/master/screenshots/Schedule_Appointment.png)
 
 ###### Appointments status Page 
 
-![Get-My-Skills-Hire Appointment status](https://github.com/ANANTHUPADHYA/cloud/blob/master/screenshots/Appointments_with_filter_consumer.png)
+![Get-My-Skills-Hire Appointment status](https://github.com/ANANTHUPADHYA/Get-My-Skill-Hired/blob/master/screenshots/Appointments_with_filter_consumer.png)
 
 ###### Review & Rating by Consumer Page 
 
-![Get-My-Skills-Hire Review_rating_by_consumer](https://github.com/ANANTHUPADHYA/cloud/blob/master/screenshots/Review_rating_by_consumer.png)
+![Get-My-Skills-Hire Review_rating_by_consumer](https://github.com/ANANTHUPADHYA/Get-My-Skill-Hired/blob/master/screenshots/Review_rating_by_consumer.png)
 
-![Get-My-Skills-Hire Review_rating_success](https://github.com/ANANTHUPADHYA/cloud/blob/master/screenshots/Review_rated_successful_message_consumer.png)
+![Get-My-Skills-Hire Review_rating_success](https://github.com/ANANTHUPADHYA/Get-My-Skill-Hired/blob/master/screenshots/Review_rated_successful_message_consumer.png)
 
 ###### Provider Sign Up Page 
 
-![Get-My-Skills-Hire Provider Sign Up](https://github.com/ANANTHUPADHYA/cloud/blob/master/screenshots/Sign_up_1_Provider.png)
+![Get-My-Skills-Hire Provider Sign Up](https://github.com/ANANTHUPADHYA/Get-My-Skill-Hired/blob/master/screenshots/Sign_up_1_Provider.png)
 
-![Get-My-Skills-Hire Provider Sign Up](https://github.com/ANANTHUPADHYA/cloud/blob/master/screenshots/Sign_up_2_Provider.png)
+![Get-My-Skills-Hire Provider Sign Up](https://github.com/ANANTHUPADHYA/Get-My-Skill-Hired/blob/master/screenshots/Sign_up_2_Provider.png)
 
 ###### Provider Log In Page 
 
-![Get-My-Skills-Hire Provider Log In](https://github.com/ANANTHUPADHYA/cloud/blob/master/screenshots/Log_in_Provider.png)
+![Get-My-Skills-Hire Provider Log In](https://github.com/ANANTHUPADHYA/Get-My-Skill-Hired/blob/master/screenshots/Log_in_Provider.png)
 
 ###### Provider Update Profile Page 
 
-![Get-My-Skills-Hire Provider Update Profile](https://github.com/ANANTHUPADHYA/cloud/blob/master/screenshots/Update_Profile_provider.png)
+![Get-My-Skills-Hire Provider Update Profile](https://github.com/ANANTHUPADHYA/Get-My-Skill-Hired/blob/master/screenshots/Update_Profile_provider.png)
 
-![Get-My-Skills-Hire Provider Update Profile](https://github.com/ANANTHUPADHYA/cloud/blob/master/screenshots/Update_profile_message_provider.png)
+![Get-My-Skills-Hire Provider Update Profile](https://github.com/ANANTHUPADHYA/Get-My-Skill-Hired/blob/master/screenshots/Update_profile_message_provider.png)
 
 ###### Provider Dashboard Page 
 
-![Get-My-Skills-Hire Provider Dashboard](https://github.com/ANANTHUPADHYA/cloud/blob/master/screenshots/Appointments_provider.png)
+![Get-My-Skills-Hire Provider Dashboard](https://github.com/ANANTHUPADHYA/Get-My-Skill-Hired/blob/master/screenshots/Appointments_provider.png)
  
  
-![Get-My-Skills-Hire Provider Appointment status update](https://github.com/ANANTHUPADHYA/cloud/blob/master/screenshots/Appointments_update_provider.png)
+![Get-My-Skills-Hire Provider Appointment status update](https://github.com/ANANTHUPADHYA/Get-My-Skill-Hired/blob/master/screenshots/Appointments_update_provider.png)
 
 
 ### Pre-requisites Set Up:
