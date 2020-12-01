@@ -373,7 +373,8 @@ def upload_profile_image(usertype):
     else:
         data = f"Invalid request method, method {request.method} not supported !!!"
         return GetResponseObject(data, 405)
-    
+  
+@cross_origin()
 @verify_token
 def providerCategoryServices():
 
