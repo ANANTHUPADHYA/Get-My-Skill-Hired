@@ -24,17 +24,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.initialize(false);
+    this.subscriptions.add(
+      this.sharedService.userLoggedIn.subscribe(isLoggedIn => {
+        this.initialize(isLoggedIn);
+      })
+    );   
+  }
+
+  initialize(isLoggedIn) {
+    this.showLogIn = isLoggedIn;
     this.usertype = sessionStorage.getItem('usertype');
     if (sessionStorage.getItem('sessionID')) {
       this.showLogIn = true;
     } else {
       this.showLogIn = false;
     }
-    this.subscriptions.add(
-      this.sharedService.userLoggedIn.subscribe(isLoggedIn => {
-          this.showLogIn = isLoggedIn;
-      })
-    );   
   }
 
 
