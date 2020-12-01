@@ -373,7 +373,8 @@ def upload_profile_image(usertype):
     else:
         data = f"Invalid request method, method {request.method} not supported !!!"
         return GetResponseObject(data, 405)
-    
+  
+@cross_origin()
 @verify_token
 def providerCategoryServices():
 
@@ -661,7 +662,7 @@ def updateReviewAndRating(userID, appointmentID):
        if updatedRes["ResponseMetadata"]["HTTPStatusCode"] == 200:
             updatedmessage = {
                 "success": "true",
-                "Message": "Successfully rated and reviewed the appointment. Also updated the final rating of the provider"
+                "Message": "Successfully rated and reviewed the appointment"
             }
             return updatedmessage
        else:
