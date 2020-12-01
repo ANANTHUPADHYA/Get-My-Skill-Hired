@@ -139,7 +139,7 @@
                 </mat-select>
             </mat-form-field>
 
-            <button mat-raised-button color="primary" type="submit" [disabled]="!signupFormProvider.valid || checkSkillSets()">Register</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!signupFormProvider.valid || checkSkillSets()" (click)="register()">Register</button>
         </form>
 
 
