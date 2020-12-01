@@ -662,7 +662,7 @@ def updateReviewAndRating(userID, appointmentID):
        if updatedRes["ResponseMetadata"]["HTTPStatusCode"] == 200:
             updatedmessage = {
                 "success": "true",
-                "Message": "Successfully rated and reviewed the appointment. Also updated the final rating of the provider"
+                "Message": "Successfully rated and reviewed the appointment"
             }
             return updatedmessage
        else:
