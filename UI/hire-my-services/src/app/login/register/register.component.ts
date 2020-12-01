@@ -141,4 +141,13 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  checkSkillSets() {
+    const empty = this.selectedSkills.find(element => element.name === '')
+    if(empty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 }
