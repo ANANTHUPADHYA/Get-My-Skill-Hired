@@ -308,7 +308,7 @@ c2FtcGxldXNlckBnbWFpbC5jb206QFNhbXBsZVVzZXIxMjM0
 
 8. To book an appointment
    ``` POST http://<hostname>/user/<userID>/appointments ```
-   
+   ```
     Request:
       * Add Authorization Header as follows:
       ```Authorization: Basic <Base64 username:password>```
@@ -319,7 +319,7 @@ c2FtcGxldXNlckBnbWFpbC5jb206QFNhbXBsZVVzZXIxMjM0
       "Status": "success",
 	  "Message": "Successfully booked and appointment"
    }
-   
+   ```
 9. To update an appointment status
    ``` PATCH http://<hostname>/users/<userID>/appointments/<appointmentID> ```
    ```
