@@ -322,37 +322,37 @@ c2FtcGxldXNlckBnbWFpbC5jb206QFNhbXBsZVVzZXIxMjM0
    
 9. To update an appointment status
    ``` PATCH http://<hostname>/users/<userID>/appointments/<appointmentID> ```
-   
+   ```
     Request: 
       * Add Authorization Header as follows:
       ```Authorization: Basic <Base64 username:password>```
       * Request Body
             {
-			"status": "completed"
-			}
-	Response:
-	  {
-      "Status": "success",
-	  "Message": "Successfully booked and appointment"
-	  }
-	  
+	       "status": "completed"
+	     }
+    Response:
+       {
+          "Status": "success",
+          "Message": "Successfully booked and appointment"
+       }
+   ```
 9. To rate and review an appointments
    ``` PATCH http://<hostname>/users/<userID>/appointments/<appointmentID>/ratingAndReview ```
-   
+   ```
     Request:
      * Add Authorization Header as follows:
 	  ```Authorization: Basic <Base64 username:password>```
-	 * Request Body
-			{
-			"rating": "3"
-			"review": "This person is very skilled at what he does"
-			}
+     * Request Body
+	 {
+           "rating": "3"
+           "review": "This person is very skilled at what he does"
+	 }
     Response:
      {
 	 "Status": "success"
 	 "Message": "Successfully rated and reviewed the appointment"
-	 }
-
+     }
+   ```
 10. To get all the appointments booked by the provider:
    ``` http://127.0.0.1:5000/user/userID/providerAppointments ```
    
@@ -391,7 +391,7 @@ c2FtcGxldXNlckBnbWFpbC5jb206QFNhbXBsZVVzZXIxMjM0
         "time": "02:30PM-03:30PM"
     },
    ]   
-
+   ```
 11. To get all the appointments booked by the Consumer:
    ``` http://127.0.0.1:5000/user/627userID/customerAppointments ```
    
@@ -430,3 +430,4 @@ c2FtcGxldXNlckBnbWFpbC5jb206QFNhbXBsZVVzZXIxMjM0
         "time": "02:30PM-03:30PM"
     },
    ]
+   ```
