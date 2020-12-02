@@ -4,7 +4,7 @@
 
 ### Professor [Sanjay Garje](https://www.linkedin.com/in/sanjaygarje/)
 
-### YouTube Video Link [Get-My-Skills-Hired](https://youtu.be/bHH2sjXjujM) 
+### Video Link [Get-My-Skills-Hired](https://youtu.be/bHH2sjXjujM) 
 
 ### Team Members
    ###### [PREETI PARIHAR](https://www.linkedin.com/in/preetiparihar/)
